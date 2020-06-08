@@ -6,17 +6,17 @@
     "type": "library",
     "authors": [
         {
-            "name": "Mohamed Ibrahem",
+            "name": "Mohamed Ibrahim",
             "email": "mohamed.ibrahem@devnile.com"
         }
     ],
     "require": {
         "php": "^7.1",
-        "illuminate/support": "^6.0"
+        "illuminate/support": "^7.0"
     },
     "require-dev": {
-        "orchestra/testbench": "^4.0",
-        "phpunit/phpunit": "^8.0"
+        "orchestra/testbench": "^5.3",
+        "phpunit/phpunit": "^8.5"
     },
     "autoload": {
         "psr-4": {
@@ -38,7 +38,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Microboard\\MicroboardServiceProvider"
+                "Microboard\\Providers\\MicroboardServiceProvider",
+                "Microboard\\Providers\\RouteServiceProvider"
             ]
         }
     }
