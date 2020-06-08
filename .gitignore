@@ -2,3 +2,8 @@ build
 composer.lock
 vendor
 coverage
+node_module
+resource/scss
+resource/fonts
+resource/js
+resource/vendor
