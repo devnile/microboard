@@ -39,7 +39,9 @@
         "laravel": {
             "providers": [
                 "Microboard\\Providers\\MicroboardServiceProvider",
-                "Microboard\\Providers\\RouteServiceProvider"
+                "Microboard\\Providers\\RouteServiceProvider",
+                "Microboard\\Providers\\AuthServiceProvider",
+                "Microboard\\Providers\\ViewServiceProvider"
             ]
         }
     }

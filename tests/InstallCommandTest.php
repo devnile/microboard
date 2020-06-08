@@ -32,7 +32,6 @@ class InstallCommandTest extends TestCase
     {
         $this->install()->expectsOutput('Database has been migrated');
 
-        $this->assertTrue(Schema::hasTable('settings'));
         $this->assertTrue(Schema::hasTable('roles'));
         $this->assertTrue(Schema::hasTable('permissions'));
         $this->assertTrue(Schema::hasTable('permission_role'));
