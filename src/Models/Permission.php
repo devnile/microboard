@@ -4,7 +4,7 @@ namespace Microboard\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class Permission extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -14,8 +14,6 @@ class Role extends Model
     protected $fillable = [
         'name', 'display_name'
     ];
-    public function permissions()
-    {
-        return $this->belongsToMany(Permission::class);
-    }
+
+    public $timestamps = false;
 }
