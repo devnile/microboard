@@ -31,9 +31,9 @@ class ViewServiceProvider extends ServiceProvider
                 __DIR__.'/../resources/views' => resource_path('views/vendor/microboard'),
             ], 'views');*/
 
-            /*$this->publishes([
-                __DIR__.'/../resources/assets' => public_path('vendor/microboard'),
-            ], 'assets');*/
+            $this->publishes([
+                __DIR__.'/../../public' => public_path('vendor/microboard'),
+            ], 'assets');
 
             /*$this->publishes([
                 __DIR__.'/../resources/lang' => resource_path('lang/vendor/microboard'),
