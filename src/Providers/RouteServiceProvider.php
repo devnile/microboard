@@ -46,7 +46,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web')
             ->prefix(config('microboard.routes.prefix', 'admin'))
             ->middleware(config('microboard.routes.middleware', []))
-            ->name('microboard')
+            ->name('microboard.')
             ->namespace($this->namespace)
             ->group(__DIR__ . '/../../routes/web.php');
     }
@@ -62,7 +62,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::prefix(config('microboard.routes.prefix', 'admin') . '/api')
             ->middleware(config('microboard.routes.apiMiddleware', []))
-            ->name('microboard.api')
+            ->name('microboard.api.')
             ->namespace($this->namespace)
             ->group(__DIR__ . '/../../routes/api.php');
     }
