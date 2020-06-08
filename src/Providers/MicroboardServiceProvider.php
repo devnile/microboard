@@ -4,6 +4,7 @@ namespace Microboard\Providers;
 
 use Microboard\Commands\InstallCommand;
 use Illuminate\Support\ServiceProvider;
+use Microboard\Factory;
 
 class MicroboardServiceProvider extends ServiceProvider
 {
