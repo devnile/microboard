@@ -13,5 +13,11 @@ return [
         'apiMiddleware' => [
             'api'
         ]
+    ],
+
+    'view' => [
+        'enable_notifications' => true,
+        'enable_global_search' => true,
+        'enable_breadcrumbs' => true
     ]
 ];
