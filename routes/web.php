@@ -9,6 +9,5 @@ Route::group([
     'middleware' => config('microboard.routes.middleware', []),
     'as' => 'microboard.'
 ], function() {
-    Route::get('/', 'DashboardController')
-        ->name('home');
+    Route::get('/', 'DashboardController')->name('home');
 });
