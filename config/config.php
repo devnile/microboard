@@ -1,17 +1,22 @@
 <?php
 
 return [
-    /**
-     |
-     */
     'routes' => [
         'prefix' => 'admin',
+
         'middleware' => [
-            'web',
-            // 'auth', 'can:view-dashboard'
+            'auth', 'can:view-dashboard'
         ],
+
         'apiMiddleware' => [
-            'api'
+            //
+        ],
+
+        'auth' => [
+            'register' => true,
+            'verify' => true,
+            'reset' => true,
+            'confirm' => true
         ]
     ],
 

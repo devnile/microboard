@@ -3,7 +3,9 @@
 namespace Microboard\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
+use Laravel\Ui\AuthRouteMethods;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -17,13 +19,6 @@ class RouteServiceProvider extends ServiceProvider
     protected $namespace = 'Microboard\Http\Controllers';
 
     /**
-     * The path to the "home" route for your application.
-     *
-     * @var string
-     */
-    public const HOME = '/';
-
-    /**
      * Define the routes for the application.
      *
      * @return void
@@ -31,7 +26,12 @@ class RouteServiceProvider extends ServiceProvider
     public function map()
     {
         $this->mapApiRoutes();
+
         $this->mapWebRoutes();
+
+        if (File::exists(base_path('routes/microboard.php'))) {
+            $this->mapMicroboardRoutes();
+        }
     }
 
     /**
@@ -43,12 +43,26 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapWebRoutes()
     {
-        Route::middleware('web')
-            ->prefix(config('microboard.routes.prefix', 'admin'))
-            ->middleware(config('microboard.routes.middleware', []))
-            ->name('microboard.')
+        Route::prefix(config('microboard.routes.prefix', 'admin'))
+            ->middleware('web')
             ->namespace($this->namespace)
             ->group(__DIR__ . '/../../routes/web.php');
+    }
+
+    /**
+     * Define the "Microboard" routes for the application.
+     *
+     * These routes all receive session state, CSRF protection, etc.
+     *
+     * @return void
+     */
+    protected function mapMicroboardRoutes()
+    {
+        Route::prefix(config('microboard.routes.prefix', 'admin'))
+            ->middleware(array_merge(config('microboard.routes.middleware', []), ['web']))
+            ->name('microboard.')
+            ->namespace(config('microboard.routes.namespace', 'App\\Http\\Controllers'))
+            ->group(base_path('routes/microboard.php'));
     }
 
     /**
@@ -65,5 +79,10 @@ class RouteServiceProvider extends ServiceProvider
             ->name('microboard.api.')
             ->namespace($this->namespace)
             ->group(__DIR__ . '/../../routes/api.php');
+    }
+
+    public function register()
+    {
+        Route::mixin(new AuthRouteMethods);
     }
 }
