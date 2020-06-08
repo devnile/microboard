@@ -2,7 +2,10 @@
 
 namespace Microboard\Tests;
 
-use Microboard\MicroboardServiceProvider;
+use Microboard\Providers\AuthServiceProvider;
+use Microboard\Providers\MicroboardServiceProvider;
+use Microboard\Providers\RouteServiceProvider;
+use Microboard\Providers\ViewServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 abstract class TestCase extends Orchestra
@@ -18,7 +21,10 @@ abstract class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
-            MicroboardServiceProvider::class
+            MicroboardServiceProvider::class,
+            RouteServiceProvider::class,
+            AuthServiceProvider::class,
+            ViewServiceProvider::class
         ];
     }
 }
