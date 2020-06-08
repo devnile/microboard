@@ -1,10 +1,9 @@
-<div class="row align-items-center justify-content-lg-between">
-    <div class="col-lg-6">
-        <div class="copyright text-center  text-lg-left  text-muted">
-            &copy; {{ date('Y') }}
-            <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
-        </div>
-    </div>
-    <div class="col-lg-6">
-    </div>
-</div>
+<small class="d-block copyright text-center text-muted">
+    &copy; {{ date('Y') }}
+    صنع بـ
+    <i class="fa fa-heart text-danger"></i>
+    بواسطة
+    <a href="https://devnile.com" target="_blank">
+        ديفـ نيل
+    </a>
+</small>
