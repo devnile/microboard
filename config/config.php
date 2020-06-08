@@ -1,17 +1,28 @@
 <?php
 
 return [
-    /**
-     |
-     */
     'routes' => [
         'prefix' => 'admin',
+
         'middleware' => [
-            'web',
-            // 'auth', 'can:view-dashboard'
+            'auth', 'can:view-dashboard'
         ],
+
         'apiMiddleware' => [
-            'api'
+            //
+        ],
+
+        'auth' => [
+            'register' => true,
+            'verify' => true,
+            'reset' => true,
+            'confirm' => true
         ]
+    ],
+
+    'view' => [
+        'enable_notifications' => true,
+        'enable_global_search' => true,
+        'enable_breadcrumbs' => true
     ]
 ];

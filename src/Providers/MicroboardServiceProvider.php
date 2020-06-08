@@ -18,7 +18,8 @@ class MicroboardServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__ . '/../../config/config.php' => config_path('microboard.php'),
-            ], 'config');
+                __DIR__ . '/../../stubs/web.stub' => base_path('routes/microboard.php'),
+            ], 'microboard');
 
              $this->commands([
                  InstallCommand::class

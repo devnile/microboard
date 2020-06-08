@@ -3,7 +3,7 @@ composer.lock
 vendor
 coverage
 node_modules
-resources/scss/
-resources/fonts/
-resources/js/
-resources/vendor/
+resources/vendor
+resources/scss
+resources/js
+resources/fonts

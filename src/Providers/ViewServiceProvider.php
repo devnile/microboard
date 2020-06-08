@@ -7,16 +7,6 @@ use Illuminate\Support\ServiceProvider;
 class ViewServiceProvider extends ServiceProvider
 {
     /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        //
-    }
-
-    /**
      * Bootstrap any application services.
      *
      * @return void
@@ -27,13 +17,18 @@ class ViewServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'microboard');
 
         if ($this->app->runningInConsole()) {
-            /*$this->publishes([
-                __DIR__.'/../resources/views' => resource_path('views/vendor/microboard'),
-            ], 'views');*/
+            $this->publishes([
+                __DIR__ . '/../../resources/views/layout/partials/navbar-links.blade.php' =>
+                    resource_path('views/vendor/microboard/layout/partials/navbar-links.blade.php'),
+                __DIR__ . '/../../resources/views/layout/partials/notifications.blade.php' =>
+                    resource_path('views/vendor/microboard/layout/partials/notifications.blade.php'),
+                __DIR__ . '/../../resources/views/layout/partials/user.blade.php' =>
+                    resource_path('views/vendor/microboard/layout/partials/user.blade.php'),
+            ], 'views');
 
-            /*$this->publishes([
-                __DIR__.'/../resources/assets' => public_path('vendor/microboard'),
-            ], 'assets');*/
+            $this->publishes([
+                __DIR__ . '/../../public' => public_path('vendor/microboard'),
+            ], 'assets');
 
             /*$this->publishes([
                 __DIR__.'/../resources/lang' => resource_path('lang/vendor/microboard'),
