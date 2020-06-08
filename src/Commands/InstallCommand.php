@@ -130,6 +130,12 @@ class InstallCommand extends Command
 
         $this->info('Default roles has created/updated successfully');
 
+        Factory::createResourcesPermissionsFor($adminRole, [
+            'dashboard' => ['view'],
+            'users' => [],
+            'roles' => []
+        ]);
+
         $this->info('Default permissions has created/updated successfully');
 
         if ($this->admin) {
