@@ -11,6 +11,8 @@ abstract class TestCase extends Orchestra
     {
         parent::setUp();
 
+        $this->loadLaravelMigrations();
+        $this->loadMigrationsFrom(__DIR__ . '/../database/');
     }
 
     protected function getPackageProviders($app)
