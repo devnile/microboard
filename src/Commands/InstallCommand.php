@@ -70,7 +70,10 @@ class InstallCommand extends Command
     private function publishAssets()
     {
         $this->call('vendor:publish', [
-            '--provider' => 'Microboard\\MicroboardServiceProvider',
+            '--provider' => 'Microboard\\Providers\\MicroboardServiceProvider'
+        ]);
+        $this->call('vendor:publish', [
+            '--provider' => 'Microboard\\Providers\\ViewServiceProvider'
         ]);
         $this->info('All assets has been published');
     }
