@@ -72,11 +72,11 @@
                                aria-expanded="false">
                                 <div class="media align-items-center">
                                 <span class="avatar avatar-sm rounded-circle">
-                                    <img alt="John Snow" src="/">
+                                    <img alt="{{ auth()->user()->name }}" src="{{ auth()->user()->avatar }}">
                                 </span>
 
                                     <div class="media-body ml-2 d-none d-lg-block">
-                                        <span class="mb-0 text-sm font-weight-bold">John Snow</span>
+                                        <span class="mb-0 text-sm font-weight-bold">{{ auth()->user()->name }}</span>
                                     </div>
                                 </div>
                             </a>
@@ -105,7 +105,7 @@
                             @includeWhen(config('microboard.view.enable_breadcrumbs', true), 'microboard::layout.partials.breadcrumb')
                         </div>
                         <div class="col-lg-6 col-5 text-right">
-                            @yield ('actions')
+                            @yield('actions')
                         </div>
                     </div>
 
