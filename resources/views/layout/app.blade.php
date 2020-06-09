@@ -42,10 +42,10 @@
                 @includeWhen(config('microboard.view.enable_global_search'), 'microboard::layout.partials.search')
 
                 <!-- Navbar links -->
-                    <ul class="navbar-nav align-items-center ml-md-auto">
+                    <ul class="navbar-nav align-items-center ml-md-auto px-0">
                         <li class="nav-item d-xl-none">
                             <!-- Sidenav toggler -->
-                            <div class="pr-3 sidenav-toggler sidenav-toggler-light" data-action="sidenav-pin"
+                            <div class="px-3 sidenav-toggler sidenav-toggler-light" data-action="sidenav-pin"
                                  data-target="#sidenav-main">
                                 <div class="sidenav-toggler-inner">
                                     <i class="sidenav-toggler-line"></i>
@@ -55,11 +55,14 @@
                             </div>
                         </li>
 
-                        <li class="nav-item d-sm-none">
-                            <a class="nav-link" href="#" data-action="search-show" data-target="#navbar-search-main">
-                                <i class="ni ni-zoom-split-in"></i>
-                            </a>
-                        </li>
+                        @if (config('config.view.enable_global_search'))
+                            <li class="nav-item d-sm-none">
+                                <a class="nav-link" href="#" data-action="search-show"
+                                   data-target="#navbar-search-main">
+                                    <i class="ni ni-zoom-split-in"></i>
+                                </a>
+                            </li>
+                        @endif
 
                         @includeWhen(
                             config('microboard.view.enable_notifications', true),
