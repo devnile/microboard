@@ -44,4 +44,15 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsTo(Role::class);
     }
+
+    /**
+     * Get user's avatar or get the placeholder
+     *
+     * @param $value
+     * @return string
+     */
+    public function getAvatarAttribute($value)
+    {
+        return asset($value ?? 'storage/user-placeholder.png');
+    }
 }
