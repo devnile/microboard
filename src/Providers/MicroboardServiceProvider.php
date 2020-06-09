@@ -19,6 +19,7 @@ class MicroboardServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__ . '/../../config/config.php' => config_path('microboard.php'),
                 __DIR__ . '/../../stubs/web.stub' => base_path('routes/microboard.php'),
+                __DIR__ . '/../../stubs/user-placeholder.png' => public_path('storage/user-placeholder.png'),
             ], 'microboard');
 
              $this->commands([

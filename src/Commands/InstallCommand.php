@@ -38,7 +38,12 @@ class InstallCommand extends Command
      */
     public function handle()
     {
-        $this->output->progressStart(4);
+        $this->output->progressStart(5);
+        $this->output->newLine();
+
+        // create storage link first
+        $this->call('storage:link');
+        $this->output->progressAdvance();
         $this->output->newLine();
 
         // Publish the assets (config, routes file, css and js files, database migrations)
