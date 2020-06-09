@@ -15,5 +15,10 @@ class Permission extends Model
         'name', 'display_name'
     ];
 
+    /**
+     * disabled created_at, updated_at fields
+     *
+     * @var bool
+     */
     public $timestamps = false;
 }
