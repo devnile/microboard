@@ -2,6 +2,7 @@
 
 namespace Microboard\Tests;
 
+use Laravel\Ui\UiServiceProvider;
 use Microboard\Providers\AuthServiceProvider;
 use Microboard\Providers\MicroboardServiceProvider;
 use Microboard\Providers\RouteServiceProvider;
@@ -21,6 +22,8 @@ abstract class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
+            UiServiceProvider::class,
+
             MicroboardServiceProvider::class,
             RouteServiceProvider::class,
             AuthServiceProvider::class,

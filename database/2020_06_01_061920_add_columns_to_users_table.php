@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class AddColumnsToUsersTable extends Migration
@@ -27,6 +28,9 @@ class AddColumnsToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
+            if (DB::getDefaultConnection() !== 'sqlite') {
+                $table->dropForeign(['role_id']);
+            }
             $table->dropColumn(['avatar', 'role_id']);
         });
     }
