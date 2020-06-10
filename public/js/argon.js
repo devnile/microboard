@@ -949,28 +949,19 @@ var form = function () {
 "use strict";
 
 
-var Swal = null;
-
-var sweetAlert = function sweetAlert() {
-  // Mixins
-  var swalDefault = Swal.mixin({
-    confirmButtonColor: 'var(--primary)',
-    cancelButtonColor: 'var(--light)'
-  }),
-      swalDelete = Swal.mixin({
-    type: 'warning',
-    confirmButtonColor: 'var(--danger)',
-    cancelButtonColor: 'var(--light)',
-    showLoaderOnConfirm: true,
-    allowOutsideClick: false,
-    allowEscapeKey: false,
-    showCancelButton: true
-  }); // Methods
-
+var sweetAlert = function () {
+  // Methods
   function deleteBtn(event) {
     event.preventDefault();
     var btn = $(this);
-    swalDelete.fire({
+    Swal.fire({
+      type: 'warning',
+      confirmButtonColor: 'var(--danger)',
+      cancelButtonColor: 'var(--light)',
+      showLoaderOnConfirm: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      showCancelButton: true,
       title: btn.attr('data-modal-title'),
       text: btn.attr('data-modal-text'),
       confirmButtonText: btn.attr('data-confirm'),
@@ -988,11 +979,7 @@ var sweetAlert = function sweetAlert() {
 
 
   $(document).on('click', '.table-action-delete, .action-delete', deleteBtn);
-};
-
-if (Swal !== null) {
-  sweetAlert();
-}
+}();
 
 /***/ }),
 
