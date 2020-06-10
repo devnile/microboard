@@ -42,7 +42,6 @@ class UserDataTable extends DataTable
     {
         return $this->builder()
             ->language(trans('microboard::datatable', []))
-            ->addTableClass('table table-flush')
             ->addTableClass('table table-striped table-hover')
             ->columns($this->getColumns())
             ->setTableId('user-table')
