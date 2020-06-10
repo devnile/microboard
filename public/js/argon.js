@@ -113,6 +113,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_custom_checklist__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_components_custom_checklist__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var _components_custom_form_control__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/custom/form-control */ "./resources/js/components/custom/form-control.js");
 /* harmony import */ var _components_custom_form_control__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_components_custom_form_control__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _components_vendor_datatable__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/vendor/datatable */ "./resources/js/components/vendor/datatable.js");
+/* harmony import */ var _components_vendor_datatable__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_components_vendor_datatable__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _components_vendor_sweetalert__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/vendor/sweetalert */ "./resources/js/components/vendor/sweetalert.js");
+/* harmony import */ var _components_vendor_sweetalert__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_components_vendor_sweetalert__WEBPACK_IMPORTED_MODULE_10__);
 
  // Init
 
@@ -121,6 +125,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
  // Custom
+
+
+ // Vendors
 
 
 
@@ -837,6 +844,112 @@ var Layout = function () {
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
+
+/***/ }),
+
+/***/ "./resources/js/components/vendor/datatable.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/vendor/datatable.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var dt = function () {
+  // Variables
+  var datatable = $('.dataTables_wrapper'),
+      buttons = $('.dt-buttons', datatable),
+      dtHead = $('thead', datatable); // Methods
+
+  function init($this) {
+    $this.removeClass('btn-group').find('.btn').removeClass('btn-secondary').addClass('btn-sm btn-default');
+    $('.btn', $this).each(function (index, btn) {
+      btn = $(btn);
+      var span = $('span > span', btn);
+      var title = span.text();
+      span.remove();
+      btn.attr('title', title).tooltip({
+        'placement': 'bottom'
+      });
+    });
+  }
+
+  function addTHeadClasses(head) {
+    head.addClass('thead-light');
+  }
+
+  function makeFilterLabelAsPlaceholder(label) {
+    var text = label.find('span').text();
+    label.find('span').remove();
+    label.find('input').attr('placeholder', text);
+  } // Events
+
+
+  if (datatable.length) {
+    init(buttons);
+
+    if (dtHead.length) {
+      addTHeadClasses(dtHead);
+    }
+
+    if ($('.dataTables_filter', datatable).length) {
+      makeFilterLabelAsPlaceholder($('.dataTables_filter', datatable));
+    }
+  }
+}();
+
+/***/ }),
+
+/***/ "./resources/js/components/vendor/sweetalert.js":
+/*!******************************************************!*\
+  !*** ./resources/js/components/vendor/sweetalert.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var sweetAlert = function () {
+  // Mixins
+  var swalDefault = Swal.mixin({
+    confirmButtonColor: 'var(--primary)',
+    cancelButtonColor: 'var(--light)'
+  }),
+      swalDelete = Swal.mixin({
+    type: 'warning',
+    confirmButtonColor: 'var(--danger)',
+    cancelButtonColor: 'var(--light)',
+    showLoaderOnConfirm: true,
+    allowOutsideClick: false,
+    allowEscapeKey: false,
+    showCancelButton: true
+  }); // Methods
+
+  function deleteBtn(event) {
+    event.preventDefault();
+    var btn = $(this);
+    swalDelete.fire({
+      title: btn.attr('data-modal-title'),
+      text: btn.attr('data-modal-text'),
+      confirmButtonText: btn.attr('data-confirm'),
+      cancelButtonText: btn.attr('data-cancel'),
+      preConfirm: function preConfirm() {
+        btn.parents('form').submit();
+        return new Promise(function (resolve) {
+          setTimeout(function () {
+            resolve();
+          }, 5000);
+        });
+      }
+    });
+  } // Events
+
+
+  $(document).on('click', '.table-action-delete, .action-delete', deleteBtn);
+}();
 
 /***/ }),
 

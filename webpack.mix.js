@@ -24,13 +24,23 @@ mix.disableSuccessNotifications()
     .copyDirectory('resources/vendor/jquery.scrollbar', 'public/vendor/jquery.scrollbar')
     .copyDirectory('resources/vendor/jquery-scroll-lock/dist', 'public/vendor/jquery-scroll-lock')
 
+    .copyDirectory('resources/vendor/datatables.net/js', 'public/vendor/datatables.net')
+    .copyDirectory('resources/vendor/datatables.net-bs4/js', 'public/vendor/datatables.net')
+    .copyDirectory('resources/vendor/datatables.net-bs4/css', 'public/vendor/datatables.net')
+    .copyDirectory('resources/vendor/datatables.net-buttons/js', 'public/vendor/datatables.net')
+    .copyDirectory('resources/vendor/datatables.net-buttons/swf', 'public/vendor/datatables.net/swf')
+    .copyDirectory('resources/vendor/datatables.net-buttons-bs4/js', 'public/vendor/datatables.net')
+    .copyDirectory('resources/vendor/datatables.net-buttons-bs4/css', 'public/vendor/datatables.net')
+
+    .copyDirectory('resources/vendor/sweetalert2/dist', 'public/vendor/sweetalert2')
+
     .js('resources/js/argon.js', 'public/js')
 
     .sass('resources/scss/argon.scss', 'public/css')
     .purgeCss({
         enabled: mix.inProduction(),
         folders: ['resources/views', 'resources/js'],
-        extensions: ['html', 'php', 'vue', 'js'],
+        extensions: ['php', 'js'],
     })
 
     // for development only

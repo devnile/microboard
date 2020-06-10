@@ -21719,6 +21719,11 @@ textarea[resize=horizontal] {
   text-align: right;
 }
 
+.rtl div.dataTables_wrapper div.dataTables_filter {
+  text-align: left;
+  float: left;
+}
+
 .rtl.g-sidenav-pinned .sidenav + .main-content {
   margin-right: 250px;
   margin-left: 0 !important;
@@ -21908,12 +21913,6 @@ textarea[resize=horizontal] {
 
 .rtl .btn-group > .btn-group:last-child:not(:first-child) > .btn:first-child {
   border-radius: 0.375rem 0 0 0.375rem;
-}
-
-.rtl .custom-select {
-  padding: 0.625rem 0.75rem 0.625rem 1.75rem;
-  background: #fff url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='4' height='5' viewBox='0 0 4 5'><path fill='#32325d' d='M2 0L0 2h4zm0 5L0 3h4z'/></svg>") no-repeat right 0.75rem center;
-  background-size: 8px 10px;
 }
 
 .rtl .input-group:not(.input-group-alternative) .input-group-prepend .input-group-text {
@@ -26907,8 +26906,8 @@ a.text-lighter:focus {
 }
 
 table.dataTable {
-  margin-bottom: 1.25rem !important;
-  border-bottom: 1px solid #e9ecef;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
 }
 
 table.dataTable tbody > tr.selected {
@@ -26916,23 +26915,20 @@ table.dataTable tbody > tr.selected {
 }
 
 .dataTables_length,
-.dataTables_info,
-.dt-buttons {
-  padding-left: 1.5rem;
-}
-
-.dataTables_length .form-control {
-  margin: 0 0.375rem;
-}
-
 .dataTables_filter {
-  padding-right: 1.5rem;
-  display: inline-block;
-  float: right;
+  width: 100%;
 }
 
-.dataTables_paginate {
-  padding-right: 1.5rem;
+.dataTables_length label,
+.dataTables_filter label {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.dataTables_length label select,
+.dataTables_filter label input {
+  width: 100% !important;
+  margin: 0 0.375rem;
 }
 
 .dropzone {

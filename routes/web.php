@@ -10,4 +10,5 @@ Route::group([
     'as' => 'microboard.'
 ], function() {
     Route::get('/', 'DashboardController')->name('home');
+    Route::resource('users', 'UserController');
 });
