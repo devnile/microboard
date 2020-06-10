@@ -43,6 +43,7 @@ class UserDataTable extends DataTable
         return $this->builder()
             ->language(trans('microboard::datatable', []))
             ->addTableClass('table table-flush')
+            ->addTableClass('table table-striped table-hover')
             ->columns($this->getColumns())
             ->setTableId('user-table')
             ->autoWidth(false)
@@ -54,9 +55,9 @@ class UserDataTable extends DataTable
                 "<'card-footer'<'row'<'col-12 col-sm-6'i><'col-12 col-sm-6'p>>>".
                 "r>")
             ->buttons(
-                Button::make('print')->text('<span>اطبع الجدول</span><i class="fa fa-print"></i>'),
-                Button::make('excel')->text('<span>استخرج ملف اكسل</span><i class="fa fa-file-excel"></i>'),
-                Button::make('reload')->text('<span>اعد تحميل البيانات</span><i class="fa fa-sync"></i>')
+                Button::make('print')->text('<span>'. trans('microboard::datatable.print') .'</span><i class="fa fa-print"></i>'),
+                Button::make('excel')->text('<span>'. trans('microboard::datatable.excel') .'</span><i class="fa fa-file-excel"></i>'),
+                Button::make('reload')->text('<span>'. trans('microboard::datatable.reload') .'</span><i class="fa fa-sync"></i>')
             );
     }
 
@@ -68,9 +69,9 @@ class UserDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('id'),
-            Column::make('name'),
-            Column::make('email'),
+            Column::make('id')->title(trans('microboard::users.fields.id'))->width('1%'),
+            Column::make('name')->title(trans('microboard::users.fields.name')),
+            Column::make('email')->title(trans('microboard::users.fields.email')),
             Column::computed('action', '')
                 ->exportable(false)
                 ->printable(false)

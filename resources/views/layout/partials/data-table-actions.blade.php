@@ -1,11 +1,11 @@
 @if (true)
-    <a href="#" class="table-action" data-toggle="tooltip" data-original-title="Show">
+    <a href="#" class="table-action" data-toggle="tooltip" data-original-title="{{ trans('microboard::pages.resources.actions.view') }}">
         <i class="fas fa-eye"></i>
     </a>
 @endif
 
 @if (true)
-    <a href="#" class="table-action" data-toggle="tooltip" data-original-title="Edit">
+    <a href="#" class="table-action" data-toggle="tooltip" data-original-title="{{ trans('microboard::pages.resources.actions.edit') }}">
         <i class="fas fa-edit"></i>
     </a>
 @endif
@@ -19,11 +19,11 @@
                 type="submit"
                 class="bg-transparent border-0 p-0 table-action table-action-delete"
                 data-toggle="tooltip"
-                data-original-title="Delete"
-                data-modal-title="هل أنت متأكد؟"
-                data-modal-text="في حال حذف السجل، سيتم حذفه وجميع معلوماته نهائياً!"
-                data-confirm="نعم، قم بالحذف"
-                data-cancel="إلغاء الأمر"
+                data-original-title="{{ trans('microboard::pages.resources.actions.delete.tooltip') }}"
+                data-modal-title="{{ trans('microboard::pages.resources.actions.delete.title') }}"
+                data-modal-text="{{ trans('microboard::pages.resources.actions.delete.text') }}"
+                data-confirm="{{ trans('microboard::pages.resources.actions.delete.confirm') }}"
+                data-cancel="{{ trans('microboard::pages.resources.actions.delete.cancel') }}"
         >
             <i class="fas fa-trash"></i>
         </button>

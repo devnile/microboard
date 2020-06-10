@@ -1,14 +1,14 @@
 @extends('microboard::layout.app', [
     'breadcrumbs' => [
-        ['name' => 'Resource']
+        ['name' => trans('microboard::users.resource')]
     ]
 ])
 
-@section('title', 'Resource page')
+@section('title', trans('microboard::users.resource'))
 
 @section('actions')
     <a href="#" class="btn btn-sm btn-neutral">
-        New resource
+        @lang('microboard::users.create.title')
     </a>
 @endsection
 
