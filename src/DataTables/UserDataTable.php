@@ -3,6 +3,8 @@
 namespace Microboard\DataTables;
 
 use App\User;
+use Yajra\DataTables\DataTableAbstract;
+use Yajra\DataTables\Html\Builder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
@@ -13,12 +15,13 @@ class UserDataTable extends DataTable
      * Build DataTable class.
      *
      * @param mixed $query Results from query() method.
-     * @return \Yajra\DataTables\DataTableAbstract
+     * @return DataTableAbstract
      */
     public function dataTable($query)
     {
         return datatables()
             ->eloquent($query)
+            ->editColumn('avatar', '<img src="{{ $avatar }}" class="avatar-sm" alt="{{ $name }}" />')
             ->addColumn('action', function (User $user) {
                 $html = '';
 
@@ -50,13 +53,14 @@ class UserDataTable extends DataTable
                 }
 
                 return $html;
-            });
+            })
+            ->escapeColumns(['*']);
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\User $model
+     * @param User $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(User $model)
@@ -67,7 +71,7 @@ class UserDataTable extends DataTable
     /**
      * Optional method if you want to use html builder.
      *
-     * @return \Yajra\DataTables\Html\Builder
+     * @return Builder
      */
     public function html()
     {
@@ -100,6 +104,7 @@ class UserDataTable extends DataTable
     {
         return [
             Column::make('id')->title(trans('microboard::users.fields.id'))->width('1%'),
+            Column::make('avatar')->title(trans('microboard::users.fields.avatar'))->width(36),
             Column::make('name')->title(trans('microboard::users.fields.name')),
             Column::make('email')->title(trans('microboard::users.fields.email')),
             Column::computed('action', '')
