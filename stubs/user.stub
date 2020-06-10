@@ -1,0 +1,10 @@
+<?php
+
+namespace App;
+
+use Microboard\Models\User as Microboard;
+
+class User extends Microboard
+{
+    //
+}

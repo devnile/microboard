@@ -2,13 +2,12 @@
 
 namespace Microboard\Commands;
 
-use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Validator;
 use Facades\Microboard\Factory;
 use Microboard\Models\Role;
 use Microboard\Models\User;
 
-class InstallCommand extends Command
+class InstallCommand extends WorkingWithStubs
 {
     /**
      * The name and signature of the console command.
@@ -38,7 +37,7 @@ class InstallCommand extends Command
      */
     public function handle()
     {
-        $this->output->progressStart(5);
+        $this->output->progressStart(6);
         $this->output->newLine();
 
         // create storage link first
@@ -53,6 +52,11 @@ class InstallCommand extends Command
 
         // Migrate the database
         $this->migrateDatabase();
+        $this->output->progressAdvance();
+        $this->output->newLine();
+
+        // update User model
+        $this->updateUserModel();
         $this->output->progressAdvance();
         $this->output->newLine();
 
@@ -149,5 +153,21 @@ class InstallCommand extends Command
         if ($this->admin) {
             $adminRole->users()->save($this->admin);
         }
+    }
+
+    private function updateUserModel()
+    {
+        $this->createFromStub(
+            __DIR__ . '/../../stubs/user.stub',
+            'app',
+            'User.php'
+        );
+
+        $this->info('User.php updated');
+    }
+
+    protected function getNameInput()
+    {
+        return null;
     }
 }
