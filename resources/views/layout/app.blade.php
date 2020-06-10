@@ -136,3 +136,11 @@
         </div>
     </div>
 @endsection
+
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('vendor/microboard/vendor/sweetalert2/sweetalert2.min.css') }}">
+@endpush
+
+@push('scripts')
+    <script src="{{ asset('vendor/microboard/vendor/sweetalert2/sweetalert2.min.js') }}"></script>
+@endpush
