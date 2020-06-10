@@ -16,7 +16,8 @@ return [
     ],
 
     'view' => [
-        'action-button' => 'مشاهدة'
+        'action-button' => 'مشاهدة',
+        'title' => 'مشاهدة صفحة :name'
     ],
 
     'edit' => [
