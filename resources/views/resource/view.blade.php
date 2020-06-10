@@ -8,13 +8,13 @@
 @section('title', trans('microboard::users.view.title', ['name' => $user->name]))
 
 @section('actions')
-    @if(true)
+    @can('update', $user)
         <a href="{{ route('microboard.users.edit', $user) }}" class="btn btn-sm btn-neutral px-4">
             @lang('microboard::users.edit.action-button')
         </a>
-    @endif
+    @endcan
 
-    @if(true)
+    @can('delete', $user)
         <form action="{{ route('microboard.users.destroy', $user) }}" method="POST" class="d-inline-block">
             @csrf
             @method('DELETE')
@@ -31,7 +31,7 @@
                 <i class="fas fa-trash"></i>
             </button>
         </form>
-    @endif
+    @endcan
 @endsection
 
 @section('content')

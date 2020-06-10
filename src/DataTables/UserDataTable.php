@@ -22,21 +22,21 @@ class UserDataTable extends DataTable
             ->addColumn('action', function (User $user) {
                 $html = '';
 
-                if (true) {
+                if (auth()->user()->can('view', $user)) {
                     $html .= '<a href="' . route('microboard.users.show', $user) . '" ' .
                         'class="table-action" data-toggle="tooltip" ' .
                         'data-original-title="' . trans('microboard::users.view.action-button') . '">' .
                         '<i class="fas fa-eye"></i></a>';
                 }
 
-                if (true) {
+                if (auth()->user()->can('update', $user)) {
                     $html .= '<a href="' . route('microboard.users.edit', $user) . '" ' .
                         'class="table-action" data-toggle="tooltip" ' .
                         'data-original-title="' . trans('microboard::users.edit.action-button') . '">' .
                         '<i class="fas fa-edit"></i></a>';
                 }
 
-                if (true) {
+                if (auth()->user()->can('delete', $user)) {
                     $html .= '<form action="' . route('microboard.users.destroy', $user) . '" method="post" class="d-inline-block">' .
                         csrf_field() . method_field('DELETE') .
                         '<button type="submit" data-toggle="tooltip" ' .
