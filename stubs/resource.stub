@@ -1,0 +1,34 @@
+<?php
+
+return [
+    'resource' => '%RESOURCE_NAME_PLURAL%',
+
+    'fields' => [%COLUMNS%
+    ],
+
+    'create' => [
+        'title' => 'إضافة جديد',
+        'cancel' => 'إلفاء',
+        'save' => 'إضافة جديد'
+    ],
+
+    'view' => [
+        'action-button' => 'مشاهدة',
+        'title' => 'مشاهدة'
+    ],
+
+    'edit' => [
+        'action-button' => 'تعديل',
+        'title' => 'تعديل',
+        'cancel' => 'إلفاء',
+        'save' => 'حفظ التغييرات'
+    ],
+
+    'delete' => [
+        'action-button' => 'حـذف نهائي',
+        'title' => 'هل أنت متأكد من القيام بذلك؟',
+        'text' => 'ستفقد معلومات السجل وعلاقاته أيضاً بشكل نهائي!',
+        'confirm' => 'نعم، قم بالحذف',
+        'cancel' => 'لا، إلغِ الأمر'
+    ]
+];

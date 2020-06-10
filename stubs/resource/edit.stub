@@ -1,0 +1,40 @@
+@extends ('microboard::layout.app', [
+    'breadcrumbs' => [
+        ['name' => trans('%VIEW_NAMESPACE%%RESOURCE_NAME_PLURAL%.resource'), 'url' => route('microboard.%RESOURCE_NAME_PLURAL%.index')],
+        ['name' => trans('%VIEW_NAMESPACE%%RESOURCE_NAME_PLURAL%.view.title', ['name' => $%RESOURCE_NAME_SINGULAR%->name]), 'url' => route('microboard.%RESOURCE_NAME_PLURAL%.show', $%RESOURCE_NAME_SINGULAR%)],
+        ['name' => trans('%VIEW_NAMESPACE%%RESOURCE_NAME_PLURAL%.edit.title')]
+    ]
+])
+
+@section('title', trans('%VIEW_NAMESPACE%%RESOURCE_NAME_PLURAL%.edit.title'))
+
+@section('actions')
+    <a href="{{ route('microboard.%RESOURCE_NAME_PLURAL%.index') }}" class="btn btn-sm btn-neutral px-3">
+        @lang('%VIEW_NAMESPACE%%RESOURCE_NAME_PLURAL%.edit.cancel')
+    </a>
+
+    <button class="btn btn-sm px-5 btn-default action-submit" data-form="#edit-%RESOURCE_NAME_SINGULAR%-form">
+        @lang('%VIEW_NAMESPACE%%RESOURCE_NAME_PLURAL%.edit.save')
+    </button>
+@endsection
+
+@section('content')
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-body mb--4">
+                    {!! Form::open([
+                        'route' => ['microboard.%RESOURCE_NAME_PLURAL%.update', $%RESOURCE_NAME_SINGULAR%],
+                        'method' => 'PATCH',
+                        'files' => true,
+                        'id' => 'edit-%RESOURCE_NAME_SINGULAR%-form'
+                    ]) !!}
+                    @component('%VIEW_NAMESPACE%%BLADE_VIEW_DIRECTORY%.form', [
+                        '%RESOURCE_NAME_SINGULAR%' => $%RESOURCE_NAME_SINGULAR%
+                    ])@endcomponent
+                    {!! Form::close() !!}
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

@@ -1,0 +1,111 @@
+<?php
+
+namespace %NAMESPACE%Http\Controllers;
+
+use Illuminate\Auth\Access\AuthorizationException;
+use %NAMESPACE%Http\Requests\%RESOURCE_MODEL_BASE%\UpdateFormRequest;
+use %NAMESPACE%Http\Requests\%RESOURCE_MODEL_BASE%\StoreFormRequest;
+use %NAMESPACE%DataTables\UserDataTable;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
+use Illuminate\View\View;
+use Exception;
+use %RESOURCE_MODEL%;
+
+class %RESOURCE_MODEL_BASE%Controller extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @param %RESOURCE_MODEL_BASE%DataTable $table
+     * @return Response
+     * @throws AuthorizationException
+     */
+    public function index(%RESOURCE_MODEL_BASE%DataTable $table)
+    {
+        $this->authorize('viewAny', new %RESOURCE_MODEL_BASE%);
+        return $table->render('%VIEW_NAMESPACE%%BLADE_VIEW_DIRECTORY%.index');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return View
+     * @throws AuthorizationException
+     */
+    public function create()
+    {
+        $this->authorize('create', new %RESOURCE_MODEL_BASE%);
+        return view('%VIEW_NAMESPACE%%BLADE_VIEW_DIRECTORY%.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param StoreFormRequest $request
+     * @return RedirectResponse
+     * @throws AuthorizationException
+     */
+    public function store(StoreFormRequest $request)
+    {
+        $this->authorize('create', new %RESOURCE_MODEL_BASE%);
+        $%RESOURCE_NAME_SINGULAR% = %RESOURCE_MODEL_BASE%::create($request->validated());
+        return redirect()->route('microboard.%RESOURCE_NAME_PLURAL%.show', $%RESOURCE_NAME_SINGULAR%);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param %RESOURCE_MODEL_BASE% $%RESOURCE_NAME_SINGULAR%
+     * @return View
+     * @throws AuthorizationException
+     */
+    public function show(%RESOURCE_MODEL_BASE% $%RESOURCE_NAME_SINGULAR%)
+    {
+        $this->authorize('view', $%RESOURCE_NAME_SINGULAR%);
+        return view('%VIEW_NAMESPACE%%BLADE_VIEW_DIRECTORY%.show', compact('%RESOURCE_NAME_SINGULAR%'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param %RESOURCE_MODEL_BASE% $%RESOURCE_NAME_SINGULAR%
+     * @return View
+     * @throws AuthorizationException
+     */
+    public function edit(%RESOURCE_MODEL_BASE% $%RESOURCE_NAME_SINGULAR%)
+    {
+        $this->authorize('update', $%RESOURCE_NAME_SINGULAR%);
+        return view('%VIEW_NAMESPACE%%BLADE_VIEW_DIRECTORY%.edit', compact('%RESOURCE_NAME_SINGULAR%'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param UpdateFormRequest $request
+     * @param %RESOURCE_MODEL_BASE% $%RESOURCE_NAME_SINGULAR%
+     * @return RedirectResponse
+     * @throws AuthorizationException
+     */
+    public function update(UpdateFormRequest $request, %RESOURCE_MODEL_BASE% $%RESOURCE_NAME_SINGULAR%)
+    {
+        $this->authorize('update', $%RESOURCE_NAME_SINGULAR%);
+        $%RESOURCE_NAME_SINGULAR%->update($request->validated());
+        return redirect()->route('microboard.%RESOURCE_NAME_PLURAL%.show', $%RESOURCE_NAME_SINGULAR%);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param %RESOURCE_MODEL_BASE% $%RESOURCE_NAME_SINGULAR%
+     * @return RedirectResponse
+     * @throws AuthorizationException
+     * @throws Exception
+     */
+    public function destroy(%RESOURCE_MODEL_BASE% $%RESOURCE_NAME_SINGULAR%)
+    {
+        $this->authorize('update', $%RESOURCE_NAME_SINGULAR%);
+        $%RESOURCE_NAME_SINGULAR%->delete();
+        return redirect()->route('microboard.%RESOURCE_NAME_PLURAL%.index');
+    }
+}

@@ -1,0 +1,48 @@
+@extends ('microboard::layout.app', [
+    'breadcrumbs' => [
+        ['name' => trans('%VIEW_NAMESPACE%%RESOURCE_NAME_PLURAL%.resource'), 'url' => route('microboard.%RESOURCE_NAME_PLURAL%.index')],
+        ['name' => trans('%VIEW_NAMESPACE%%RESOURCE_NAME_PLURAL%.view.title', ['name' => $%RESOURCE_NAME_SINGULAR%->name])]
+    ]
+])
+
+@section('title', trans('%VIEW_NAMESPACE%%RESOURCE_NAME_PLURAL%.view.title', ['name' => $%RESOURCE_NAME_SINGULAR%->name]))
+
+@section('actions')
+    @can('update', $%RESOURCE_NAME_SINGULAR%)
+        <a href="{{ route('microboard.%RESOURCE_NAME_PLURAL%.edit', $%RESOURCE_NAME_SINGULAR%) }}" class="btn btn-sm btn-neutral px-4">
+            @lang('%VIEW_NAMESPACE%%RESOURCE_NAME_PLURAL%.edit.action-button')
+        </a>
+    @endcan
+
+    @can('delete', $%RESOURCE_NAME_SINGULAR%)
+        <form action="{{ route('microboard.%RESOURCE_NAME_PLURAL%.destroy', $%RESOURCE_NAME_SINGULAR%) }}" method="POST" class="d-inline-block">
+            @csrf
+            @method('DELETE')
+
+            <button type="submit" class="btn btn-sm btn-danger action-delete"
+                    data-toggle="tooltip"
+                    data-placement="right"
+                    data-original-title="{{ trans('%VIEW_NAMESPACE%%RESOURCE_NAME_PLURAL%.delete.action-button') }}"
+                    data-modal-title="{{ trans('%VIEW_NAMESPACE%%RESOURCE_NAME_PLURAL%.delete.title') }}"
+                    data-modal-text="{{ trans('%VIEW_NAMESPACE%%RESOURCE_NAME_PLURAL%.delete.text') }}"
+                    data-confirm="{{ trans('%VIEW_NAMESPACE%%RESOURCE_NAME_PLURAL%.delete.confirm') }}"
+                    data-cancel="{{ trans('%VIEW_NAMESPACE%%RESOURCE_NAME_PLURAL%.delete.cancel') }}"
+            >
+                <i class="fas fa-trash"></i>
+            </button>
+        </form>
+    @endcan
+@endsection
+
+@section('content')
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <table class="table table-flush">
+                    <tbody>%COLUMNS%
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+@endsection
