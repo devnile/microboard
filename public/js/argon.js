@@ -117,6 +117,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_vendor_datatable__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_components_vendor_datatable__WEBPACK_IMPORTED_MODULE_9__);
 /* harmony import */ var _components_vendor_sweetalert__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/vendor/sweetalert */ "./resources/js/components/vendor/sweetalert.js");
 /* harmony import */ var _components_vendor_sweetalert__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_components_vendor_sweetalert__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _components_vendor_form__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/vendor/form */ "./resources/js/components/vendor/form.js");
+/* harmony import */ var _components_vendor_form__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_components_vendor_form__WEBPACK_IMPORTED_MODULE_11__);
 
  // Init
 
@@ -128,6 +130,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
  // Vendors
+
 
 
 
@@ -897,6 +900,42 @@ var dt = function () {
     if ($('.dataTables_filter', datatable).length) {
       makeFilterLabelAsPlaceholder($('.dataTables_filter', datatable));
     }
+  }
+}();
+
+/***/ }),
+
+/***/ "./resources/js/components/vendor/form.js":
+/*!************************************************!*\
+  !*** ./resources/js/components/vendor/form.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var form = function () {
+  // Variables
+  var submitBtn = $('.action-submit'); // Methods
+
+  function submit() {
+    var form = $(submitBtn.attr('data-form'));
+    $(':input', form).prop("disabled", true);
+    submitBtn.prop("disabled", true).html('<i class="fa fa-spinner fa-spin"></i>');
+    form.submit();
+  } // Events
+
+
+  if (submitBtn.length && submitBtn.length === 1) {
+    submitBtn.on('click', submit);
+    $(document).keypress(function (event) {
+      var code = event.keyCode ? event.keyCode : event.which;
+
+      if (code === 13) {
+        submit();
+      }
+    });
   }
 }();
 
