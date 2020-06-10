@@ -7,7 +7,7 @@
 @section('title', trans('microboard::users.resource'))
 
 @section('actions')
-    <a href="#" class="btn btn-sm btn-neutral">
+    <a href="{{ route('microboard.users.create') }}" class="btn btn-sm btn-neutral">
         @lang('microboard::users.create.title')
     </a>
 @endsection

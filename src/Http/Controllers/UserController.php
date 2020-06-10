@@ -24,11 +24,11 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return View
      */
     public function create()
     {
-        //
+        return view('microboard::resource.create');
     }
 
     /**
@@ -39,7 +39,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request);
     }
 
     /**
@@ -73,7 +73,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        dd($request);
     }
 
     /**
