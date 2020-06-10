@@ -2,6 +2,7 @@
 
 namespace Microboard\Providers;
 
+use Collective\Html\FormBuilder;
 use Illuminate\Support\ServiceProvider;
 
 class ViewServiceProvider extends ServiceProvider
@@ -34,5 +35,16 @@ class ViewServiceProvider extends ServiceProvider
                 __DIR__.'/../resources/lang' => resource_path('lang/vendor/microboard'),
             ], 'lang');*/
         }
+
+        $this->registerFormComponents();
+    }
+
+    public function registerFormComponents()
+    {
+        FormBuilder::component(
+            'argonInput',
+            'microboard::input',
+            ['name', 'type', 'value', 'attributes']
+        );
     }
 }
