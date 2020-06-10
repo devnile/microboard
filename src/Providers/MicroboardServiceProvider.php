@@ -4,6 +4,7 @@ namespace Microboard\Providers;
 
 use Microboard\Commands\InstallCommand;
 use Illuminate\Support\ServiceProvider;
+use Microboard\Commands\ResourceCommand;
 use Microboard\Factory;
 
 class MicroboardServiceProvider extends ServiceProvider
@@ -23,7 +24,8 @@ class MicroboardServiceProvider extends ServiceProvider
             ], 'microboard');
 
              $this->commands([
-                 InstallCommand::class
+                 InstallCommand::class,
+                 ResourceCommand::class
              ]);
         }
     }
