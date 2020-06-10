@@ -3,6 +3,7 @@
 namespace Microboard\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -38,11 +39,30 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
+     * The relations to eager load on every query.
+     *
+     * @var array
+     */
+    protected $with = [
+        'role'
+    ];
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+
+    /**
+     * Retrieve role's permissions
+     *
+     * @return Collection
+     */
+    public function permissions()
+    {
+        return $this->role->permissions;
     }
 
     /**
