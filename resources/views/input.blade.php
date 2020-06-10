@@ -32,16 +32,16 @@
                 </div>
                 @endif
                 {!! Form::input($type, $name, $value, $attributes) !!}
-                <div class="align-items-center d-flex justify-content-between">
-                    @if ($help)
-                    <small class="text-muted"><i class="fa fa-question-circle"></i> {!! $help !!}</small>
-                    @endif
-                    @error($name)
-                    <span role="alert" class="d-inline-flex invalid-feedback mt-0 w-auto">{{ $message }}</span>
-                    @enderror
-                </div>
             @if ($icon !== null)
             </div>
         @endif
+            <div class="align-items-center d-flex justify-content-between">
+                @if ($help)
+                    <small class="text-muted"><i class="fa fa-question-circle"></i> {!! $help !!}</small>
+                @endif
+                @error($name)
+                <span role="alert" class="d-inline-flex invalid-feedback mt-0 w-auto">{{ $message }}</span>
+                @enderror
+            </div>
     </div>
 </div>
