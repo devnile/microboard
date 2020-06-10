@@ -15,11 +15,11 @@
     @endif
 
     @if(true)
-        <form action="#" method="POST" class="d-inline-block">
+        <form action="{{ route('microboard.users.destroy', $user) }}" method="POST" class="d-inline-block">
             @csrf
             @method('DELETE')
 
-            <button type="submit" class="btn btn-sm btn-danger"
+            <button type="submit" class="btn btn-sm btn-danger action-delete"
                     data-toggle="tooltip"
                     data-placement="right"
                     data-original-title="{{ trans('microboard::users.delete.action-button') }}"
