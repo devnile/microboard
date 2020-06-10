@@ -21,7 +21,10 @@ return [
     ],
 
     'edit' => [
-        'action-button' => 'تعديل'
+        'action-button' => 'تعديل',
+        'title' => 'تعديل',
+        'cancel' => 'إلفاء',
+        'save' => 'حفظ التغييرات'
     ],
 
     'delete' => [
