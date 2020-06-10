@@ -1,15 +1,23 @@
-<div class="custom-control custom-checkbox{{ isset($alternative) && $alternative ? ' custom-control-alternative' : '' }}">
-    <input
-            class="custom-control-input"
-            name="{{ $name }}"
-            id="{{ $id ?? $name }}"
-            type="checkbox"
-            {{ old('remember', $value ?? false) ? 'checked' : '' }}
-    />
+@php
+    /** @var $name */
+    /** @var $value */
+    /** @var \Illuminate\Support\ViewErrorBag $errors */
+    /** @var \Illuminate\Support\Collection $attributes */
+    $attributes = collect($attributes);
+
+    $title = $attributes->get('title', 'None');
+    $alternative = $attributes->get('alternative', false);
+
+    $attributes = $attributes->merge([
+        'class' => 'custom-control-input'
+    ])
+    ->except(['title', 'alternative'])
+    ->all();
+@endphp
+<div class="custom-control custom-checkbox{{ $alternative ? ' custom-control-alternative' : '' }}">
+    {!! Form::checkbox($name, true, $value, $attributes) !!}
 
     @isset($title)
-        <label class="custom-control-label" for="{{ $id ?? $name }}">
-            <span class="text-muted">{{ $title }}</span>
-        </label>
+        {!! Form::label($name, $title, ['class' => 'custom-control-label'], true) !!}
     @endisset
 </div>
