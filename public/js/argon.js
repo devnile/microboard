@@ -920,10 +920,8 @@ var form = function () {
   var submitBtn = $('.action-submit'); // Methods
 
   function submit() {
-    var form = $(submitBtn.attr('data-form'));
-    $('input:not([type="hidden"]), select', form).prop("disabled", true);
     submitBtn.prop("disabled", true).html('<i class="fa fa-spinner fa-spin"></i>');
-    form.submit();
+    $(submitBtn.attr('data-form')).submit();
   } // Events
 
 
@@ -951,7 +949,9 @@ var form = function () {
 "use strict";
 
 
-var sweetAlert = function () {
+var Swal = null;
+
+var sweetAlert = function sweetAlert() {
   // Mixins
   var swalDefault = Swal.mixin({
     confirmButtonColor: 'var(--primary)',
@@ -988,7 +988,11 @@ var sweetAlert = function () {
 
 
   $(document).on('click', '.table-action-delete, .action-delete', deleteBtn);
-}();
+};
+
+if (Swal !== null) {
+  sweetAlert();
+}
 
 /***/ }),
 
