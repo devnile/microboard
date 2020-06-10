@@ -2,13 +2,15 @@
 
 namespace Microboard\Http\Controllers;
 
-use App\User;
 use Illuminate\Auth\Access\AuthorizationException;
+use Microboard\Http\Requests\UpdateUserFormRequest;
+use Microboard\Http\Requests\StoreUserFormRequest;
+use Microboard\DataTables\UserDataTable;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\View\View;
-use Microboard\DataTables\UserDataTable;
+use Exception;
+use App\User;
 
 class UserController extends Controller
 {
@@ -22,7 +24,6 @@ class UserController extends Controller
     public function index(UserDataTable $table)
     {
         $this->authorize('viewAny', new User);
-
         return $table->render('microboard::resource.index');
     }
 
@@ -35,22 +36,20 @@ class UserController extends Controller
     public function create()
     {
         $this->authorize('create', new User);
-
         return view('microboard::resource.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
+     * @param StoreUserFormRequest $request
      * @return RedirectResponse
      * @throws AuthorizationException
      */
-    public function store(Request $request)
+    public function store(StoreUserFormRequest $request)
     {
         $this->authorize('create', new User);
-        $user = new User($request->all());
-
+        $user = User::create($request->validated());
         return redirect()->route('microboard.users.show', $user);
     }
 
@@ -64,7 +63,6 @@ class UserController extends Controller
     public function show(User $user)
     {
         $this->authorize('view', $user);
-
         return view('microboard::resource.view', compact('user'));
     }
 
@@ -78,23 +76,21 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $this->authorize('update', $user);
-
         return view('microboard::resource.edit', compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param UpdateUserFormRequest $request
      * @param User $user
      * @return RedirectResponse
      * @throws AuthorizationException
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateUserFormRequest $request, User $user)
     {
         $this->authorize('update', $user);
-        $user->update($request->all());
-
+        $user->update($request->validated());
         return redirect()->route('microboard.users.show', $user);
     }
 
@@ -104,11 +100,12 @@ class UserController extends Controller
      * @param User $user
      * @return RedirectResponse
      * @throws AuthorizationException
+     * @throws Exception
      */
     public function destroy(User $user)
     {
         $this->authorize('update', $user);
-
+        $user->delete();
         return redirect()->route('microboard.users.index');
     }
 }
