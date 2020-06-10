@@ -921,7 +921,7 @@ var form = function () {
 
   function submit() {
     var form = $(submitBtn.attr('data-form'));
-    $(':input', form).prop("disabled", true);
+    $('input:not([type="hidden"]), select', form).prop("disabled", true);
     submitBtn.prop("disabled", true).html('<i class="fa fa-spinner fa-spin"></i>');
     form.submit();
   } // Events
