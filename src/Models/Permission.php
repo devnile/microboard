@@ -16,7 +16,7 @@ class Permission extends Model
     ];
 
     /**
-     * disabled created_at, updated_at fields
+     * Indicates if the model should be timestamped.
      *
      * @var bool
      */
