@@ -59,7 +59,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapMicroboardRoutes()
     {
         Route::prefix(config('microboard.routes.prefix', 'admin'))
-            ->middleware(array_merge(config('microboard.routes.middleware', []), ['web']))
+            ->middleware(array_merge(['web'], config('microboard.routes.middleware', [])))
             ->name('microboard.')
             ->namespace(config('microboard.routes.namespace', 'App\\Http\\Controllers'))
             ->group(base_path('routes/microboard.php'));
