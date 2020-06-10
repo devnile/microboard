@@ -21,15 +21,20 @@
 @section('content')
     <div class="row">
         <div class="col">
-            <form
-                    id="edit-user-form"
-                    action="{{ route('microboard.users.update', $user) }}"
-                    method="POST"
-                    enctype="multipart/form-data"
-            >
-                @csrf
-                @method('PATCH')
-            </form>
+            <div class="card">
+                <div class="card-body mb--4">
+                    {!! Form::open([
+                        'route' => ['microboard.users.update', $user],
+                        'method' => 'PATCH',
+                        'files' => true,
+                        'id' => 'edit-user-form'
+                    ]) !!}
+                    @component('microboard::resource.form', [
+                        'user' => $user
+                    ])@endcomponent
+                    {!! Form::close() !!}
+                </div>
+            </div>
         </div>
     </div>
 @endsection
