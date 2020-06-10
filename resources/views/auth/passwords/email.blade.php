@@ -9,23 +9,25 @@
                 <div class="text-center text-muted mb-4">
                     <small>@lang('microboard::pages.reset.title')</small>
                 </div>
-                <form role="form" method="POST" action="{{ route('password.email') }}">
-                    @csrf
+                {!! Form::open([
+                    'route' => 'password.email',
+                    'method' => 'post',
+                    'id' => 'reset'
+                ]) !!}
+                {!! Form::argonInput('email', 'email', null, [
+                    'title' => trans('microboard::users.fields.email'),
+                    'icon' => 'ni ni-email-83',
+                    'alternative' => true,
+                    'autoComplete' => 'email',
+                    'hideLabel' => true
+                ]) !!}
 
-                    @component('microboard::input', [
-                        'name' => 'email',
-                        'type' => 'email',
-                        'title' => trans('microboard::users.fields.email'),
-                        'icon' => 'ni ni-email-83',
-                        'value' => null,
-                        'alternative' => true,
-                        'autoComplete' => 'email'
-                    ])@endcomponent
-
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-primary mt-4">@lang('microboard::pages.reset.submit')</button>
-                    </div>
-                </form>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary mt-4 action-submit" data-form="#reset">
+                        @lang('microboard::pages.reset.submit')
+                    </button>
+                </div>
+                {!! Form::close() !!}
             </div>
         </div>
 

@@ -9,39 +9,37 @@
                 <div class="text-center text-muted mb-4">
                     <small>@lang('microboard::pages.login.title')</small>
                 </div>
-                <form role="form" method="POST" action="{{ route('login') }}">
-                    @csrf
+                {!! Form::open([
+                    'route'=> 'login',
+                    'method' => 'post',
+                    'id' => 'login'
+                ]) !!}
+                {!! Form::argonInput('email', 'email', null, [
+                    'title' => trans('microboard::users.fields.email'),
+                    'icon' => 'ni ni-email-83',
+                    'alternative' => true,
+                    'autoComplete' => 'email',
+                    'hideLabel' => true
+                ]) !!}
 
-                    @component('microboard::input', [
-                        'name' => 'email',
-                        'type' => 'email',
-                        'title' => trans('microboard::users.fields.email'),
-                        'icon' => 'ni ni-email-83',
-                        'value' => null,
-                        'alternative' => true,
-                        'autoComplete' => 'email'
-                    ])@endcomponent
+                {!! Form::argonInput('password', 'password', null, [
+                    'title' => trans('microboard::users.fields.password'),
+                    'icon' => 'ni ni-lock-circle-open',
+                    'alternative' => true,
+                    'autoComplete' => 'current-password',
+                    'hideLabel' => true
+                ]) !!}
+                {!! Form::argonCheckbox('remember', false, [
+                    'title' => trans('microboard::pages.login.remember'),
+                    'alternative' => true,
+                ]) !!}
 
-                    @component('microboard::input', [
-                        'name' => 'password',
-                        'type' => 'password',
-                        'title' => trans('microboard::users.fields.password'),
-                        'icon' => 'ni ni-lock-circle-open',
-                        'value' => false,
-                        'alternative' => true,
-                        'autoComplete' => 'current-password'
-                    ])@endcomponent
-
-                    @component('microboard::checkbox', [
-                        'name' => 'remember',
-                        'title' => trans('microboard::pages.login.remember'),
-                        'alternative' => true
-                    ])@endcomponent
-
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-primary mt-4">@lang('microboard::pages.login.submit')</button>
-                    </div>
-                </form>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary mt-4 action-submit" data-form="#login">
+                        @lang('microboard::pages.login.submit')
+                    </button>
+                </div>
+                {!! Form::close() !!}
             </div>
         </div>
 

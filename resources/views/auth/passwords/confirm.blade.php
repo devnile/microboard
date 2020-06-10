@@ -8,7 +8,8 @@
             <div class="row justify-content-center">
                 <div class="col-lg-3 order-lg-2">
                     <div class="card-profile-image">
-                        <img src="{{ auth()->user()->avatar }}" alt="{{ auth()->user()->name }}" class="rounded-circle border-secondary">
+                        <img src="{{ auth()->user()->avatar }}" alt="{{ auth()->user()->name }}"
+                             class="rounded-circle border-secondary">
                     </div>
                 </div>
             </div>
@@ -17,23 +18,24 @@
                     <h3>{{ auth()->user()->name }}</h3>
                 </div>
 
-                <form role="form" method="POST" action="{{ route('password.confirm') }}">
-                    @csrf
-
-                    @component('microboard::input', [
-                        'name' => 'password',
-                        'type' => 'password',
-                        'title' => trans('microboard::users.fields.password'),
-                        'icon' => 'ni ni-lock-circle-open',
-                        'value' => false,
-                        'alternative' => true,
-                        'autoComplete' => 'current-password'
-                    ])@endcomponent
-
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-primary mt-4">@lang('microboard::pages.confirm.submit')</button>
-                    </div>
-                </form>
+                {!! Form::open([
+                    'route' => 'password.confirm',
+                    'method' => 'post',
+                    'id' => 'confirm'
+                ]) !!}
+                {!! Form::argonInput('password', 'password', null, [
+                    'title' => trans('microboard::users.fields.password'),
+                    'icon' => 'ni ni-lock-circle-open',
+                    'alternative' => true,
+                    'autoComplete' => 'current-password',
+                    'hideLabel' => true
+                ]) !!}
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary mt-4 action-submit" data-form="#confirm">
+                        @lang('microboard::pages.confirm.submit')
+                    </button>
+                </div>
+                {!! Form::close() !!}
             </div>
         </div>
     </div>

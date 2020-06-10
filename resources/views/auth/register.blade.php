@@ -9,52 +9,45 @@
                 <div class="text-center text-muted mb-4">
                     <small>@lang('microboard::pages.register.title')</small>
                 </div>
-                <form role="form" method="POST" action="{{ route('register') }}">
-                    @csrf
-
-                    @component('microboard::input', [
-                        'name' => 'name',
-                        'type' => 'text',
+                {!! Form::open([
+                    'route' => 'register',
+                    'method' => 'post',
+                    'id' => 'register'
+                ]) !!}
+                    {!! Form::argonInput('name', 'text', null, [
                         'title' => trans('microboard::users.fields.name'),
                         'icon' => 'ni ni-circle-08',
-                        'value' => null,
                         'alternative' => true,
-                        'autoComplete' => 'name'
-                    ])@endcomponent
-
-                    @component('microboard::input', [
-                        'name' => 'email',
-                        'type' => 'email',
+                        'autoComplete' => 'name',
+                        'hideLabel' => true
+                    ]) !!}
+                    {!! Form::argonInput('email', 'email', null, [
                         'title' => trans('microboard::users.fields.email'),
                         'icon' => 'ni ni-email-83',
-                        'value' => null,
                         'alternative' => true,
-                        'autoComplete' => 'email'
-                    ])@endcomponent
-
-                    @component('microboard::input', [
-                        'name' => 'password',
-                        'type' => 'password',
+                        'autoComplete' => 'email',
+                        'hideLabel' => true
+                    ]) !!}
+                    {!! Form::argonInput('password', 'password', null, [
                         'title' => trans('microboard::users.fields.password'),
                         'icon' => 'ni ni-lock-circle-open',
-                        'value' => false,
                         'alternative' => true,
-                        'autoComplete' => 'current-password'
-                    ])@endcomponent
-
-                    @component('microboard::input', [
-                        'name' => 'password_confirmation',
-                        'type' => 'password',
+                        'autoComplete' => 'new-password',
+                        'hideLabel' => true
+                    ]) !!}
+                    {!! Form::argonInput('password_confirmation', 'password', null, [
                         'title' => trans('microboard::users.fields.password_confirmation'),
                         'icon' => 'ni ni-lock-circle-open',
-                        'value' => false,
                         'alternative' => true,
-                    ])@endcomponent
+                        'hideLabel' => true
+                    ]) !!}
 
                     <div class="text-center">
-                        <button type="submit" class="btn btn-primary mt-4">@lang('microboard::pages.register.submit')</button>
+                        <button type="submit" class="btn btn-primary mt-4 action-submit" data-form="#register">
+                            @lang('microboard::pages.register.submit')
+                        </button>
                     </div>
-                </form>
+                {!! Form::close() !!}
             </div>
         </div>
 

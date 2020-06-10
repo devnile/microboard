@@ -12,13 +12,15 @@
 
                 <p>@lang('microboard::pages.verify.text')</p>
 
-                <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
-                    @csrf
-
+                {!! Form::open([
+                    'route' => 'verification.resend',
+                    'method' => 'post',
+                    'class' => 'd-inline'
+                ]) !!}
                     <button type="submit" class="btn btn-default btn-block">
                         @lang('microboard::pages.verify.submit')
                     </button>
-                </form>
+                {!! Form::close() !!}
             </div>
         </div>
     </div>
