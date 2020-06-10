@@ -39,9 +39,12 @@
         <nav class="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
             <div class="container-fluid">
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                @includeWhen(config('microboard.view.enable_global_search'), 'microboard::layout.partials.search')
+                    @includeWhen(config('microboard.view.enable_global_search'), 'microboard::layout.partials.search')
+                    @unless(config('microboard.view.enable_global_search'))
+                        <h6 class="h2 d-inline-block mb-0 text-white">@yield ('title')</h6>
+                    @endunless
 
-                <!-- Navbar links -->
+                    <!-- Navbar links -->
                     <ul class="navbar-nav align-items-center ml-md-auto px-0">
                         <li class="nav-item d-xl-none">
                             <!-- Sidenav toggler -->
@@ -55,7 +58,7 @@
                             </div>
                         </li>
 
-                        @if (config('config.view.enable_global_search'))
+                        @if (config('microboard.view.enable_global_search'))
                             <li class="nav-item d-sm-none">
                                 <a class="nav-link" href="#" data-action="search-show"
                                    data-target="#navbar-search-main">
@@ -103,7 +106,9 @@
                 <div class="header-body">
                     <div class="row align-items-center py-4">
                         <div class="col-lg-6 col-7">
-                            <h6 class="h2 d-inline-block mb-0 text-white">@yield ('title')</h6>
+                            @if(config('microboard.view.enable_global_search'))
+                                <h6 class="h2 d-inline-block mb-0 text-white">@yield ('title')</h6>
+                            @endif
 
                             @includeWhen(config('microboard.view.enable_breadcrumbs', true), 'microboard::layout.partials.breadcrumb')
                         </div>
