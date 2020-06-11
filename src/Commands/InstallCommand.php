@@ -2,12 +2,13 @@
 
 namespace Microboard\Commands;
 
+use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Validator;
 use Facades\Microboard\Factory;
 use Microboard\Models\Role;
 use Microboard\Models\User;
 
-class InstallCommand extends WorkingWithStubs
+class InstallCommand extends Command
 {
     /**
      * The name and signature of the console command.
@@ -37,7 +38,7 @@ class InstallCommand extends WorkingWithStubs
      */
     public function handle()
     {
-        $this->output->progressStart(6);
+        $this->output->progressStart(5);
         $this->output->newLine();
 
         // create storage link first
@@ -52,11 +53,6 @@ class InstallCommand extends WorkingWithStubs
 
         // Migrate the database
         $this->migrateDatabase();
-        $this->output->progressAdvance();
-        $this->output->newLine();
-
-        // update User model
-        $this->updateUserModel();
         $this->output->progressAdvance();
         $this->output->newLine();
 
@@ -143,7 +139,7 @@ class InstallCommand extends WorkingWithStubs
         $this->info('Default roles has created/updated successfully');
 
         Factory::createResourcesPermissionsFor($adminRole, [
-            'dashboard' => ['view'],
+            'dashboard' => ['viewAny'],
             'users' => [],
             'roles' => []
         ]);
@@ -153,21 +149,5 @@ class InstallCommand extends WorkingWithStubs
         if ($this->admin) {
             $adminRole->users()->save($this->admin);
         }
-    }
-
-    private function updateUserModel()
-    {
-        $this->createFromStub(
-            __DIR__ . '/../../stubs/user.stub',
-            'app',
-            'User.php'
-        );
-
-        $this->info('User.php updated');
-    }
-
-    protected function getNameInput()
-    {
-        return null;
     }
 }

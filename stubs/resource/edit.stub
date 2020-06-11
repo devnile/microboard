@@ -19,22 +19,14 @@
 @endsection
 
 @section('content')
-    <div class="row">
-        <div class="col">
-            <div class="card">
-                <div class="card-body mb--4">
-                    {!! Form::open([
-                        'route' => ['microboard.%RESOURCE_NAME_PLURAL%.update', $%RESOURCE_NAME_SINGULAR%],
-                        'method' => 'PATCH',
-                        'files' => true,
-                        'id' => 'edit-%RESOURCE_NAME_SINGULAR%-form'
-                    ]) !!}
-                    @component('%VIEW_NAMESPACE%%BLADE_VIEW_DIRECTORY%.form', [
-                        '%RESOURCE_NAME_SINGULAR%' => $%RESOURCE_NAME_SINGULAR%
-                    ])@endcomponent
-                    {!! Form::close() !!}
-                </div>
-            </div>
-        </div>
-    </div>
+    {!! Form::open([
+        'route' => ['microboard.%RESOURCE_NAME_PLURAL%.update', $%RESOURCE_NAME_SINGULAR%],
+        'method' => 'PATCH',
+        'files' => true,
+        'id' => 'edit-%RESOURCE_NAME_SINGULAR%-form'
+    ]) !!}
+    @component('%VIEW_NAMESPACE%%BLADE_VIEW_DIRECTORY%.form', [
+        '%RESOURCE_NAME_SINGULAR%' => $%RESOURCE_NAME_SINGULAR%
+    ])@endcomponent
+    {!! Form::close() !!}
 @endsection

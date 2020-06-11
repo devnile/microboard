@@ -75,7 +75,7 @@ class %RESOURCE_MODEL_BASE%DataTable extends DataTable
     {
         return $this->builder()
             ->language(trans('microboard::datatable', []))
-            ->addTableClass('table table-striped table-hover')
+            ->addTableClass('table table-striped table-hover align-items-center')
             ->columns($this->getColumns())
             ->setTableId('%RESOURCE_NAME_SINGULAR%-table')
             ->autoWidth(false)

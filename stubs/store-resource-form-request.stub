@@ -14,7 +14,7 @@ class StoreFormRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user()->can('update', new %RESOURCE_MODEL_BASE%);
+        return auth()->user()->can('create', new %RESOURCE_MODEL_BASE%);
     }
 
     /**
@@ -29,11 +29,11 @@ class StoreFormRequest extends FormRequest
     }
 
     /**
-     * Get custom messages for validator errors.
+     * Get custom attributes for validator errors.
      *
      * @return array
      */
-    public function messages()
+    public function attributes()
     {
         return trans('%VIEW_NAMESPACE%%RESOURCE_NAME_PLURAL%.fields');
     }

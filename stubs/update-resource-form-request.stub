@@ -2,7 +2,6 @@
 
 namespace %NAMESPACE%Http\Requests\%RESOURCE_MODEL_BASE%;
 
-use %RESOURCE_MODEL%;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateFormRequest extends FormRequest
@@ -29,11 +28,11 @@ class UpdateFormRequest extends FormRequest
     }
 
     /**
-     * Get custom messages for validator errors.
+     * Get custom attributes for validator errors.
      *
      * @return array
      */
-    public function messages()
+    public function attributes()
     {
         return trans('%VIEW_NAMESPACE%%RESOURCE_NAME_PLURAL%.fields');
     }

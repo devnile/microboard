@@ -3,7 +3,10 @@
 return [
     'resource' => '%RESOURCE_NAME_PLURAL%',
 
-    'fields' => [%COLUMNS%
+    'fields' => [
+        'id' => '#',%COLUMNS%
+        'created_at' => 'إنشء في',
+        'updated_at' => 'أخر تعديل في'
     ],
 
     'create' => [

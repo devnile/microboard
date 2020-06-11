@@ -1,1 +1,8 @@
-%COLUMNS%
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-body mb--4">%COLUMNS%
+            </div>
+        </div>
+    </div>
+</div>

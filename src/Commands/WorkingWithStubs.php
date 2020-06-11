@@ -70,6 +70,10 @@ abstract class WorkingWithStubs extends Command
             return $name;
         }
 
+        if (class_exists($name)) {
+            return $name;
+        }
+
         $name = str_replace('/', '\\', $name);
 
         return $this->qualifyClass(
