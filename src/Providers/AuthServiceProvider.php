@@ -14,8 +14,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'App\User' => 'Microboard\Policies\UserPolicy'
         'App\User' => 'Microboard\Policies\UserPolicy',
+        'Microboard\Models\Role' => 'Microboard\Policies\RolePolicy',
         'Microboard\Models\Setting' => 'Microboard\Policies\SettingPolicy',
     ];
 
