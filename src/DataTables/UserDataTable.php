@@ -103,7 +103,7 @@ class UserDataTable extends DataTable
             ->columns($this->getColumns())
             ->setTableId('user-table')
             ->autoWidth(false)
-            ->orderBy(0)
+            ->orderBy(0, 'asc')
             ->minifiedAjax()
             ->dom("<'card'" .
                 "<'card-header border-0'<'row align-items-center'<'col-12 col-sm-8 col-md-6'<'row no-gutters'<'col-4'l><'col-8'f>>><'col-12 col-sm-4 col-md-6 text-right'B>>>" .

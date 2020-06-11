@@ -21,6 +21,12 @@ class RoleDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
+            ->editColumn('users', function(Role $role) {
+                return $role->users->count();
+            })
+            ->editColumn('permissions', function(Role $role) {
+                return $role->permissions->count();
+            })
             ->addColumn('action', function (Role $role) {
                 $html = '';
 
@@ -79,7 +85,7 @@ class RoleDataTable extends DataTable
             ->columns($this->getColumns())
             ->setTableId('role-table')
             ->autoWidth(false)
-            ->orderBy(0)
+            ->orderBy(0, 'asc')
             ->minifiedAjax()
             ->dom("<'card'" .
                 "<'card-header border-0'<'row align-items-center'<'col-12 col-sm-8 col-md-6'<'row no-gutters'<'col-4'l><'col-8'f>>><'col-12 col-sm-4 col-md-6 text-right'B>>>" .
@@ -102,8 +108,9 @@ class RoleDataTable extends DataTable
     {
         return [
 			Column::make('id')->title(trans('microboard::roles.fields.id'))->width('1%'),
-			Column::make('name')->title(trans('microboard::roles.fields.name')),
 			Column::make('display_name')->title(trans('microboard::roles.fields.display_name')),
+            Column::make('users')->title(trans('microboard::roles.fields.users')),
+            Column::make('permissions')->title(trans('microboard::roles.fields.permissionsCount')),
             Column::computed('action', '')
                 ->exportable(false)
                 ->printable(false)
