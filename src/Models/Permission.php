@@ -2,6 +2,7 @@
 
 namespace Microboard\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class Permission extends Model
@@ -12,7 +13,7 @@ class Permission extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'display_name'
+        'name'
     ];
 
     /**
@@ -21,4 +22,13 @@ class Permission extends Model
      * @var bool
      */
     public $timestamps = false;
+
+    public function scopeGroupByModel(Builder $query)
+    {
+        return $query->get()
+            ->sortBy('id')
+            ->groupBy(function (Permission $permission) {
+                return explode('-', $permission->name)[0];
+            });
+    }
 }
