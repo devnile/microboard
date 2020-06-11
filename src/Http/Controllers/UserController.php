@@ -90,7 +90,14 @@ class UserController extends Controller
     public function update(UpdateFormRequest $request, User $user)
     {
         $this->authorize('update', $user);
-        $user->update($request->validated());
+        $data = $request->only(['name', 'email', 'role_id']);
+
+        if ($request->has('password') && $password = $request->get('password')) {
+            $data['password'] = $password;
+        }
+
+        $user->update($data);
+
         return redirect()->route('microboard.users.show', $user);
     }
 
