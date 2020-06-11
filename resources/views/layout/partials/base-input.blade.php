@@ -4,13 +4,20 @@
     /** @var \Illuminate\Support\Collection $attributes */
     $attributes = collect($attributes);
 
+    if ($bag = $attributes->get('errorBag', false)) {
+        $errors = $errors->{$bag};
+    }
+    $errorName = $attributes->get('errorName', $name);
+
     $title = $attributes->get('title', 'None');
     $alternative = $attributes->get('alternative', false);
     $icon = $attributes->get('icon', null);
     $hideLabel = $attributes->get('hideLabel', false);
     $help = $attributes->get('help', null);
+    $hideHelpIcon = $attributes->get('hideHelpIcon', false);
+    $formClass = 'form-group ' . ($hideLabel ? '' : 'form-row align-items-center ') . ($errors->has($errorName) ? 'has-danger ' : '') . ($attributes->get('formClass'));
 @endphp
-<div class="form-group{{ $hideLabel ? '' : ' form-row align-items-center' }}{{ $errors->has($name) ? ' has-danger' : '' }}">
+<div class="{{ $formClass }}">
     @unless ($hideLabel)
         {!! Form::label($name, $title, ['class' => 'control-label col-sm-3'], true) !!}
     @endunless
@@ -28,11 +35,16 @@
         @endif
         <div class="align-items-center d-lg-flex justify-content-between">
             @if ($help)
-                <small class="text-muted"><i class="fa fa-question-circle"></i> {!! $help !!}</small>
+                <small class="text-muted">
+                    @unless($hideHelpIcon)
+                    <i class="fa fa-question-circle"></i>
+                    @endunless
+                    {!! $help !!}
+                </small>
             @endif
-            @error($name)
-            <span role="alert" class="d-block invalid-feedback mt-0 w-auto">{{ $message }}</span>
-            @enderror
+            @if($errors->has($errorName))
+                <span role="alert" class="d-block invalid-feedback mt-0 w-auto">{{ $errors->first($errorName) }}</span>
+            @endif
         </div>
     </div>
 </div>

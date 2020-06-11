@@ -5,13 +5,20 @@
     /** @var \Illuminate\Support\ViewErrorBag $errors */
     /** @var \Illuminate\Support\Collection $attributes */
     $attributes = collect($attributes);
+
+    if ($bag = $attributes->get('errorBag', false)) {
+        $errors = $errors->{$bag};
+    }
+    $errorName = $attributes->get('errorName', $name);
+
+    $class = 'form-control' . ($errors->has($errorName) ? ' is-invalid' : '') . ($attributes->get('alternative', false) ? ' form-control-alternative' : '');
 @endphp
 
 @component('microboard::layout.partials.base-input', compact('name', 'attributes'))
     {!! Form::input($type, $name, $value, $attributes->merge([
-        'class' => 'form-control' . ($errors->has($name) ? ' is-invalid' : ''),
+        'class' => $class,
         'placeholder' => $attributes->get('title')
     ])
-    ->except(['title', 'hideLabel', 'alternative', 'icon'])
+    ->except(['title', 'hideLabel', 'alternative', 'icon', 'errorBag', 'errorName', 'hideHelpIcon', 'formClass'])
     ->all()) !!}
 @endcomponent
