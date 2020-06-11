@@ -298,7 +298,7 @@ class ResourceCommand extends WorkingWithStubs
         $columns = '';
 
         foreach ($this->getModelColumns() as $column) {
-            $columns .= "\n\t\t\t'{$column}' => ['nullable'],";
+            $columns .= "\n\t\t\t'{$column}' => ['required'],";
         }
 
         return $columns;
