@@ -16,10 +16,10 @@ class Factory
         }
     }
 
-    public function createPermissionsFor($model, Role $role, array $abilities)
+    protected function createPermissionsFor($model, Role $role, array $abilities)
     {
         if (empty($abilities)) {
-            $abilities = ['viewAny', 'view', 'create', 'update', 'delete'];
+            $abilities = ['viewAny', 'view', 'create', 'update', 'delete', 'restore', 'forceDelete'];
         }
 
         foreach ($abilities as $ability) {
