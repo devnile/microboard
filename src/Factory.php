@@ -19,7 +19,7 @@ class Factory
     protected function createPermissionsFor($model, Role $role, array $abilities)
     {
         if (empty($abilities)) {
-            $abilities = ['viewAny', 'view', 'create', 'update', 'delete', 'restore', 'forceDelete'];
+            $abilities = ['viewAny', 'view', 'create', 'update', 'delete'];
         }
 
         foreach ($abilities as $ability) {
