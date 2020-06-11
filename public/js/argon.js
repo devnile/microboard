@@ -1000,19 +1000,25 @@ var form = function () {
   // Variables
   var submitBtn = $('.action-submit'); // Methods
 
-  function submit() {
-    submitBtn.prop("disabled", true).html('<i class="fa fa-spinner fa-spin"></i>');
-    $(submitBtn.attr('data-form')).submit();
+  function submit(event) {
+    var btn = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+    if (!btn) {
+      btn = $(this);
+    }
+
+    btn.prop("disabled", true).html('<i class="fa fa-spinner fa-spin"></i>');
+    $(btn.attr('data-form')).submit();
   } // Events
 
 
-  if (submitBtn.length && submitBtn.length === 1) {
+  if (submitBtn.length) {
     submitBtn.on('click', submit);
     $(document).keypress(function (event) {
       var code = event.keyCode ? event.keyCode : event.which;
 
       if (code === 13) {
-        submit();
+        submit(event, $(this).closest('.action-submit'));
       }
     });
   }
