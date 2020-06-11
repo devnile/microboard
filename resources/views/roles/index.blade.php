@@ -8,7 +8,7 @@
 
 @section('actions')
     @can('create', new Microboard\Models\Role)
-        <a href="{{ route('microboard.roles.create') }}" class="btn btn-sm btn-neutral">
+        <a href="{{ route('microboard.roles.create') }}" class="btn  btn-neutral">
             @lang('microboard::roles.create.title')
         </a>
     @endcan

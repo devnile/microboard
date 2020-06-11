@@ -8,7 +8,7 @@
 
 @section('actions')
     @can('create', new \App\User)
-        <a href="{{ route('microboard.users.create') }}" class="btn btn-sm btn-neutral">
+        <a href="{{ route('microboard.users.create') }}" class="btn  btn-neutral">
             @lang('microboard::users.create.title')
         </a>
     @endcan

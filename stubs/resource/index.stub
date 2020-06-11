@@ -8,7 +8,7 @@
 
 @section('actions')
     @can('create', new %RESOURCE_MODEL%)
-        <a href="{{ route('microboard.%RESOURCE_NAME_PLURAL%.create') }}" class="btn btn-sm btn-neutral">
+        <a href="{{ route('microboard.%RESOURCE_NAME_PLURAL%.create') }}" class="btn  btn-neutral">
             @lang('%VIEW_NAMESPACE%%RESOURCE_NAME_PLURAL%.create.title')
         </a>
     @endcan
