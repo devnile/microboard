@@ -90,7 +90,7 @@ class ResourceCommand extends WorkingWithStubs
             '%RESOURCE_NAME_SINGULAR%' => (string)Str::of($base_name)->snake()->singular(),
             '%VIEW_NAMESPACE%' => $this->option('view-namespace'),
             '%VIEW_DIRECTORY%' => $this->option('views-directory') . '/' . ((string)Str::of($base_name)->snake()->plural()) . '/',
-            '%BLADE_VIEW_DIRECTORY%' => ($this->hasOption('views-directory') ? ($this->option() . '.') : '') .
+            '%BLADE_VIEW_DIRECTORY%' => ($this->hasOption('views-directory') ? ($this->option('views-directory') . '.') : '') .
                 ((string)Str::of($base_name)->snake()->plural()),
         ];
     }
