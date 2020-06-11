@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row flex-row-reverse flex-md-row">
     <div class="col-md-8">
         <div class="card">
             <div class="card-body mb--4">

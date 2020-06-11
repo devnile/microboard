@@ -9,7 +9,7 @@
 
 @section('actions')
     @can('update', $user)
-        <a href="{{ route('microboard.users.edit', $user) }}" class="btn  btn-neutral px-4">
+        <a href="{{ route('microboard.users.edit', $user) }}" class="btn btn-neutral px-4">
             @lang('microboard::users.edit.action-button')
         </a>
     @endcan
@@ -19,7 +19,7 @@
             @csrf
             @method('DELETE')
 
-            <button type="submit" class="btn  btn-danger action-delete"
+            <button type="submit" class="btn btn-danger action-delete"
                     data-toggle="tooltip"
                     data-placement="right"
                     data-original-title="{{ trans('microboard::users.delete.action-button') }}"
@@ -35,8 +35,8 @@
 @endsection
 
 @section('content')
-    <div class="row">
-        <div class="col-sm-8">
+    <div class="row flex-row-reverse flex-md-row">
+        <div class="col-md-8">
             <div class="card">
                 <div class="table-responsive">
                     <table class="table table-flush">
@@ -79,7 +79,7 @@
             </div>
         </div>
 
-        <div class="col-sm-4">
+        <div class="col-md-4">
             @php
                 $files = [
                     ['name' => 'test', 'size' => '1024', 'type' => 'image/jpg', 'url' => asset('storage/user-placeholder.png')]

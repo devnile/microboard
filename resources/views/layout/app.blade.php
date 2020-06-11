@@ -1,6 +1,4 @@
-@extends('microboard::layout.argon', [
-    'bodyClass' => 'g-sidenav-show g-sidenav-pinned'
-])
+@extends('microboard::layout.argon')
 
 @section('argon-content')
     <!-- Sidenav -->
@@ -50,8 +48,9 @@
                     <ul class="navbar-nav align-items-center ml-md-auto px-0">
                         <li class="nav-item d-xl-none">
                             <!-- Sidenav toggler -->
-                            <div class="px-3 sidenav-toggler sidenav-toggler-light" data-action="sidenav-pin"
-                                 data-target="#sidenav-main">
+                            <div class="px-3 sidenav-toggler sidenav-toggler-dark"
+                                 data-action="sidenav-pin" data-target="#sidenav-main"
+                            >
                                 <div class="sidenav-toggler-inner">
                                     <i class="sidenav-toggler-line"></i>
                                     <i class="sidenav-toggler-line"></i>
@@ -107,14 +106,14 @@
             <div class="container-fluid">
                 <div class="header-body">
                     <div class="row align-items-center py-4">
-                        <div class="col-lg-6 col-7">
+                        <div class="col-lg-6 col-12">
                             @if(config('microboard.view.enable_global_search'))
                                 <h6 class="h2 d-inline-block mb-0 text-white">@yield ('title')</h6>
                             @endif
 
                             @includeWhen(config('microboard.view.enable_breadcrumbs', true), 'microboard::layout.partials.breadcrumb')
                         </div>
-                        <div class="col-lg-6 col-5 text-right">
+                        <div class="col-lg-6 col-12 text-right">
                             @yield('actions')
                         </div>
                     </div>

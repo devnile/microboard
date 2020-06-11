@@ -26,12 +26,12 @@
                 @if ($icon !== null)
             </div>
         @endif
-        <div class="align-items-center d-flex justify-content-between">
+        <div class="align-items-center d-lg-flex justify-content-between">
             @if ($help)
                 <small class="text-muted"><i class="fa fa-question-circle"></i> {!! $help !!}</small>
             @endif
             @error($name)
-            <span role="alert" class="d-inline-flex invalid-feedback mt-0 w-auto">{{ $message }}</span>
+            <span role="alert" class="d-block invalid-feedback mt-0 w-auto">{{ $message }}</span>
             @enderror
         </div>
     </div>

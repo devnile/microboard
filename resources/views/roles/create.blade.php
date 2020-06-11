@@ -8,11 +8,11 @@
 @section('title', trans('microboard::roles.create.title'))
 
 @section('actions')
-    <a href="{{ route('microboard.roles.index') }}" class="btn  btn-neutral px-3">
+    <a href="{{ route('microboard.roles.index') }}" class="btn btn-neutral px-3">
         @lang('microboard::roles.create.cancel')
     </a>
 
-    <button class="btn  px-5 btn-default action-submit" data-form="#create-role-form">
+    <button class="btn px-5 btn-default action-submit" data-form="#create-role-form">
         @lang('microboard::roles.create.save')
     </button>
 @endsection

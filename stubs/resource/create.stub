@@ -8,11 +8,11 @@
 @section('title', trans('%VIEW_NAMESPACE%%RESOURCE_NAME_PLURAL%.create.title'))
 
 @section('actions')
-    <a href="{{ route('microboard.%RESOURCE_NAME_PLURAL%.index') }}" class="btn  btn-neutral px-3">
+    <a href="{{ route('microboard.%RESOURCE_NAME_PLURAL%.index') }}" class="btn btn-neutral px-3">
         @lang('%VIEW_NAMESPACE%%RESOURCE_NAME_PLURAL%.create.cancel')
     </a>
 
-    <button class="btn  px-5 btn-default action-submit" data-form="#create-%RESOURCE_NAME_SINGULAR%-form">
+    <button class="btn px-5 btn-default action-submit" data-form="#create-%RESOURCE_NAME_SINGULAR%-form">
         @lang('%VIEW_NAMESPACE%%RESOURCE_NAME_PLURAL%.create.save')
     </button>
 @endsection

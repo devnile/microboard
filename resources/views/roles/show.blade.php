@@ -9,7 +9,7 @@
 
 @section('actions')
     @can('update', $role)
-        <a href="{{ route('microboard.roles.edit', $role) }}" class="btn  btn-neutral px-4">
+        <a href="{{ route('microboard.roles.edit', $role) }}" class="btn btn-neutral px-4">
             @lang('microboard::roles.edit.action-button')
         </a>
     @endcan
@@ -19,7 +19,7 @@
             @csrf
             @method('DELETE')
 
-            <button type="submit" class="btn  btn-danger action-delete"
+            <button type="submit" class="btn btn-danger action-delete"
                     data-toggle="tooltip"
                     data-placement="right"
                     data-original-title="{{ trans('microboard::roles.delete.action-button') }}"
