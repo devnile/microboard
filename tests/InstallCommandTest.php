@@ -82,7 +82,7 @@ class InstallCommandTest extends TestCase
 
         $this->assertDatabaseHas('roles', ['name' => 'admin']);
         $this->assertDatabaseHas('roles', ['name' => 'user']);
-        $this->assertDatabaseCount('permissions', 15);
-        $this->assertDatabaseCount('permission_role', 15);
+        $this->assertDatabaseCount('permissions', 11);
+        $this->assertDatabaseCount('permission_role', 11);
     }
 }
