@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/microboard/vendor/nucleo/css/nucleo.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('vendor/microboard/vendor/@fortawesome/css/all.min.css') }}" type="text/css">
     <!-- Page plugins -->
+    <link rel="stylesheet" href="{{ asset('vendor/microboard/vendor/sweetalert2/sweetalert2.min.css') }}">
     @stack('styles')
     <!-- Argon CSS -->
     <link rel="stylesheet" href="{{ mix('css/argon.css', 'vendor/microboard') }}">
@@ -46,6 +47,7 @@
     <script src="{{ asset('vendor/microboard/vendor/jquery.scrollbar/jquery.scrollbar.min.js') }}"></script>
     <script src="{{ asset('vendor/microboard/vendor/jquery-scroll-lock/jquery-scrollLock.min.js') }}"></script>
     <!-- Optional JS -->
+    <script src="{{ asset('vendor/microboard/vendor/sweetalert2/sweetalert2.min.js') }}"></script>
     @stack('scripts')
     <!-- Argon JS -->
     <script src="{{ mix('js/argon.js', 'vendor/microboard') }}"></script>

@@ -1,14 +1,17 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 Auth::routes(config('microboard.routes.auth', []));
 
 Route::group([
     'middleware' => config('microboard.routes.middleware', []),
     'as' => 'microboard.'
-], function() {
+], function () {
     Route::get('/', 'DashboardController')->name('home');
-    Route::resource('users', 'UserController');
+    Route::resources([
+        'users' => 'UserController',
+        'roles' => 'RoleController',
+    ]);
 });
