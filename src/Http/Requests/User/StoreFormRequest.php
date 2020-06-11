@@ -1,10 +1,11 @@
 <?php
 
-namespace Microboard\Http\Requests;
+namespace Microboard\Http\Requests\User;
 
+use App\User;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateUserFormRequest extends FormRequest
+class StoreFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +14,7 @@ class UpdateUserFormRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user()->can('update', $this->user);
+        return auth()->user()->can('update', new User);
     }
 
     /**
@@ -24,7 +25,10 @@ class UpdateUserFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string']
+            'name' => ['required', 'string'],
+            'email' => ['required', 'string', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'role_id' => ['required', 'string', 'exists:roles,id'],
         ];
     }
 

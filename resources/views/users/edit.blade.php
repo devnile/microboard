@@ -19,22 +19,14 @@
 @endsection
 
 @section('content')
-    <div class="row">
-        <div class="col">
-            <div class="card">
-                <div class="card-body mb--4">
-                    {!! Form::open([
-                        'route' => ['microboard.users.update', $user],
-                        'method' => 'PATCH',
-                        'files' => true,
-                        'id' => 'edit-user-form'
-                    ]) !!}
-                    @component('microboard::resource.form', [
-                        'user' => $user
-                    ])@endcomponent
-                    {!! Form::close() !!}
-                </div>
-            </div>
-        </div>
-    </div>
+    {!! Form::open([
+        'route' => ['microboard.users.update', $user],
+        'method' => 'PATCH',
+        'files' => true,
+        'id' => 'edit-user-form'
+    ]) !!}
+    @component('microboard::users.form', [
+        'user' => $user
+    ])@endcomponent
+    {!! Form::close() !!}
 @endsection

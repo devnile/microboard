@@ -21,7 +21,29 @@ class UserDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->editColumn('avatar', '<img src="{{ $avatar }}" class="avatar-sm" alt="{{ $name }}" />')
+            ->editColumn('role_id', function (User $user) {
+                if (auth()->user()->can('view', $user->role)) {
+                    $route = route('microboard.roles.show', $user->role);
+                    return "<a href='{$route}'>{$user->role->display_name}</a>";
+                }
+
+                return $user->role->display_name;
+            })
+            ->editColumn('name', function (User $user) {
+                return '<div class="media align-items-center">' .
+                    '<span class="avatar avatar-sm rounded-circle mr-3">' .
+                    '<img alt="' . $user->name . '" src="' . $user->avatar . '"></span>' .
+                    '<div class="media-body">' .
+                    '<span class="mb-0 d-block">' . $user->name . '</span>' .
+                    '<small class="mb-0" style="font-size: 10px;"><i class="fa fa-clock"></i> ' .
+                    '<time datetime="'. $user->updated_at .'">' .
+                    trans('microboard::users.fields.updated_at') . ' ' .
+                    $user->updated_at->diffForHumans() . '</time></small>' .
+                    '</div></div>';
+            })
+            ->editColumn('created_at', function(User $user) {
+                return "<time datetime='{$user->created_at}'>{$user->created_at->format('d/m/Y')}</time>";
+            })
             ->addColumn('action', function (User $user) {
                 $html = '';
 
@@ -44,11 +66,11 @@ class UserDataTable extends DataTable
                         csrf_field() . method_field('DELETE') .
                         '<button type="submit" data-toggle="tooltip" ' .
                         'class="bg-transparent border-0 p-0 table-action table-action-delete" ' .
-                        'data-original-title="'. trans('microboard::users.delete.action-button') .'" ' .
-                        'data-modal-title="'. trans('microboard::users.delete.title') .'" ' .
-                        'data-modal-text="'. trans('microboard::users.delete.text') .'" ' .
-                        'data-confirm="'. trans('microboard::users.delete.confirm') .'" ' .
-                        'data-cancel="'. trans('microboard::users.delete.cancel') .'">' .
+                        'data-original-title="' . trans('microboard::users.delete.action-button') . '" ' .
+                        'data-modal-title="' . trans('microboard::users.delete.title') . '" ' .
+                        'data-modal-text="' . trans('microboard::users.delete.text') . '" ' .
+                        'data-confirm="' . trans('microboard::users.delete.confirm') . '" ' .
+                        'data-cancel="' . trans('microboard::users.delete.cancel') . '">' .
                         '<i class="fas fa-trash"></i></button></form>';
                 }
 
@@ -65,7 +87,7 @@ class UserDataTable extends DataTable
      */
     public function query(User $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()->with(['role']);
     }
 
     /**
@@ -77,7 +99,7 @@ class UserDataTable extends DataTable
     {
         return $this->builder()
             ->language(trans('microboard::datatable', []))
-            ->addTableClass('table table-striped table-hover')
+            ->addTableClass('table table-striped table-hover table-sm align-items-center')
             ->columns($this->getColumns())
             ->setTableId('user-table')
             ->autoWidth(false)
@@ -104,9 +126,10 @@ class UserDataTable extends DataTable
     {
         return [
             Column::make('id')->title(trans('microboard::users.fields.id'))->width('1%'),
-            Column::make('avatar')->title(trans('microboard::users.fields.avatar'))->width(36),
-            Column::make('name')->title(trans('microboard::users.fields.name')),
+            Column::make('name')->title(trans('microboard::users.fields.name'))->width('25%'),
+            Column::make('role_id')->title(trans('microboard::users.fields.role_id')),
             Column::make('email')->title(trans('microboard::users.fields.email')),
+            Column::make('created_at')->title(trans('microboard::users.fields.created_at')),
             Column::computed('action', '')
                 ->exportable(false)
                 ->printable(false)

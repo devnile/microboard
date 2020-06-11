@@ -18,22 +18,14 @@
 @endsection
 
 @section('content')
-    <div class="row">
-        <div class="col">
-            <div class="card">
-                <div class="card-body mb--4">
-                    {!! Form::open([
-                        'route' => ['microboard.users.store'],
-                        'method' => 'POST',
-                        'files' => true,
-                        'id' => 'create-user-form'
-                    ]) !!}
-                    @component('microboard::resource.form', [
-                        'user' => new \App\User
-                    ])@endcomponent
-                    {!! Form::close() !!}
-                </div>
-            </div>
-        </div>
-    </div>
+    {!! Form::open([
+        'route' => ['microboard.users.store'],
+        'method' => 'POST',
+        'files' => true,
+        'id' => 'create-user-form'
+    ]) !!}
+    @component('microboard::users.form', [
+        'user' => new \App\User
+    ])@endcomponent
+    {!! Form::close() !!}
 @endsection
