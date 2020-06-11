@@ -60,6 +60,12 @@ class ViewServiceProvider extends ServiceProvider
         );
 
         FormBuilder::component(
+            'avatar',
+            'microboard::avatar',
+            ['value', 'attributes']
+        );
+
+        FormBuilder::component(
             'argonSelect',
             'microboard::select',
             ['name', 'list', 'value', 'attributes']

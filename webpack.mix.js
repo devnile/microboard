@@ -33,6 +33,7 @@ mix.disableSuccessNotifications()
     .copyDirectory('resources/vendor/datatables.net-buttons-bs4/css', 'public/vendor/datatables.net')
 
     .copyDirectory('resources/vendor/sweetalert2/dist', 'public/vendor/sweetalert2')
+    .copyDirectory('resources/vendor/dropzone/dist/min', 'public/vendor/dropzone')
     .copyDirectory('resources/vendor/select2/dist', 'public/vendor/select2')
 
     .js('resources/js/argon.js', 'public/js')
