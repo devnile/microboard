@@ -50,7 +50,19 @@ class ViewServiceProvider extends ServiceProvider
         FormBuilder::component(
             'argonCheckbox',
             'microboard::checkbox',
-            ['name', 'value', 'attributes']
+            ['name', 'value', 'checked', 'attributes']
+        );
+
+        FormBuilder::component(
+            'argonToggle',
+            'microboard::toggle',
+            ['name', 'value', 'checked', 'attributes']
+        );
+
+        FormBuilder::component(
+            'argonSelect',
+            'microboard::select',
+            ['name', 'list', 'value', 'attributes']
         );
     }
 }

@@ -119,6 +119,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_vendor_sweetalert__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_components_vendor_sweetalert__WEBPACK_IMPORTED_MODULE_10__);
 /* harmony import */ var _components_vendor_form__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/vendor/form */ "./resources/js/components/vendor/form.js");
 /* harmony import */ var _components_vendor_form__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_components_vendor_form__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _components_vendor_dropzone__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/vendor/dropzone */ "./resources/js/components/vendor/dropzone.js");
+/* harmony import */ var _components_vendor_dropzone__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_components_vendor_dropzone__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var _components_vendor_select2__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/vendor/select2 */ "./resources/js/components/vendor/select2.js");
+/* harmony import */ var _components_vendor_select2__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_components_vendor_select2__WEBPACK_IMPORTED_MODULE_13__);
 
  // Init
 
@@ -130,6 +134,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
  // Vendors
+
+
 
 
 
@@ -905,6 +911,81 @@ var dt = function () {
 
 /***/ }),
 
+/***/ "./resources/js/components/vendor/dropzone.js":
+/*!****************************************************!*\
+  !*** ./resources/js/components/vendor/dropzone.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var Dropzones = function () {
+  // Variables
+  var $dropzone = $('[data-toggle="dropzone"]');
+  var $dropzonePreview = $('.dz-preview'); // Methods
+
+  function init($this) {
+    var multiple = $this.data('dropzone-multiple') !== undefined ? true : false;
+    var preview = $this.find($dropzonePreview);
+    var acceptedFiles = $this.data('accept');
+    var maxFiles = $this.data('max-files');
+    var defaultFiles = $this.data('files');
+    var dictDefaultMessage = $this.data('label');
+    var currentFile = undefined; // Init options
+
+    var options = {
+      url: $this.data('dropzone-url'),
+      thumbnailWidth: null,
+      thumbnailHeight: null,
+      previewsContainer: preview.get(0),
+      previewTemplate: preview.html(),
+      maxFiles: !multiple ? 1 : maxFiles,
+      acceptedFiles: !multiple ? acceptedFiles : null,
+      dictDefaultMessage: dictDefaultMessage,
+      init: function init() {
+        this.on("addedfile", function (file) {
+          if (!multiple && currentFile) {
+            this.removeFile(currentFile);
+          }
+
+          currentFile = file;
+        });
+
+        if (defaultFiles) {
+          for (var i = 0; i < defaultFiles.length; i++) {
+            var mock = defaultFiles[i];
+            this.displayExistingFile(mock, mock.url);
+          }
+
+          this.options.maxFiles = this.options.maxFiles - defaultFiles.length;
+
+          this._updateMaxFilesReachedClass();
+        }
+      }
+    }; // Clear preview html
+
+    preview.html(''); // Init dropzone
+
+    $this.dropzone(options);
+  }
+
+  function globalOptions() {
+    Dropzone.autoDiscover = false;
+  } // Events
+
+
+  if ($dropzone.length) {
+    globalOptions();
+    $dropzone.each(function () {
+      init($(this));
+    });
+  }
+}();
+
+/***/ }),
+
 /***/ "./resources/js/components/vendor/form.js":
 /*!************************************************!*\
   !*** ./resources/js/components/vendor/form.js ***!
@@ -933,6 +1014,38 @@ var form = function () {
       if (code === 13) {
         submit();
       }
+    });
+  }
+}();
+
+/***/ }),
+
+/***/ "./resources/js/components/vendor/select2.js":
+/*!***************************************************!*\
+  !*** ./resources/js/components/vendor/select2.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var Select2 = function () {
+  // Variables
+  var $select = $('[data-toggle="select"]'); // Methods
+
+  function init($this) {
+    var options = {// dropdownParent: $this.closest('.modal').length ? $this.closest('.modal') : $(document.body),
+      // minimumResultsForSearch: $this.data('minimum-results-for-search'),
+      // templateResult: formatAvatar
+    };
+    $this.select2(options);
+  } // Events
+
+
+  if ($select.length) {
+    $select.each(function () {
+      init($(this));
     });
   }
 }();

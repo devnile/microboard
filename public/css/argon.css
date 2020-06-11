@@ -239,8 +239,8 @@ table {
 }
 
 caption {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
   color: #8898aa;
   text-align: left;
   caption-side: bottom;
@@ -1867,7 +1867,7 @@ pre code {
 
 .table th,
 .table td {
-  padding: 2rem;
+  padding: 1.25rem;
   vertical-align: top;
   border-top: 1px solid #e9ecef;
 }
@@ -1883,7 +1883,7 @@ pre code {
 
 .table-sm th,
 .table-sm td {
-  padding: 1rem;
+  padding: 0.75rem;
 }
 
 .table-bordered {
@@ -27025,6 +27025,32 @@ table.dataTable tbody > tr.selected {
 
 [data-dz-size] strong {
   font-weight: 400;
+}
+
+.dz-button {
+  font-weight: 600;
+  box-shadow: none;
+  position: relative;
+  text-transform: none;
+  transition: all 0.15s ease;
+  letter-spacing: 0.025em;
+  font-size: 0.875rem;
+  will-change: transform;
+  color: #5e72e4;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: 0.625rem 1.25rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
 }
 
 .vector-map {
