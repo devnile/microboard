@@ -14,4 +14,7 @@ Route::group([
         'users' => 'UserController',
         'roles' => 'RoleController',
     ]);
+    Route::get('/settings', 'SettingController@index')->name('settings.index');
+    Route::post('/settings', 'SettingController@store')->name('settings.store');
+    Route::patch('/settings', 'SettingController@update')->name('settings.update');
 });
