@@ -80,6 +80,14 @@ class InstallCommand extends Command
         $this->call('vendor:publish', [
             '--provider' => 'Microboard\\Providers\\ViewServiceProvider'
         ]);
+        $this->call('vendor:publish', [
+            '--provider' => 'Yajra\DataTables\ButtonsServiceProvider'
+        ]);
+        $this->call('vendor:publish', [
+            '--provider' => 'Spatie\MediaLibrary\MediaLibraryServiceProvider',
+            '--tag' => 'config'
+        ]);
+
         $this->info('All assets has been published');
     }
 
@@ -133,8 +141,8 @@ class InstallCommand extends Command
 
     private function createRolesAndPermissions()
     {
-        $adminRole = Role::updateOrCreate(['name' => 'admin', 'display_name' => 'Administrator']);
-        Role::updateOrCreate(['name' => 'user', 'display_name' => 'Normal user']);
+        $adminRole = Role::firstOrCreate(['name' => 'admin'], ['display_name' => 'Administrator']);
+        Role::firstOrCreate(['name' => 'user'], ['display_name' => 'Normal user']);
 
         $this->info('Default roles has created/updated successfully');
 

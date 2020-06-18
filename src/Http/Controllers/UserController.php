@@ -50,6 +50,9 @@ class UserController extends Controller
     {
         $this->authorize('create', new User);
         $user = User::create($request->validated());
+
+        addMediaTo($user, 'avatar');
+
         return redirect()->route('microboard.users.show', $user);
     }
 
@@ -97,6 +100,8 @@ class UserController extends Controller
         }
 
         $user->update($data);
+
+        addMediaTo($user, 'avatar');
 
         return redirect()->route('microboard.users.show', $user);
     }

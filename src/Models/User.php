@@ -6,10 +6,12 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail, HasMedia
 {
-    use Notifiable;
+    use Notifiable, InteractsWithMedia;
 
     /**
      * The attributes that are mass assignable.
@@ -66,13 +68,23 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Register media library collections.
+     */
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('avatar')
+            ->singleFile()
+            ->useFallbackPath($avatar = asset('/storage/user-placeholder.png'))
+            ->useFallbackUrl($avatar);
+    }
+
+    /**
      * Get user's avatar or get the placeholder
      *
-     * @param $value
      * @return string
      */
-    public function getAvatarAttribute($value)
+    public function getAvatarAttribute()
     {
-        return asset($value ?? 'storage/user-placeholder.png');
+        return $this->getFirstMediaUrl('avatar');
     }
 }

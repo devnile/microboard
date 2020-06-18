@@ -15,8 +15,7 @@ class AddColumnsToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('avatar')->nullable()->after('email');
-            $table->foreignId('role_id')->after('avatar')->nullable()->constrained()->onDelete('set null');
+            $table->foreignId('role_id')->after('email')->nullable()->constrained()->onDelete('set null');
         });
     }
 
@@ -31,7 +30,7 @@ class AddColumnsToUsersTable extends Migration
             if (DB::getDefaultConnection() !== 'sqlite') {
                 $table->dropForeign(['role_id']);
             }
-            $table->dropColumn(['avatar', 'role_id']);
+            $table->dropColumn(['role_id']);
         });
     }
 }

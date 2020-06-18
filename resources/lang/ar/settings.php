@@ -9,13 +9,15 @@ return [
 		'key' => 'الاسم المميز',
 		'key_help' => 'للاشارة الى الحقل عند استدعاءه',
 		'value' => 'الحقل',
-		'cast' => [
-		    'text' => 'حقل نصي',
-            'textarea' => 'حقل نصي متعدد الاسطر',
-            'email' => 'بريد إلكتروني',
-            'tel' => 'رقم هاتف',
-            'number' => 'قيمة عددية',
-            'select' => 'قائمة منسدلة',
+		'types' => [
+		    'argonInput|text' => 'حقل نصي',
+            'argonTextarea' => 'حقل نصي متعدد الاسطر',
+            'argonInput|email' => 'بريد إلكتروني',
+            'argonInput|tel' => 'رقم هاتف',
+            'argonInput|number' => 'قيمة عددية',
+            'argonSelect' => 'قائمة منسدلة',
+            'avatar' => 'صورة',
+            'files' => 'صور متعددة'
         ],
         'created_at' => 'إنشء في',
         'updated_at' => 'أخر تعديل في'

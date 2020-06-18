@@ -16,6 +16,8 @@ mix.disableSuccessNotifications()
 
     .setPublicPath('public')
 
+    .setResourceRoot('./resources')
+
     .copyDirectory('resources/vendor/nucleo', 'public/vendor/nucleo')
     .copyDirectory('resources/vendor/@fortawesome/fontawesome-free', 'public/vendor/@fortawesome')
     .copyDirectory('resources/vendor/jquery/dist', 'public/vendor/jquery')
@@ -43,7 +45,4 @@ mix.disableSuccessNotifications()
         enabled: mix.inProduction(),
         folders: ['resources/views', 'resources/js'],
         extensions: ['php', 'js'],
-    })
-
-    // for development only
-    .copyDirectory('public', '../../public/vendor/microboard');
+    });

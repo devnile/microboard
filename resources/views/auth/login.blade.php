@@ -29,7 +29,7 @@
                     'autoComplete' => 'current-password',
                     'hideLabel' => true
                 ]) !!}
-                {!! Form::argonCheckbox('remember', false, [
+                {!! Form::argonCheckbox('remember', 1, false, [
                     'title' => trans('microboard::pages.login.remember'),
                     'alternative' => true,
                 ]) !!}

@@ -48,6 +48,12 @@ class ViewServiceProvider extends ServiceProvider
         );
 
         FormBuilder::component(
+            'argonTextarea',
+            'microboard::textarea',
+            ['name', 'value', 'attributes']
+        );
+
+        FormBuilder::component(
             'argonCheckbox',
             'microboard::checkbox',
             ['name', 'value', 'checked', 'attributes']
@@ -62,6 +68,12 @@ class ViewServiceProvider extends ServiceProvider
         FormBuilder::component(
             'avatar',
             'microboard::avatar',
+            ['value', 'attributes']
+        );
+
+        FormBuilder::component(
+            'files',
+            'microboard::files',
             ['value', 'attributes']
         );
 

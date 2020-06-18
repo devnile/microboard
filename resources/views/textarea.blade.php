@@ -1,6 +1,5 @@
 @php
     /** @var $name */
-    /** @var $type */
     /** @var $value */
     /** @var \Illuminate\Support\ViewErrorBag $errors */
     /** @var \Illuminate\Support\Collection $attributes */
@@ -17,9 +16,10 @@
 @endphp
 
 @component('microboard::layout.partials.base-input', compact('name', 'attributes'))
-    {!! Form::input($type, $name, $value, $attributes->merge([
+    {!! Form::textarea($name, $value, $attributes->merge([
         'class' => $class,
-        'placeholder' => $attributes->get('title')
+        'placeholder' => $attributes->get('title'),
+        'rows' => 3
     ])
     ->except(['title', 'hideLabel', 'alternative', 'icon', 'errorBag', 'errorName', 'hideHelpIcon', 'formClass'])
     ->all()) !!}

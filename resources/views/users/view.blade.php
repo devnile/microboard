@@ -80,27 +80,15 @@
         </div>
 
         <div class="col-md-4">
-            @php
-                $files = [
-                    ['name' => 'test', 'size' => '1024', 'type' => 'image/jpg', 'url' => asset('storage/user-placeholder.png')]
-                ];
-            @endphp
             <div class="card">
-                @can('update', $user)
-                    {!! Form::avatar($files, [
-                        'title' => trans('microboard::users.fields.select_avatar'),
-                        'default' => asset('storage/user-placeholder.png')
-                    ]) !!}
-                @else
-                    <div class="dropzone dropzone-single dz-clickable dz-max-files-reached">
-                        <div class="dz-preview dz-preview-single">
-                            <div class="dz-preview-cover dz-complete dz-image-preview">
-                                <img class="dz-preview-img" src="{{ $files[0]['url'] }}">
-                            </div>
+                <div class="dropzone dropzone-single dz-clickable dz-max-files-reached">
+                    <div class="dz-preview dz-preview-single">
+                        <div class="dz-preview-cover dz-complete dz-image-preview">
+                            <img class="dz-preview-img" src="{{ $user->avatar }}">
                         </div>
-                        <div style="padding: 7rem 1rem;"></div>
                     </div>
-                @endcan
+                    <div style="padding: 7rem 1rem;"></div>
+                </div>
             </div>
         </div>
     </div>

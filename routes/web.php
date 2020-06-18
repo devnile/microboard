@@ -17,4 +17,6 @@ Route::group([
     Route::get('/settings', 'SettingController@index')->name('settings.index');
     Route::post('/settings', 'SettingController@store')->name('settings.store');
     Route::patch('/settings', 'SettingController@update')->name('settings.update');
+    Route::post('/media/upload', 'MediaLibraryController@store')->name('media.store');
+    Route::delete('/media/delete', 'MediaLibraryController@destroy')->name('media.destroy');
 });

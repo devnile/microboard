@@ -41,8 +41,9 @@
 
     <div class="col-md-4">
         <div class="card">
-            {!! Form::avatar(null, [
-                'title' => trans('microboard::users.fields.select_avatar')
+            {!! Form::avatar($user->getMedia('avatar'), [
+                'title' => trans('microboard::users.fields.select_avatar'),
+                'data-default' => asset('storage/user-placeholder.png')
             ]) !!}
         </div>
     </div>

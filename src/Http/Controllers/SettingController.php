@@ -8,6 +8,7 @@ use Microboard\Http\Requests\Setting\StoreFormRequest;
 use Illuminate\Http\RedirectResponse;
 use Microboard\Models\Setting;
 use Illuminate\View\View;
+use function GuzzleHttp\Promise\all;
 
 class SettingController extends Controller
 {
@@ -48,11 +49,12 @@ class SettingController extends Controller
     public function update(UpdateFormRequest $request)
     {
         $this->authorize('update', new Setting);
+
         foreach ($request->get('value') as $id => $value) {
-            Setting::find($id)->update([
-                'value' => $value
-            ]);
+            Setting::find($id)->update(compact('value'));
         }
+
+        addMediaTo(new Setting);
 
         return redirect()->route('microboard.settings.index');
     }

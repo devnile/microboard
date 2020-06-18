@@ -13,6 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="This package created to decrease working time that spent on admin panels">
     <meta name="author" content="Mohamed Ibrahim, Devnile">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Icons -->
     <link rel="stylesheet" href="{{ asset('vendor/microboard/vendor/nucleo/css/nucleo.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ asset('vendor/microboard/vendor/@fortawesome/css/all.min.css') }}" type="text/css">
