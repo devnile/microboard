@@ -11,9 +11,9 @@ if (! function_exists('setting')) {
 }
 
 if (! function_exists('addMediaTo')) {
-    function addMediaTo(\Spatie\MediaLibrary\HasMedia $model, $collection = 'default') {
-        if (request()->has('file')) {
-            $file = request()->input('file');
+    function addMediaTo(\Spatie\MediaLibrary\HasMedia $model, $collection = 'default', $input = 'file') {
+        if (request()->has($input)) {
+            $file = request()->input($input);
 
             if (is_array($file)) {
                 foreach ($file as $_file) {

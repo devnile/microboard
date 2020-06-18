@@ -51,10 +51,16 @@ class SettingController extends Controller
         $this->authorize('update', new Setting);
 
         foreach ($request->get('value') as $id => $value) {
-            Setting::find($id)->update(compact('value'));
-        }
+            $setting = tap(Setting::find($id))->update(compact('value'));
 
-        addMediaTo(new Setting);
+            if(in_array($setting->type, ['avatar', 'files'])) {
+                if ($setting->type === 'avatar') {
+                    $setting->getMedia()->each->delete();
+                }
+
+                addMediaTo($setting, 'default', "value.{$setting->id}");
+            }
+        }
 
         return redirect()->route('microboard.settings.index');
     }

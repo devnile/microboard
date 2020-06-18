@@ -16,8 +16,6 @@ mix.disableSuccessNotifications()
 
     .setPublicPath('public')
 
-    .setResourceRoot('./resources')
-
     .copyDirectory('resources/vendor/nucleo', 'public/vendor/nucleo')
     .copyDirectory('resources/vendor/@fortawesome/fontawesome-free', 'public/vendor/@fortawesome')
     .copyDirectory('resources/vendor/jquery/dist', 'public/vendor/jquery')
@@ -41,8 +39,9 @@ mix.disableSuccessNotifications()
     .js('resources/js/argon.js', 'public/js')
 
     .sass('resources/scss/argon.scss', 'public/css')
+
     .purgeCss({
-        enabled: mix.inProduction(),
-        folders: ['resources/views', 'resources/js'],
-        extensions: ['php', 'js'],
+        extend: {
+            content: [path.join(__dirname, 'src/**/*.php')],
+        },
     });
