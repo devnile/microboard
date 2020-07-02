@@ -3,6 +3,7 @@
 namespace Microboard\Http\Requests\Role;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Microboard\Models\Role;
 
 class UpdateFormRequest extends FormRequest
 {
@@ -13,7 +14,8 @@ class UpdateFormRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user()->can('update', $this->role);
+        $role = Role::find($this->route('role'));
+        return $role && auth()->user()->can('update', $role);
     }
 
     /**
@@ -24,7 +26,7 @@ class UpdateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string', 'min:3', 'unique:roles,name,' . $this->role->id],
+            'name' => ['required', 'string', 'min:3', 'unique:roles,name,' . $this->route('role')],
             'display_name' => ['required', 'string', 'min:3'],
         ];
     }

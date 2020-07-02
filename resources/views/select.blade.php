@@ -11,7 +11,7 @@
     $errorName = $attributes->get('errorName', $name);
     $class = 'form-control' . ($errors->has($errorName) ? ' is-invalid' : '') . ($attributes->get('alternative', false) ? ' form-control-alternative' : '');
 @endphp
-@component('microboard::layout.partials.base-input', compact('name', 'attributes'))
+@component('microboard::layouts.partials.base-input', compact('name', 'attributes'))
     {!! Form::select($name, $list, $value, $attributes->merge([
         'class' => $class,
         'data-toggle' => 'select',

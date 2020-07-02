@@ -2,7 +2,6 @@
 
 namespace Microboard\Http\Requests\Setting;
 
-use Microboard\Models\Setting;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreFormRequest extends FormRequest
@@ -14,7 +13,7 @@ class StoreFormRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user()->can('create', new Setting);
+        return true;
     }
 
     /**
@@ -25,11 +24,11 @@ class StoreFormRequest extends FormRequest
     public function rules()
     {
         return [
-			'key' => ['required', 'string', 'unique:settings'],
-			'name' => ['required', 'string'],
-			'value' => ['nullable', 'string'],
-			'cast.type' => ['required', 'string'],
-			'cast.extra' => ['nullable', 'json']
+            'key' => ['required', 'string', 'unique:settings'],
+            'name' => ['required', 'string'],
+            'value' => ['nullable', 'string'],
+            'cast.type' => ['required', 'string'],
+            'cast.extra' => ['nullable', 'json']
         ];
     }
 

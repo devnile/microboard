@@ -4,6 +4,7 @@ namespace Microboard\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Hash;
+use Microboard\Models\User;
 
 class UpdateFormRequest extends FormRequest
 {
@@ -14,7 +15,8 @@ class UpdateFormRequest extends FormRequest
      */
     public function authorize()
     {
-        return auth()->user()->can('update', $this->user);
+        $user = User::find($this->route('user'));
+        return $user && auth()->user()->can('update', $user);
     }
 
     /**
@@ -26,8 +28,8 @@ class UpdateFormRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string'],
-            'email' => ['required', 'string', 'unique:users,email,' . $this->user->id],
-            'auth_password' => ['nullable', 'required_with:password', 'string', function($attribute, $value, $fail) {
+            'email' => ['required', 'string', 'unique:users,email,' . $this->route('user')],
+            'auth_password' => ['nullable', 'required_with:password', 'string', function ($attribute, $value, $fail) {
                 if (!Hash::check($value, auth()->user()->password)) {
                     $fail(trans('auth.failed'));
                 }

@@ -1,4 +1,0 @@
-
-                {!! Form::argonInput('%COLUMN_NAME%', 'text', $%RESOURCE_NAME_SINGULAR%->%COLUMN_NAME%, [
-                    'title' => trans('%VIEW_NAMESPACE%%RESOURCE_NAME_PLURAL%.fields.%COLUMN_NAME%')
-                ]) !!}

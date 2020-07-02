@@ -19,12 +19,14 @@ class ViewServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . '/../../resources/views/layout/partials/navbar-links.blade.php' =>
-                    resource_path('views/vendor/microboard/layout/partials/navbar-links.blade.php'),
-                __DIR__ . '/../../resources/views/layout/partials/notifications.blade.php' =>
-                    resource_path('views/vendor/microboard/layout/partials/notifications.blade.php'),
-                __DIR__ . '/../../resources/views/layout/partials/user.blade.php' =>
-                    resource_path('views/vendor/microboard/layout/partials/user.blade.php'),
+                __DIR__ . '/../../resources/views/layouts/partials/navbar-links.blade.php' =>
+                    resource_path('views/vendor/microboard/layouts/partials/navbar-links.blade.php'),
+                __DIR__ . '/../../resources/views/layouts/partials/notifications.blade.php' =>
+                    resource_path('views/vendor/microboard/layouts/partials/notifications.blade.php'),
+                __DIR__ . '/../../resources/views/layouts/partials/logo.blade.php' =>
+                    resource_path('views/vendor/microboard/layouts/partials/logo.blade.php'),
+                __DIR__ . '/../../resources/views/layouts/partials/user.blade.php' =>
+                    resource_path('views/vendor/microboard/layouts/partials/user.blade.php'),
             ], 'views');
 
             $this->publishes([

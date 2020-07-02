@@ -1,0 +1,5 @@
+
+                        <tr>
+                            <th>@lang('{{ model }}.fields.{{ column }}')</th>
+                            <td>{{ ${{ variable }}->{{ column }} }}</td>
+                        </tr>

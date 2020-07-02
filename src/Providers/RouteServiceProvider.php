@@ -6,6 +6,7 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 use Laravel\Ui\AuthRouteMethods;
+use Microboard\Http\Middleware\Localization;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -44,7 +45,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapWebRoutes()
     {
         Route::prefix(config('microboard.routes.prefix', 'admin'))
-            ->middleware('web')
+            ->middleware(['web', Localization::class])
             ->namespace($this->namespace)
             ->group(__DIR__ . '/../../routes/web.php');
     }
@@ -59,9 +60,12 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapMicroboardRoutes()
     {
         Route::prefix(config('microboard.routes.prefix', 'admin'))
-            ->middleware(array_merge(['web'], config('microboard.routes.middleware', [])))
+            ->middleware(array_merge(['web', Localization::class], config('microboard.routes.middleware', [])))
             ->name('microboard.')
-            ->namespace(config('microboard.routes.namespace', 'App\\Http\\Controllers'))
+            ->namespace(
+                config('microboard.routes.namespace.base', 'Admin') . '\\' .
+                config('microboard.routes.namespace.admin_directory', 'Admin')
+            )
             ->group(base_path('routes/microboard.php'));
     }
 

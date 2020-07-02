@@ -3,7 +3,9 @@
 namespace Microboard\Http\Controllers;
 
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Microboard\Http\Requests\Media\StoreFormRequest;
 
 class MediaLibraryController extends Controller
@@ -13,13 +15,13 @@ class MediaLibraryController extends Controller
      *
      * @param StoreFormRequest $request
      * @param Filesystem $files
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function store(StoreFormRequest $request, Filesystem $files)
+    public function upload(StoreFormRequest $request, Filesystem $files)
     {
         $path = storage_path('tmp');
 
-        if (! $files->isDirectory($path)) {
+        if (!$files->isDirectory($path)) {
             $files->makeDirectory($path, 0777, true);
         }
 
@@ -37,8 +39,10 @@ class MediaLibraryController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Request $request
+     * @param Filesystem $files
+     * @return Response
      */
-    public function destroy(Request $request, Filesystem $files)
+    public function delete(Request $request, Filesystem $files)
     {
         if ($request->has('name') && $files->exists($path = storage_path("tmp/{$request->input('name')}"))) {
             $files->delete($path);

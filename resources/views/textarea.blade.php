@@ -15,7 +15,7 @@
     $class = 'form-control' . ($errors->has($errorName) ? ' is-invalid' : '') . ($attributes->get('alternative', false) ? ' form-control-alternative' : '');
 @endphp
 
-@component('microboard::layout.partials.base-input', compact('name', 'attributes'))
+@component('microboard::layouts.partials.base-input', compact('name', 'attributes'))
     {!! Form::textarea($name, $value, $attributes->merge([
         'class' => $class,
         'placeholder' => $attributes->get('title'),

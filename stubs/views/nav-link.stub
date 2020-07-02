@@ -1,0 +1,10 @@
+@can('viewAny', new {{ model }})
+    <li class="nav-item">
+        <a class="nav-link{{ request()->is('*{{ route }}*') ? ' active' : '' }}"
+           href="{{ route('microboard.{{ route }}.index') }}"
+        >
+            <i class="fa fa-database text-primary"></i>
+            <span class="nav-link-text">@lang('{{ trans }}.resource')</span>
+        </a>
+    </li>
+@endcan

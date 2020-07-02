@@ -2,11 +2,11 @@
 
 namespace Microboard\Commands;
 
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Validator;
-use Facades\Microboard\Factory;
+use Microboard\Factory;
 use Microboard\Models\Role;
-use Microboard\Models\User;
 
 class InstallCommand extends Command
 {
@@ -25,46 +25,48 @@ class InstallCommand extends Command
     protected $description = 'It\'s publish the package assets, and migrate the database.';
 
     /**
-     * The created admin.
-     *
-     * @var User
+     * @var Factory
      */
-    private $admin = null;
+    protected $microboard;
+
+    public function __construct(Factory $microboard)
+    {
+        parent::__construct();
+
+        $this->microboard = $microboard;
+    }
 
     /**
      * Execute the console command.
      *
      * @return mixed
+     * @throws Exception
      */
     public function handle()
     {
-        $this->output->progressStart(5);
+        $this->output->progressStart(4);
         $this->output->newLine();
 
-        // create storage link first
-        $this->call('storage:link');
-        $this->output->progressAdvance();
-        $this->output->newLine();
-
-        // Publish the assets (config, routes file, css and js files, database migrations)
-        $this->publishAssets();
-        $this->output->progressAdvance();
-        $this->output->newLine();
+        $this->callSilent('storage:link');
 
         // Migrate the database
-        $this->migrateDatabase();
+        $this->callSilent('migrate');
+        $this->info('Database tables have migrated');
         $this->output->progressAdvance();
         $this->output->newLine();
 
-        // Create admin
-        if ($this->confirm('Create new admin?', false)) {
-            $this->askToCreateAdmin();
-        }
+        // Publishes the assets
+        $this->publishesAssets();
         $this->output->progressAdvance();
         $this->output->newLine();
 
-        // Create Permissions and roles
-        $this->createRolesAndPermissions();
+        // Create default roles and permissions
+        $admin = $this->createDefaultRolesAndPermissions();
+        $this->output->progressAdvance();
+        $this->output->newLine();
+
+        // Create new admin
+        $this->askForCreatingNewAdmin($admin);
         $this->output->progressAdvance();
         $this->output->newLine();
 
@@ -72,90 +74,102 @@ class InstallCommand extends Command
         $this->info('Do something awesome!');
     }
 
-    private function publishAssets()
+    /**
+     *
+     */
+    private function publishesAssets()
     {
-        $this->call('vendor:publish', [
+        $this->callSilent('vendor:publish', [
             '--provider' => 'Microboard\\Providers\\MicroboardServiceProvider'
         ]);
-        $this->call('vendor:publish', [
+        $this->callSilent('vendor:publish', [
             '--provider' => 'Microboard\\Providers\\ViewServiceProvider'
         ]);
-        $this->call('vendor:publish', [
+        $this->callSilent('vendor:publish', [
             '--provider' => 'Yajra\DataTables\ButtonsServiceProvider'
         ]);
-        $this->call('vendor:publish', [
+        $this->callSilent('vendor:publish', [
             '--provider' => 'Spatie\MediaLibrary\MediaLibraryServiceProvider',
             '--tag' => 'config'
         ]);
 
-        $this->info('All assets has been published');
+        $this->info('Assets have published');
     }
 
-    private function migrateDatabase()
+    /**
+     * Create default roles and permissions
+     *
+     * @throws Exception
+     */
+    private function createDefaultRolesAndPermissions()
     {
-        $this->call('migrate');
-        $this->info('Database has been migrated');
-    }
+        $admin = Role::firstOrCreate([
+            'name' => 'admin'
+        ], ['display_name' => 'Administrator']);
 
-    private function askToCreateAdmin()
-    {
-        $name = $this->ask('What is the admin name?');
-        $email = $this->ask('What is email?');
-        $password = $this->secret('What is password?');
-        $passwordConfirmation = $this->secret('Please confirm the password');
+        Role::firstOrCreate([
+            'name' => 'user'
+        ], ['display_name' => 'Normal user']);
 
-        $validator = Validator::make([
-            'name' => $name,
-            'email' => $email,
-            'password' => $password,
-            'password_confirmation' => $passwordConfirmation
-        ], [
-            'name' => ['required', 'string', 'min:2', 'max:200'],
-            'email' => ['required', 'string', 'email', 'unique:users,email'],
-            'password' => ['required', 'string', 'min:4', 'max:200', 'confirmed'],
-        ]);
-
-        if ($validator->fails()) {
-            $this->error('Admin not created, See error messages below');
-            $errors = [];
-
-            foreach (['name', 'email', 'password'] as $field) {
-                if ($validator->errors()->has($field)) {
-                    $errors[] = [ucfirst($field), $validator->errors()->first($field)];
-                }
-            }
-
-            $this->output->table(['Field', 'Message'], $errors);
-
-            return $this->askToCreateAdmin();
+        if (config('microboard.resources.default_role', 'admin') === 'admin') {
+            $role = $admin;
+        } else {
+            $role = Role::where('name', config('microboard.roles.default', 'admin'))->firstOrFail();
         }
 
-        $this->admin = User::create([
-            'name' => $name,
-            'email' => $email,
-            'password' => bcrypt($password)
+        $this->microboard->createResourcesPermissionsFor($role, [
+            'dashboard' => ['viewAny'],
+            'settings' => ['viewAny', 'create', 'update'],
+            'users' => null,
+            'roles' => null
         ]);
 
-        $this->info('Admin creates successfully');
+        $this->info('Roles and permissions have created');
+
+        return $admin;
     }
 
-    private function createRolesAndPermissions()
+    /**
+     * ask for creating a new admin
+     *
+     * @param Role $role
+     * @return void
+     */
+    private function askForCreatingNewAdmin(Role $role)
     {
-        $adminRole = Role::firstOrCreate(['name' => 'admin'], ['display_name' => 'Administrator']);
-        Role::firstOrCreate(['name' => 'user'], ['display_name' => 'Normal user']);
+        if ($this->confirm('Create new admin?', false)) {
+            $data = [
+                'name' => $this->ask('Name'),
+                'email' => $this->ask('Email'),
+                'password' => $this->secret('Password')
+            ];
 
-        $this->info('Default roles has created/updated successfully');
+            $validator = Validator::make($data, [
+                'name' => ['required', 'string', 'min:2', 'max:200'],
+                'email' => ['required', 'string', 'email', 'unique:users,email'],
+                'password' => ['required', 'string', 'min:4', 'max:200']
+            ]);
 
-        Factory::createResourcesPermissionsFor($adminRole, [
-            'dashboard' => ['viewAny'],
-            'users' => [],
-            'roles' => []
-        ]);
+            if ($validator->fails()) {
+                $this->error('Admin was not created, see the following errors');
+                $errors = [];
 
-        $this->info('Default permissions has created/updated successfully');
+                foreach (['name', 'email', 'password'] as $field) {
+                    if ($validator->errors()->has($field)) {
+                        $errors[] = [ucfirst($field), $validator->errors()->first($field)];
+                    }
+                }
 
-        if ($this->admin) {
-            $adminRole->users()->save($this->admin);
+                $this->output->table(['Field', 'Message'], $errors);
+
+                $this->askForCreatingNewAdmin($role);
+
+                return;
+            }
+
+            $role->users()->create($data);
+
+            $this->info('Admin has created');
         }
     }
 }

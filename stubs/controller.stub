@@ -1,0 +1,21 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ rootNamespace }}Http\Controllers\Controller;
+use Microboard\Traits\Controller as MicroboardController;{{ useModel }}
+
+class {{ class }} extends Controller
+{
+    /*
+    |--------------------------------------------------------------------------
+    | {{ class }}
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles admin resources methods, such as creating, view
+    | updating or deleting. The controller uses a trait to conveniently provide
+    | its functionality to your applications.
+    |
+    */
+    use MicroboardController;{{ getModelMethod }}
+}

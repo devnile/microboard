@@ -1,4 +1,4 @@
-@extends('microboard::layout.app')
+@extends('microboard::layouts.app')
 
 @section('title', 'Home')
 

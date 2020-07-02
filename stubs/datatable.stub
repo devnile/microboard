@@ -1,0 +1,53 @@
+<?php
+
+namespace DummyNamespace;
+
+use Illuminate\Database\Eloquent\Builder;
+use DummyModel;
+use Microboard\Traits\DataTable as MicroboardDataTable;
+use Yajra\DataTables\DataTableAbstract;
+use Yajra\DataTables\Html\Column;
+use Yajra\DataTables\Services\DataTable;
+
+class DummyClass extends DataTable
+{
+    use MicroboardDataTable;
+
+    /**
+     * Build DataTable class.
+     *
+     * @return DataTableAbstract
+     */
+    public function dataTable($query)
+    {
+        return $this->build($query);
+    }
+
+    /**
+     * Get query source of dataTable.
+     *
+     * @param \DummyModel $model
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function query(ModelName $model)
+    {
+        return $model->newQuery();
+    }
+
+    /**
+     * Get columns.
+     *
+     * @return array
+     */
+    protected function getColumns()
+    {
+        return [
+            DummyColumns
+            Column::computed('action', '')
+                ->exportable(false)
+                ->printable(false)
+                ->width('1%')
+                ->addClass('text-right')
+        ];
+    }
+}

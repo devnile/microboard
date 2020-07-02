@@ -1,0 +1,4 @@
+
+                {!! Form::argonInput('{{ column }}', 'text', ${{ variable }}->{{ column }}, [
+                    'title' => trans('{{ model }}.fields.{{ column }}')
+                ]) !!}

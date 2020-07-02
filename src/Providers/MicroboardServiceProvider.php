@@ -2,10 +2,13 @@
 
 namespace Microboard\Providers;
 
-use Carbon\Carbon;
-use Microboard\Commands\InstallCommand;
 use Illuminate\Support\ServiceProvider;
+use Microboard\Commands\InstallCommand;
 use Microboard\Commands\ResourceCommand;
+use Microboard\Commands\ResourceController;
+use Microboard\Commands\ResourceDataTables;
+use Microboard\Commands\ResourceRequest;
+use Microboard\Commands\ResourcePolicy;
 use Microboard\Factory;
 
 class MicroboardServiceProvider extends ServiceProvider
@@ -15,21 +18,24 @@ class MicroboardServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-         $this->loadMigrationsFrom(__DIR__ . '/../../database');
+        $this->loadMigrationsFrom(__DIR__ . '/../../database');
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__ . '/../../config/config.php' => config_path('microboard.php'),
                 __DIR__ . '/../../stubs/web.stub' => base_path('routes/microboard.php'),
-                __DIR__ . '/../../stubs/user.stub' => app_path('User.php'),
                 __DIR__ . '/../../stubs/datatable-script.stub' => resource_path('views/vendor/datatables/script.blade.php'),
                 __DIR__ . '/../../stubs/user-placeholder.png' => public_path('storage/user-placeholder.png'),
             ], 'microboard');
 
-             $this->commands([
-                 InstallCommand::class,
-                 ResourceCommand::class
-             ]);
+            $this->commands([
+                InstallCommand::class,
+                ResourceDataTables::class,
+                ResourceController::class,
+                ResourcePolicy::class,
+                ResourceRequest::class,
+                ResourceCommand::class
+            ]);
         }
     }
 

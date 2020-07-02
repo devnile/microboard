@@ -38,10 +38,4 @@ mix.disableSuccessNotifications()
 
     .js('resources/js/argon.js', 'public/js')
 
-    .sass('resources/scss/argon.scss', 'public/css')
-
-    .purgeCss({
-        extend: {
-            content: [path.join(__dirname, 'src/**/*.php')],
-        },
-    });
+    .sass('resources/scss/argon.scss', 'public/css');

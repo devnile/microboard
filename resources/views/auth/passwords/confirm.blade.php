@@ -1,4 +1,4 @@
-@extends('microboard::layout.auth')
+@extends('microboard::layouts.auth')
 
 @section('title', trans('microboard::pages.confirm.title'))
 

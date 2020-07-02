@@ -1,4 +1,4 @@
-@extends('microboard::layout.auth')
+@extends('microboard::layouts.auth')
 
 @section('content')
     <div class="col-lg-5 col-md-7">

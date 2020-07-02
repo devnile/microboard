@@ -3,14 +3,13 @@
 namespace Microboard\Http\Controllers;
 
 use Illuminate\Auth\Access\AuthorizationException;
-use Microboard\Http\Requests\Setting\UpdateFormRequest;
-use Microboard\Http\Requests\Setting\StoreFormRequest;
 use Illuminate\Http\RedirectResponse;
-use Microboard\Models\Setting;
 use Illuminate\View\View;
-use function GuzzleHttp\Promise\all;
+use Microboard\Http\Requests\Setting\StoreFormRequest;
+use Microboard\Http\Requests\Setting\UpdateFormRequest;
+use Microboard\Models\Setting;
 
-class SettingController extends Controller
+class SettingController extends ResourceController
 {
     /**
      * Display a listing of the resource.
@@ -21,39 +20,22 @@ class SettingController extends Controller
     public function index()
     {
         $this->authorize('viewAny', new Setting);
-        return view('microboard::settings.index');
+        return view('microboard::settings.index', [
+            'settings' => cache()->remember('settings', 25000, function () {
+                return Setting::all();
+            })
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param StoreFormRequest $request
-     * @return RedirectResponse
-     * @throws AuthorizationException
-     */
-    public function store(StoreFormRequest $request)
+    public function update()
     {
-        $this->authorize('create', new Setting);
-        Setting::create($request->validated());
-        return redirect()->route('microboard.settings.index');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param UpdateFormRequest $request
-     * @param Setting $setting
-     * @return RedirectResponse
-     * @throws AuthorizationException
-     */
-    public function update(UpdateFormRequest $request)
-    {
+        $request = resolve($this->getUpdateFormRequest());
         $this->authorize('update', new Setting);
 
         foreach ($request->get('value') as $id => $value) {
             $setting = tap(Setting::find($id))->update(compact('value'));
 
-            if(in_array($setting->type, ['avatar', 'files'])) {
+            if (in_array($setting->type, ['avatar', 'files'])) {
                 if ($setting->type === 'avatar') {
                     $setting->getMedia()->each->delete();
                 }
@@ -62,6 +44,53 @@ class SettingController extends Controller
             }
         }
 
-        return redirect()->route('microboard.settings.index');
+        cache()->forget('settings');
+
+        return redirect()->back();
+    }
+
+//    /**
+//     * Update the specified resource in storage.
+//     *
+//     * @param UpdateFormRequest $request
+//     * @param Setting $setting
+//     * @return RedirectResponse
+//     * @throws AuthorizationException
+//     */
+
+    /**
+     * @return string
+     */
+    protected function getUpdateFormRequest(): string
+    {
+        return UpdateFormRequest::class;
+    }
+
+    /**
+     * @param StoreFormRequest $request
+     * @param Setting $model
+     * @return RedirectResponse
+     */
+    protected function created($request, $model)
+    {
+        addMediaTo($model, 'default', "value.{$model->id}");
+
+        return redirect()->back();
+    }
+
+    /**
+     * @return string
+     */
+    protected function getModel(): string
+    {
+        return Setting::class;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getStoreFormRequest(): string
+    {
+        return StoreFormRequest::class;
     }
 }

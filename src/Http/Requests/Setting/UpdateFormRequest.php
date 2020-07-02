@@ -32,7 +32,8 @@ class UpdateFormRequest extends FormRequest
     public function rules()
     {
         return [
-			'value.*' => ['required']
+            'value' => ['array', 'required'],
+            'value.*' => ['nullable']
         ];
     }
 

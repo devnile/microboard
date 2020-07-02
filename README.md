@@ -5,11 +5,11 @@
 [![Quality Score](https://img.shields.io/scrutinizer/g/devnile/microboard.svg?style=flat-square)](https://scrutinizer-ci.com/g/devnile/microboard)
 [![Total Downloads](https://img.shields.io/packagist/dt/devnile/microboard.svg?style=flat-square)](https://packagist.org/packages/devnile/microboard)
 
-This package creates to decrease working time spent on admin panels, with small and powerful package, designed with Tailwind and Alpine to make your admin dashboard depends on super top technologies.
-It comes with Users, Roles and permissions, and Settings resources. That means when you install this package you will be able to manage those resources, and add more.
+This package was created to reduce the time spent on creating dashboards, with a small, robust package.
+It comes with users, roles, permissions and settings resources. This means that when installing this package you will be able to manage those resources. And now it's your time to add more with simple commands.
+The design created by Creative Tim to make the dashboard tidy and carefully designed.
 
 ## Installation
-
 
 You can install the package via composer:
 
@@ -18,9 +18,20 @@ composer require devnile/microboard
 ```
 
 ## Usage
-``` php
-// Usage description here
+First you need to make your User's model extends from Microboard's User
+
+```php
+use Microboard\Models\User as Microboard;
+
+class User extends Microboard
+````
+
+Now we need to install the package's assets. Do the following in your Terminal:
+```shell script
+php artisan microboard:install
 ```
+
+It will ask you if you want a new admin, do this if you want.
 
 ### Testing
 

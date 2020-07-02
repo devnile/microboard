@@ -3,7 +3,7 @@
     /** @var array $attributes */
 @endphp
 
-@component('microboard::layout.partials.base-dropzone', [
+@component('microboard::layouts.partials.base-dropzone', [
     'value' => $value,
     'attributes' => $attributes,
     'multiple' => true

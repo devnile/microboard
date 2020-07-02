@@ -4,53 +4,31 @@ namespace Microboard\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
 class User extends Authenticatable implements MustVerifyEmail, HasMedia
 {
-    use Notifiable, InteractsWithMedia;
+    use InteractsWithMedia;
 
     /**
-     * The attributes that are mass assignable.
+     * User constructor.
      *
-     * @var array
+     * @param array $attributes
      */
-    protected $fillable = [
-        'name', 'email', 'password', 'avatar', 'role_id'
-    ];
+    public function __construct(array $attributes = [])
+    {
+        $this->fillable = array_merge([
+            'role_id', 'name', 'email', 'password'
+        ], $this->fillable);
+
+        parent::__construct($attributes);
+    }
 
     /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password', 'remember_token'
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
-    /**
-     * The relations to eager load on every query.
-     *
-     * @var array
-     */
-    protected $with = [
-        'role'
-    ];
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function role()
     {
@@ -76,6 +54,16 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
             ->singleFile()
             ->useFallbackPath($avatar = asset('/storage/user-placeholder.png'))
             ->useFallbackUrl($avatar);
+    }
+
+    /**
+     * Hash the password whenever updating.
+     *
+     * @param $value
+     */
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
     }
 
     /**
