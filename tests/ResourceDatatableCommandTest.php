@@ -14,7 +14,7 @@ class ResourceDatatableCommandTest extends TestCase
             '--base_path' => './tests/tmp'
         ]);
 
-        $this->assertFileExists($path = './tests/tmp/app/DataTables/ArticleDatatable.php');
+        $this->assertFileExists($path = './tests/tmp/app/DataTables/ArticleDataTable.php');
         $this->assertStringContainsString('class ArticleDataTable', $content = file_get_contents($path));
         $this->assertStringContainsString('use Microboard\\Tests\\App\\Article;', $content);
         $this->assertStringContainsString('Column::make(\'column\')->title(trans(\'articles.fields.column\')),', $content);
