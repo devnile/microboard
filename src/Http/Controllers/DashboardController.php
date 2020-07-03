@@ -15,6 +15,10 @@ class DashboardController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return view('microboard::index');
+        return view('microboard::index', [
+            'widgets' => resolve('App\\Providers\\MicroboardServiceProvider', [
+                'app' => app()
+            ])->widgets()
+        ]);
     }
 }
