@@ -9,6 +9,7 @@ use Microboard\Commands\ResourceController;
 use Microboard\Commands\ResourceDataTables;
 use Microboard\Commands\ResourceRequest;
 use Microboard\Commands\ResourcePolicy;
+use Microboard\Commands\WidgetMakeCommand;
 use Microboard\Factory;
 
 class MicroboardServiceProvider extends ServiceProvider
@@ -24,12 +25,14 @@ class MicroboardServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__ . '/../../config/config.php' => config_path('microboard.php'),
                 __DIR__ . '/../../stubs/web.stub' => base_path('routes/microboard.php'),
+                __DIR__ . '/../../stubs/service.stub' => app_path('Providers/MicroboardServiceProvider.php'),
                 __DIR__ . '/../../stubs/datatable-script.stub' => resource_path('views/vendor/datatables/script.blade.php'),
                 __DIR__ . '/../../stubs/user-placeholder.png' => public_path('storage/user-placeholder.png'),
             ], 'microboard');
 
             $this->commands([
                 InstallCommand::class,
+                WidgetMakeCommand::class,
                 ResourceDataTables::class,
                 ResourceController::class,
                 ResourcePolicy::class,

@@ -10,11 +10,13 @@
     ],
     "require": {
         "php": "^7.2.5",
-        "illuminate/support": "^7.0",
+        "illuminate/support": "^7.15",
         "laravel/ui": "^2.0",
         "laravelcollective/html": "^6.1",
         "yajra/laravel-datatables": "^1.5",
         "spatie/laravel-medialibrary": "^8.3",
+        "arrilot/laravel-widgets": "^3.13",
+        "consoletvs/charts": "^7.0",
         "ext-json": "*"
     },
     "require-dev": {

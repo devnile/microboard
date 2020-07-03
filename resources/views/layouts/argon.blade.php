@@ -1,4 +1,6 @@
-<!--
+@php
+    $locale = new \Microboard\Foundations\Localization
+@endphp<!--
 =========================================================
 * Microboard - 2.3.0
 =========================================================
@@ -7,7 +9,7 @@
 =========================================================
 *
 --><!doctype html>
-<html lang="{{ $locale = config('app.locale') }}" dir="{{ $locale === 'ar' ? 'rtl' : 'ltr' }}">
+<html lang="{{ app()->getLocale() }}" dir="{{ $locale->getDirection() }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -20,37 +22,36 @@
     <!-- Page plugins -->
     <link rel="stylesheet" href="{{ asset('vendor/microboard/vendor/sweetalert2/sweetalert2.min.css') }}">
     @stack('styles')
-    <!-- Argon CSS -->
+    @if ($locale->isRTL())
+        <link rel="stylesheet" href="{{ asset('vendor/microboard/vendor/bootstrap-rtl/bootstrap-rtl.css') }}">
+    @endif
     <link rel="stylesheet" href="{{ mix('css/argon.css', 'vendor/microboard') }}">
 
     <title>@lang('microboard::pages.title', ['app' => config('app.name')]) — @yield('title')</title>
 </head>
 @php
-    /** @var string $locale */
     $bodyClasses = [];
-
-    if ($locale === 'ar') {
+    if ($locale->isRTL()) {
         $bodyClasses[] = 'rtl';
     }
-
     if (isset($bodyClass)) {
         $bodyClasses[] = $bodyClass;
     }
 @endphp
 <body class="{{ implode(' ', $bodyClasses) }}">
-    @yield('argon-content')
+@yield('argon-content')
 
-    <!-- Argon Scripts -->
-    <!-- Core -->
-    <script src="{{ asset('vendor/microboard/vendor/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('vendor/microboard/vendor/bootstrap/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('vendor/microboard/vendor/js-cookie/js.cookie.js') }}"></script>
-    <script src="{{ asset('vendor/microboard/vendor/jquery.scrollbar/jquery.scrollbar.min.js') }}"></script>
-    <script src="{{ asset('vendor/microboard/vendor/jquery-scroll-lock/jquery-scrollLock.min.js') }}"></script>
-    <!-- Optional JS -->
-    <script src="{{ asset('vendor/microboard/vendor/sweetalert2/sweetalert2.min.js') }}"></script>
-    @stack('scripts')
-    <!-- Argon JS -->
-    <script src="{{ mix('js/argon.js', 'vendor/microboard') }}"></script>
+<!-- Argon Scripts -->
+<!-- Core -->
+<script src="{{ asset('vendor/microboard/vendor/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('vendor/microboard/vendor/bootstrap/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('vendor/microboard/vendor/js-cookie/js.cookie.js') }}"></script>
+<script src="{{ asset('vendor/microboard/vendor/jquery.scrollbar/jquery.scrollbar.min.js') }}"></script>
+<script src="{{ asset('vendor/microboard/vendor/jquery-scroll-lock/jquery-scrollLock.min.js') }}"></script>
+<!-- Optional JS -->
+<script src="{{ asset('vendor/microboard/vendor/sweetalert2/sweetalert2.min.js') }}"></script>
+@stack('scripts')
+<!-- Argon JS -->
+<script src="{{ mix('js/argon.js', 'vendor/microboard') }}"></script>
 </body>
 </html>
