@@ -30,12 +30,23 @@
                             'errorName' => "value.{$field->id}"
                         ], $field->extra)) !!}
                     @endif
-                    @if ($component === 'argonSelect' && isset($field->extra['list']))
-                        {!! Form::argonSelect("value[{$field->id}]", $field->extra['list'], array_merge([
+                    @if ($component === 'argonSelect')
+                        @php
+                            $name = "value[{$field->id}]";
+                            $value = $field->value;
+
+                            if (isset($field->extra['multiple'])) {
+                                $name .= '[]';
+                                $value = json_decode($value, true);
+                            }
+                        @endphp
+                        {!! Form::argonSelect($name, $field->extra['list'] ?? [], $value, array_merge([
                             'title' => $field->name,
                             'errorBag' => 'update',
-                            'errorName' => "value.{$field->id}"
-                        ], $field->extra)) !!}
+                            'errorName' => "value.{$field->id}",
+                        ], array_filter($field->extra, function($option) {
+                            return !is_array($option);
+                        }))) !!}
                     @endif
                     @if (in_array($component, ['avatar', 'files']))
                         <div class="form-group form-row">
