@@ -9,6 +9,11 @@ use Microboard\Http\Requests\User\UpdateFormRequest;
 
 class UserController extends ResourceController
 {
+    /**
+     * Register index widgets.
+     *
+     * @var array
+     */
     protected array $indexWidgets = [
         '\Microboard\Widgets\UsersInThisMonth' => [
             'size' => 'col-md-6'

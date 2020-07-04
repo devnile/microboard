@@ -27,6 +27,14 @@ class SettingController extends ResourceController
         ]);
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param UpdateFormRequest $request
+     * @param Setting $setting
+     * @return RedirectResponse
+     * @throws AuthorizationException
+     */
     public function update()
     {
         $request = resolve($this->getUpdateFormRequest());
@@ -48,15 +56,6 @@ class SettingController extends ResourceController
 
         return redirect()->back();
     }
-
-//    /**
-//     * Update the specified resource in storage.
-//     *
-//     * @param UpdateFormRequest $request
-//     * @param Setting $setting
-//     * @return RedirectResponse
-//     * @throws AuthorizationException
-//     */
 
     /**
      * @return string

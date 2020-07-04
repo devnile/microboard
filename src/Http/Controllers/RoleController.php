@@ -9,6 +9,11 @@ use Microboard\Models\Role;
 
 class RoleController extends ResourceController
 {
+    /**
+     * Register index widgets.
+     *
+     * @var array
+     */
     protected array $indexWidgets = [
         '\Microboard\Widgets\PopularRole' => [
             'size' => 'col-md-4'
