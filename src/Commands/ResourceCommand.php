@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Microboard\Factory;
 use Microboard\Foundations\Traits\MicroboardPathResolver;
@@ -79,7 +80,7 @@ class ResourceCommand extends Command
             // Make a policy
             $this->call('microboard:policy', [
                 'name' => "{$modelName}Policy",
-                '--model' => $model,
+                '--model' => '/' . $model,
                 '--abilities' => $this->option('abilities'),
                 '--base_path' => $this->option('base_path'),
             ]);
@@ -149,8 +150,13 @@ class ResourceCommand extends Command
      */
     protected function getNamespacedModel($modelName)
     {
-        $model = ($this->option('model-namespace') ? ('/' . rtrim($this->option('model-namespace'), '/\\') . '/') : '') . $modelName;
+        $model = (
+            $this->option('model-namespace') ?
+                ('/' . rtrim($this->option('model-namespace'), '/\\') . '/') :
+                ''
+            ) . $modelName;
         $model = str_replace('/', '\\', $model);
+
         if (Str::startsWith($model, '\\')) {
             $namespacedModel = $model;
         } else {
@@ -229,6 +235,10 @@ class ResourceCommand extends Command
         $name = Str::of($this->argument('model'))->slug()->plural();
         $stub = $this->resolveStubPath("/stubs/views/{$file}.stub");
         $path = $this->getViewsPath($file, $name);
+
+        if ($this->files->exists($path)) {
+            return;
+        }
 
         $this->makeDirectory($path);
 
@@ -357,11 +367,15 @@ class ResourceCommand extends Command
             $this->option('base_path') . '/resources/lang/' . $path :
             $this->laravel->resourcePath("lang/{$path}");
 
+        if ($this->files->exists($path)) {
+            return;
+        }
+
         $this->makeDirectory($path);
 
         foreach ($this->getModelFillableColumns($this->getNamespacedModel($modelName), false) as $column) {
-            $name = Str::title($column);
-            $columns .= "\r\n\t\t'{$column}' => '{$name}',";
+            $title = Str::of($column)->replace('_', ' ')->title();
+            $columns .= "\r\n\t\t'{$column}' => '{$title}',";
         }
 
         $this->files->put($path, str_replace([
@@ -378,6 +392,13 @@ class ResourceCommand extends Command
      */
     protected function updateRoutesAndNavLinks()
     {
+        $name = $this->argument('model');
+        $trans = Str::of($name)->slug()->plural();
+
+        if (Route::has("microboard.{$trans}.index")) {
+            return;
+        }
+
         $navPath = ($this->option('base_path') ?
                 $this->option('base_path') . '/resources/views/' :
                 $this->laravel->resourcePath('views/'))
@@ -403,8 +424,8 @@ class ResourceCommand extends Command
             str_replace([
                 '{{ model }}', '{{ route }}', '{{ trans }}'
             ], [
-                $this->getNamespacedModel($name = $this->argument('model')),
-                $trans = Str::of($name)->slug()->plural(),
+                $this->getNamespacedModel($name),
+                $trans,
                 $trans
             ], $navLink)
         );

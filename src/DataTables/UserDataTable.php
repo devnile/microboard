@@ -3,6 +3,8 @@
 namespace Microboard\DataTables;
 
 use App\User;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Microboard\Traits\DataTable as MicroboardDataTable;
 use Yajra\DataTables\DataTableAbstract;
 use Yajra\DataTables\Html\Column;
@@ -21,6 +23,12 @@ class UserDataTable extends DataTable
     public function dataTable($query)
     {
         return $this->build($query)
+            ->filterColumn('role_id', function(Builder $query, $keyword) {
+                return $query->whereHas('role', function(Builder $query) use($keyword) {
+                    return $query->where('name', 'LIKE', "%{$keyword}%")
+                        ->orWhere('display_name', 'LIKE', "%{$keyword}%");
+                });
+            })
             ->editColumn('role_id', function (User $user) {
                 if (auth()->user()->can('view', $user->role)) {
                     $route = route('microboard.roles.show', $user->role);
@@ -70,7 +78,8 @@ class UserDataTable extends DataTable
             Column::make('name')->title(trans('microboard::users.fields.name'))->width('25%'),
             Column::make('role_id')->title(trans('microboard::users.fields.role_id')),
             Column::make('email')->title(trans('microboard::users.fields.email')),
-            Column::make('created_at')->title(trans('microboard::users.fields.created_at')),
+            Column::make('created_at')->title(trans('microboard::users.fields.created_at'))
+                ->searchable(false),
             Column::computed('action', '')
                 ->exportable(false)
                 ->printable(false)

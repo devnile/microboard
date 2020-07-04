@@ -51,8 +51,10 @@ class RoleDataTable extends DataTable
         return [
             Column::make('id')->title(trans('microboard::roles.fields.id'))->width('1%'),
             Column::make('display_name')->title(trans('microboard::roles.fields.display_name')),
-            Column::make('users')->title(trans('microboard::roles.fields.users')),
-            Column::make('permissions')->title(trans('microboard::roles.fields.permissionsCount')),
+            Column::make('users')->title(trans('microboard::roles.fields.users'))
+                ->searchable(false),
+            Column::make('permissions')->title(trans('microboard::roles.fields.permissionsCount'))
+                ->searchable(false),
             Column::computed('action', '')
                 ->exportable(false)
                 ->printable(false)

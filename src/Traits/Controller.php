@@ -76,7 +76,7 @@ trait Controller
             return $response;
         }
 
-        return redirect()->route("{$variables['routePrefix']}{$variables['resourceName']}.show", $model);
+        return redirect()->route("{$variables['routePrefix']}.show", $model);
     }
 
     /**
@@ -137,7 +137,7 @@ trait Controller
             return $response;
         }
 
-        return redirect()->route("{$variables['routePrefix']}{$variables['resourceName']}.show", $model);
+        return redirect()->route("{$variables['routePrefix']}.show", $model);
     }
 
     /**
@@ -172,7 +172,7 @@ trait Controller
             return $response;
         }
 
-        return redirect()->route("{$variables['routePrefix']}{$variables['resourceName']}.index");
+        return redirect()->route("{$variables['routePrefix']}.index");
     }
 
     /**

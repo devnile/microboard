@@ -3,31 +3,19 @@
 namespace Microboard\Traits;
 
 use Illuminate\Support\Str;
+use Microboard\Foundations\Traits\ViewResolverTrait;
 use Yajra\DataTables\DataTableAbstract;
 use Yajra\DataTables\Html\Builder;
 use Yajra\DataTables\Html\Button;
 
 trait DataTable
 {
+    use ViewResolverTrait;
+
     /**
      * @var string
      */
     protected string $baseName;
-
-    /**
-     * @var string
-     */
-    protected string $translationsPrefix;
-
-    /**
-     * @var string
-     */
-    protected string $routePrefix;
-
-    /**
-     * @var string
-     */
-    protected string $key;
 
     /**
      * DataTable constructor.
@@ -37,10 +25,7 @@ trait DataTable
     public function __construct($attributes = [])
     {
         $this->baseName = str_replace('DataTable', '', class_basename($this));
-
-        $this->translationsPrefix = isset($attributes['translations_prefix']) ? $attributes['translations_prefix'] . '::' : '';
-        $this->routePrefix = isset($attributes['routes_prefix']) ? $attributes['routes_prefix'] . '.' : 'microboard.';
-        $this->key = isset($attributes['routes_name']) ? $attributes['routes_name'] : Str::of($this->baseName)->lower()->plural();
+        $this->attributes = $attributes;
     }
 
     /**
@@ -93,7 +78,7 @@ trait DataTable
      */
     protected function route($name): string
     {
-        return $this->routePrefix . $this->key . '.' . $name;
+        return $this->getResourceVariables()['routePrefix'] . '.' . $name;
     }
 
     /**
@@ -102,7 +87,7 @@ trait DataTable
      */
     protected function trans($key): string
     {
-        return $this->translationsPrefix . $this->key . '.' . $key;
+        return $this->getResourceVariables()['translationsPrefix'] . '.' . $key;
     }
 
     /**

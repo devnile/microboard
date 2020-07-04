@@ -29,6 +29,8 @@ trait ViewResolverTrait
     {
         $routePrefix = 'microboard';
         $translationsPrefix = '';
+        $viewsPrefix = '';
+        $viewsPath = 'admin';
 
         if (property_exists($this, 'attributes')) {
             if (isset($this->attributes['routes_prefix'])) {
@@ -37,15 +39,39 @@ trait ViewResolverTrait
             if (isset($this->attributes['translations_prefix'])) {
                 $translationsPrefix = $this->attributes['translations_prefix'];
             }
+            if (isset($this->attributes['views_prefix'])) {
+                $viewsPrefix = $this->attributes['views_prefix'];
+            }
+            if (isset($this->attributes['views_path'])) {
+                $viewsPath = $this->attributes['views_path'];
+            }
         }
 
         return [
             'resource' => $this->model,
-            'resourceName' => Str::of($this->baseName)->lower()->plural(),
+            'resourceName' => $name = Str::of($this->baseName)->lower()->plural(),
             'resourceVariable' => Str::of($this->baseName)->lower(),
-            'routePrefix' => $routePrefix ? $routePrefix . '.' : '',
-            'translationsPrefix' => $translationsPrefix ? $translationsPrefix . '::' : '',
-            'model' => $model
+            'model' => $model,
+            'routePrefix' => $this->getRightPrefixFor($routePrefix, '.', $name),
+            'translationsPrefix' => $this->getRightPrefixFor($translationsPrefix, '::', $name),
+            'viewsPrefix' => $this->getRightPrefixFor(
+                $viewsPrefix, '::',
+                $this->getRightPrefixFor($viewsPath, '.', $name)
+            ),
         ];
+    }
+
+    /**
+     * Join given prefix and $resource with the delimiter.
+     *
+     * @param string $prefix
+     * @param string $delimiter
+     * @param string $resource
+     * @return string
+     */
+    protected function getRightPrefixFor($prefix = '', $delimiter = '.', $resource = '') {
+        return (
+            $prefix ? $prefix . $delimiter : ''
+        ) . $resource;
     }
 }

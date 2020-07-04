@@ -1,15 +1,15 @@
 @extends('microboard::layouts.app', [
     'breadcrumbs' => [
-        ['name' => trans("{$translationsPrefix}{$resourceName}.resource")]
+        ['name' => trans("{$translationsPrefix}.resource")]
     ]
 ])
 
-@section('title', trans("{$translationsPrefix}{$resourceName}.resource"))
+@section('title', trans("{$translationsPrefix}.resource"))
 
 @section('actions')
     @can('create', new $resource)
-        <a href="{{ route("{$routePrefix}{$resourceName}.create") }}" class="btn btn-neutral">
-            @lang("{$translationsPrefix}{$resourceName}.create.title")
+        <a href="{{ route("{$routePrefix}.create") }}" class="btn btn-neutral">
+            @lang("{$translationsPrefix}.create.title")
         </a>
     @endcan
 @endsection
