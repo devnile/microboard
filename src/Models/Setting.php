@@ -2,7 +2,6 @@
 
 namespace Microboard\Models;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -39,6 +38,18 @@ class Setting extends Model implements HasMedia
     ];
 
     /**
+     * Return the value for the given key.
+     *
+     * @param string $key
+     * @param null $default
+     * @return string|null
+     */
+    public static function getValueFor($key, $default = null)
+    {
+        return optional(self::where('key', $key)->first())->value ?? $default;
+    }
+
+    /**
      * Get field's type.
      *
      * @return string
@@ -56,18 +67,5 @@ class Setting extends Model implements HasMedia
     public function getExtraAttribute()
     {
         return json_decode($this->cast->get('extra', '{}'), true);
-    }
-
-    /**
-     * Return the value for the given key.
-     *
-     * @param Builder $query
-     * @param string $key
-     * @param null $default
-     * @return string|null
-     */
-    public function scopeGetValueFor(Builder $query, $key, $default = null)
-    {
-        return optional($query->where('key', $key)->first())->value ?? $default;
     }
 }
