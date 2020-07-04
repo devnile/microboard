@@ -78,7 +78,7 @@ trait DataTable
      */
     protected function route($name): string
     {
-        return $this->getResourceVariables()['routePrefix'] . '.' . $name;
+        return $this->buildVariables()['routePrefix'] . '.' . $name;
     }
 
     /**
@@ -87,7 +87,7 @@ trait DataTable
      */
     protected function trans($key): string
     {
-        return $this->getResourceVariables()['translationsPrefix'] . '.' . $key;
+        return $this->buildVariables()['translationsPrefix'] . '.' . $key;
     }
 
     /**

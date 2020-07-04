@@ -28,6 +28,12 @@ trait ViewResolverTrait
      */
     protected function getResourceVariables($view, ?Model $model = null): array
     {
+        return array_merge([
+            'widgets' => $this->getWidgetsFor($view)
+        ], $this->buildVariables($model));
+    }
+
+    protected function buildVariables(?Model $model = null) {
         $routePrefix = 'microboard';
         $translationsPrefix = '';
         $viewsPrefix = '';
@@ -59,7 +65,6 @@ trait ViewResolverTrait
                 $viewsPrefix, '::',
                 $this->getRightPrefixFor($viewsPath, '.', $name)
             ),
-            'widgets' => $this->getWidgetsFor($view)
         ];
     }
 

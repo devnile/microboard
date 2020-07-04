@@ -56,6 +56,10 @@ trait WorkingWithWidgets
             $name = 'formsWidgets';
         }
 
-        return $this->$name;
+        if (property_exists($this, $name)) {
+            return $this->$name;
+        }
+
+        return null;
     }
 }
