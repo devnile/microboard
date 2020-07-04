@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Providers;
+
+use Illuminate\Support\ServiceProvider;
+
+class MicroboardServiceProvider extends ServiceProvider
+{
+    /**
+     * Get dashboard's home page widgets.
+     *
+     * @return string[]
+     */
+    public function widgets()
+    {
+        return [
+            '\Microboard\Widgets\UsersInThisMonth',
+            '\Microboard\Widgets\PopularRole',
+            '\Microboard\Widgets\PermissionsCount',
+            '\Microboard\Widgets\DefaultRole',
+        ];
+    }
+}

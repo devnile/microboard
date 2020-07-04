@@ -19,6 +19,8 @@ class ViewServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
+                __DIR__ . '/../../resources/views/index.blade.php' =>
+                    resource_path('views/vendor/microboard/index.blade.php'),
                 __DIR__ . '/../../resources/views/layouts/partials/navbar-links.blade.php' =>
                     resource_path('views/vendor/microboard/layouts/partials/navbar-links.blade.php'),
                 __DIR__ . '/../../resources/views/layouts/partials/notifications.blade.php' =>

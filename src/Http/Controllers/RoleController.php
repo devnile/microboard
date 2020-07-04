@@ -9,6 +9,18 @@ use Microboard\Models\Role;
 
 class RoleController extends ResourceController
 {
+    protected array $indexWidgets = [
+        '\Microboard\Widgets\PopularRole' => [
+            'size' => 'col-md-4'
+        ],
+        '\Microboard\Widgets\PermissionsCount' => [
+            'size' => 'col-md-4'
+        ],
+        '\Microboard\Widgets\DefaultRole' => [
+            'size' => 'col-md-4'
+        ],
+    ];
+
     /**
      * Role has been created.
      *

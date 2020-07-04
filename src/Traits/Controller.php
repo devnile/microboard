@@ -10,12 +10,14 @@ use Illuminate\View\View;
 use Microboard\Foundations\Traits\DependencyResolverTrait;
 use Microboard\Foundations\Traits\QueryResolverTrait;
 use Microboard\Foundations\Traits\ViewResolverTrait;
+use Microboard\Foundations\Traits\WorkingWithWidgets;
 use Throwable;
 
 trait Controller
 {
     use DependencyResolverTrait,
         QueryResolverTrait,
+        WorkingWithWidgets,
         ViewResolverTrait;
 
     /**
@@ -42,7 +44,7 @@ trait Controller
             'attributes' => $this->attributes ?? []
         ]);
 
-        return $datatable->render($this->getViewPathFor('index'), $this->getResourceVariables());
+        return $datatable->render($this->getViewPathFor('index'), $this->getResourceVariables('index'));
     }
 
     /**
@@ -53,7 +55,7 @@ trait Controller
     public function create()
     {
         $this->authorize('create', $this->model);
-        return view($this->getViewPathFor('create'), $this->getResourceVariables());
+        return view($this->getViewPathFor('create'), $this->getResourceVariables('create'));
     }
 
     /**
@@ -65,7 +67,7 @@ trait Controller
     public function store()
     {
         $request = resolve($this->getStoreFormRequest());
-        $variables = $this->getResourceVariables();
+        $variables = $this->getResourceVariables('create');
         $this->authorize('create', $this->model);
 
         $model = $this->model->fill($this->getValidated($request));
@@ -101,7 +103,7 @@ trait Controller
         $model = $this->query($request);
         $this->authorize('view', $model);
 
-        return view($this->getViewPathFor('show'), $this->getResourceVariables($model));
+        return view($this->getViewPathFor('show'), $this->getResourceVariables('show', $model));
     }
 
     /**
@@ -115,7 +117,7 @@ trait Controller
         $model = $this->query($request);
         $this->authorize('update', $model);
 
-        return view($this->getViewPathFor('edit'), $this->getResourceVariables($model));
+        return view($this->getViewPathFor('edit'), $this->getResourceVariables('update', $model));
     }
 
     /**
@@ -128,7 +130,7 @@ trait Controller
         $request = resolve($this->getUpdateFormRequest());
         $model = $this->query($request);
         $this->authorize('update', $model);
-        $variables = $this->getResourceVariables();
+        $variables = $this->getResourceVariables('update');
 
         $model->update($this->getValidated($request));
         cache()->forget($variables['resourceName']);
@@ -161,7 +163,7 @@ trait Controller
      */
     public function destroy(Request $request)
     {
-        $variables = $this->getResourceVariables();
+        $variables = $this->getResourceVariables('delete');
         $model = $this->query($request);
         $this->authorize('update', $model);
 

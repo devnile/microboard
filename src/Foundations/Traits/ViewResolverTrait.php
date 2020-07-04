@@ -14,7 +14,7 @@ trait ViewResolverTrait
     protected function getViewPathFor($file)
     {
         $name = Str::lower($this->baseName);
-        if (view()->exists($view = "microboard::{$name}.{$file}")) {
+        if (view()->exists($view = "{$name}.{$file}")) {
             return $view;
         }
 
@@ -22,10 +22,11 @@ trait ViewResolverTrait
     }
 
     /**
+     * @param $view
      * @param Model|null $model
      * @return array
      */
-    protected function getResourceVariables(?Model $model = null): array
+    protected function getResourceVariables($view, ?Model $model = null): array
     {
         $routePrefix = 'microboard';
         $translationsPrefix = '';
@@ -49,15 +50,16 @@ trait ViewResolverTrait
 
         return [
             'resource' => $this->model,
+            'model' => $model,
             'resourceName' => $name = Str::of($this->baseName)->lower()->plural(),
             'resourceVariable' => Str::of($this->baseName)->lower(),
-            'model' => $model,
             'routePrefix' => $this->getRightPrefixFor($routePrefix, '.', $name),
             'translationsPrefix' => $this->getRightPrefixFor($translationsPrefix, '::', $name),
             'viewsPrefix' => $this->getRightPrefixFor(
                 $viewsPrefix, '::',
                 $this->getRightPrefixFor($viewsPath, '.', $name)
             ),
+            'widgets' => $this->getWidgetsFor($view)
         ];
     }
 

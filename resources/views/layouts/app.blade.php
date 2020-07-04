@@ -42,9 +42,9 @@
                     @includeWhen(config('microboard.view.enable_global_search'), 'microboard::layouts.partials.search')
                     @unless(config('microboard.view.enable_global_search'))
                         <h6 class="h2 d-inline-block mb-0 text-white">@yield ('title')</h6>
-                    @endunless
+                @endunless
 
-                    <!-- Navbar links -->
+                <!-- Navbar links -->
                     <ul class="navbar-nav align-items-center ml-md-auto px-0">
                         <li class="nav-item d-xl-none">
                             <!-- Sidenav toggler -->
@@ -118,9 +118,21 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        @yield('state')
-                    </div>
+                    @isset($widgets)
+                        <div class="row">
+                            @foreach($widgets as $widget => $config)
+                                @if(is_array($config))
+                                    @if (resolve($widget)->shouldBeDisplayed())
+                                        @asyncWidget($widget, $config)
+                                    @endif
+                                @else
+                                    @if (resolve($config)->shouldBeDisplayed())
+                                        @asyncWidget($config)
+                                    @endif
+                                @endif
+                            @endforeach
+                        </div>
+                    @endisset
                 </div>
             </div>
         </div>
