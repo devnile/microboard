@@ -13,8 +13,7 @@ trait ViewResolverTrait
      */
     protected function getViewPathFor($file)
     {
-        $name = Str::lower($this->baseName);
-        if (view()->exists($view = "{$name}.{$file}")) {
+        if (view()->exists($view = $this->buildVariables()['viewsPrefix'] . ".{$file}")) {
             return $view;
         }
 
@@ -22,18 +21,13 @@ trait ViewResolverTrait
     }
 
     /**
-     * @param $view
+     * Build variables depends on given $attributes.
+     *
      * @param Model|null $model
      * @return array
      */
-    protected function getResourceVariables($view, ?Model $model = null): array
+    protected function buildVariables(?Model $model = null)
     {
-        return array_merge([
-            'widgets' => $this->getWidgetsFor($view)
-        ], $this->buildVariables($model));
-    }
-
-    protected function buildVariables(?Model $model = null) {
         $routePrefix = 'microboard';
         $translationsPrefix = '';
         $viewsPrefix = '';
@@ -76,9 +70,22 @@ trait ViewResolverTrait
      * @param string $resource
      * @return string
      */
-    protected function getRightPrefixFor($prefix = '', $delimiter = '.', $resource = '') {
+    protected function getRightPrefixFor($prefix = '', $delimiter = '.', $resource = '')
+    {
         return (
             $prefix ? $prefix . $delimiter : ''
-        ) . $resource;
+            ) . $resource;
+    }
+
+    /**
+     * @param $view
+     * @param Model|null $model
+     * @return array
+     */
+    protected function getResourceVariables($view, ?Model $model = null): array
+    {
+        return array_merge([
+            'widgets' => $this->getWidgetsFor($view)
+        ], $this->buildVariables($model));
     }
 }
