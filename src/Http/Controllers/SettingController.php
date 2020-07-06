@@ -21,8 +21,8 @@ class SettingController extends ResourceController
     {
         $this->authorize('viewAny', new Setting);
         return view('microboard::settings.index', [
-            'settings' => cache()->remember('settings', 25000, function () {
-                return Setting::all();
+            'groups' => cache()->remember('settings', 25000, function () {
+                return Setting::all()->groupBy('group');
             })
         ]);
     }

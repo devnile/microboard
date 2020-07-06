@@ -8,8 +8,10 @@
 
 @section('content')
     @component('microboard::settings.table', [
-        'settings' => $settings
+        'groups' => $groups
     ])@endcomponent
+
+    <div class="mt-6"></div>
 
     @can('create', new \Microboard\Models\Setting)
         @component('microboard::settings.form')@endcomponent

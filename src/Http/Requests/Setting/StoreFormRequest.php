@@ -24,11 +24,11 @@ class StoreFormRequest extends FormRequest
     public function rules()
     {
         return [
+            'group' => ['required', 'string'],
             'key' => ['required', 'string', 'unique:settings'],
-            'name' => ['required', 'string'],
-            'value' => ['nullable', 'string'],
-            'cast.type' => ['required', 'string'],
-            'cast.extra' => ['nullable', 'json']
+            'title' => ['required', 'string'],
+            'type' => ['required', 'string'],
+            'options' => ['nullable', 'json']
         ];
     }
 
