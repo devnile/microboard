@@ -40,7 +40,7 @@ class UserDataTable extends DataTable
             ->editColumn('name', function (User $user) {
                 return '<div class="media align-items-center">' .
                     '<span class="avatar avatar-sm rounded-circle mr-3">' .
-                    '<img alt="' . $user->name . '" src="' . $user->avatar . '"></span>' .
+                    '<img alt="' . $user->name . '" src="' . $user->avatar . '" width="36" height="36"></span>' .
                     '<div class="media-body">' .
                     '<span class="mb-0 d-block">' . $user->name . '</span>' .
                     '<small class="mb-0" style="font-size: 10px;"><i class="fa fa-clock"></i> ' .
