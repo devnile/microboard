@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'resource' => '{{ modelName }}',
+    'resource' => '{{ model }}',
 
     'fields' => [
         'id' => '#',{{ columns }}

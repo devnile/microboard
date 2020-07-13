@@ -11,7 +11,7 @@ return [
 
     'create' => [
         'title' => 'سجل جديد',
-        'cancel' => 'إلفاء',
+        'cancel' => 'إلغاء',
         'save' => 'إنشاء السجل'
     ],
 
@@ -23,7 +23,7 @@ return [
     'edit' => [
         'action-button' => 'تعديل',
         'title' => 'تعديل',
-        'cancel' => 'إلفاء',
+        'cancel' => 'إلغاء',
         'save' => 'حفظ التغييرات'
     ],
 
