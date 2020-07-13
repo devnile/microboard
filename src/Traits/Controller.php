@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Microboard\Factory;
 use Microboard\Foundations\Traits\DependencyResolverTrait;
 use Microboard\Foundations\Traits\QueryResolverTrait;
 use Microboard\Foundations\Traits\ViewResolverTrait;
@@ -26,12 +27,19 @@ trait Controller
     protected string $baseName;
 
     /**
-     * Controller constructor.
+     * @var Factory
      */
-    public function __construct()
+    private Factory $microboard;
+
+    /**
+     * Controller constructor.
+     * @param Factory $microboard
+     */
+    public function __construct(Factory $microboard)
     {
         $this->baseName = str_replace('Controller', '', class_basename($this));
         $this->model = $this->getModel() ? resolve($this->getModel()) : null;
+        $this->microboard = $microboard;
     }
 
     /**
@@ -73,6 +81,10 @@ trait Controller
         $model = $this->model->fill($this->getValidated($request));
         $this->model->saveOrFail();
         cache()->forget($variables['resourceName']);
+
+        $this->microboard->success(
+            trans($variables['translationsPrefix'] . '.messages.created'),
+        );
 
         if ($response = $this->created($request, $model)) {
             return $response;
@@ -135,6 +147,10 @@ trait Controller
         $model->update($this->getValidated($request));
         cache()->forget($variables['resourceName']);
 
+        $this->microboard->success(
+            trans($variables['translationsPrefix'] . '.messages.updated'),
+        );
+
         if ($response = $this->updated($request, $model)) {
             return $response;
         }
@@ -169,6 +185,10 @@ trait Controller
 
         $model->delete();
         cache()->forget($variables['resourceName']);
+
+        $this->microboard->warning(
+            trans($variables['translationsPrefix'] . '.messages.deleted'),
+        );
 
         if ($response = $this->deleted($request, $model)) {
             return $response;

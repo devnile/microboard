@@ -39,7 +39,6 @@
 @yield('argon-content')
 
 <!-- Argon Scripts -->
-<!-- Core -->
 <script src="{{ asset('vendor/microboard/vendor/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('vendor/microboard/vendor/bootstrap/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('vendor/microboard/vendor/js-cookie/js.cookie.js') }}"></script>
@@ -50,5 +49,6 @@
 @stack('scripts')
 <!-- Argon JS -->
 <script src="{{ mix('js/argon.js', 'vendor/microboard') }}"></script>
+@include('microboard::layouts.partials.notify')
 </body>
 </html>

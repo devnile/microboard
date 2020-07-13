@@ -160,8 +160,13 @@ $right: left;
   }
 
   .alert-dismissible {
-    padding-#{$left}: 4rem;
-    padding-#{$right}: 1.25rem;
+    padding-#{$right}: 4rem;
+    padding-#{$left}: 1.25rem;
+  }
+
+  .alert-icon {
+    margin-right: 0;
+    margin-left: 1.25rem;
   }
 
   .dropdown-menu:not(.dropdown-menu-left) {

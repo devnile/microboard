@@ -5,13 +5,15 @@ return [
 
     'fields' => [
         'id' => '#',
-        'name' => 'عنوان الحقل',
+        'title' => 'عنوان الحقل',
+		'group' => 'القسم',
 		'key' => 'الاسم المميز',
 		'key_help' => 'للاشارة الى الحقل عند استدعاءه',
 		'value' => 'الحقل',
 		'types' => [
 		    'argonInput|text' => 'حقل نصي',
             'argonTextarea' => 'حقل نصي متعدد الاسطر',
+            'trix' => 'حقل نصي متقدم',
             'argonInput|email' => 'بريد إلكتروني',
             'argonInput|tel' => 'رقم هاتف',
             'argonInput|number' => 'قيمة عددية',
