@@ -4,14 +4,16 @@
     /** @var boolean $multiple */
     $attributes = collect($attributes);
 
-    $value = $value->map(function(\Spatie\MediaLibrary\MediaCollections\Models\Media $file) {
-        return [
-            'url' => $file->getFullUrl(),
-            'name' => $file->file_name,
-            'type' => $file->mime_type,
-            'size' => $file->size
-        ];
-    });
+    if ($value instanceof \Spatie\MediaLibrary\MediaCollections\MediaCollection) {
+        $value = $value->map(function(\Spatie\MediaLibrary\MediaCollections\Models\Media $file) {
+            return [
+                'url' => $file->getFullUrl(),
+                'name' => $file->file_name,
+                'type' => $file->mime_type,
+                'size' => $file->size
+            ];
+        });
+    }
 
     if ($multiple) {
         $attributes = $attributes->merge([
