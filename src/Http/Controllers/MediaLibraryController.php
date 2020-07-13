@@ -60,10 +60,20 @@ class MediaLibraryController extends Controller
      */
     public function delete(Request $request, Filesystem $files)
     {
-        if ($request->has('name') && $files->exists($path = storage_path("tmp/{$request->input('name')}"))) {
+        if ($request->has('name')) {
+            $path = '';
+
+            if ($files->exists($tmp = storage_path("tmp/{$request->input('name')}"))) {
+                $path = $tmp;
+            }
+            elseif ($files->exists($editor = storage_path("app/public/editor/{$request->input('name')}"))) {
+                $path = $editor;
+            }
+
             $files->delete($path);
+            return response('resource deleted successfully', 201);
         }
 
-        return response('DONE');
+        return response('Not exists', 500);
     }
 }
