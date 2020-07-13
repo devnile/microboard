@@ -10,7 +10,7 @@
     $errorName = $attributes->get('errorName', $name);
 
     $title = $attributes->get('title', 'None');
-    $id = $attributes->get('id');
+    $id = $attributes->get('id', $name);
     $alternative = $attributes->get('alternative', false);
     $icon = $attributes->get('icon', null);
     $hideLabel = $attributes->get('hideLabel', false);
@@ -20,7 +20,7 @@
 @endphp
 <div class="{{ $formClass }}">
     @unless ($hideLabel)
-        {!! Form::label($id ?? $name, $title, ['class' => 'control-label col-sm-3'], true) !!}
+        {!! Form::label($id, $title, ['class' => 'control-label col-sm-3'], true) !!}
     @endunless
 
     <div class="{{ $hideLabel ? '' : ' col-sm-9' }}">

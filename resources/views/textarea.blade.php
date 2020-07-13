@@ -5,12 +5,12 @@
     /** @var \Illuminate\Support\Collection $attributes */
     $attributes = collect($attributes);
 
-    $id = $attributes->get('id');
+    $id = $attributes->get('id', $name);
 
     if ($bag = $attributes->get('errorBag', false)) {
         $errors = $errors->{$bag};
     }
-    $errorName = $attributes->get('errorName', $id ?? $name);
+    $errorName = $attributes->get('errorName', $id);
 
     $class = 'form-control' . ($errors->has($errorName) ? ' is-invalid' : '') . ($attributes->get('alternative', false) ? ' form-control-alternative' : '');
 @endphp
@@ -19,7 +19,8 @@
     {!! Form::textarea($name, $value, $attributes->merge([
         'class' => $class,
         'placeholder' => $attributes->get('title'),
-        'rows' => 3
+        'rows' => 3,
+        'id' => $id
     ])
     ->except(['title', 'hideLabel', 'alternative', 'icon', 'errorBag', 'errorName', 'hideHelpIcon', 'formClass'])
     ->all()) !!}
