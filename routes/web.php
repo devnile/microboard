@@ -15,9 +15,12 @@ Route::group([
         'users' => 'UserController',
         'roles' => 'RoleController',
     ]);
+
     Route::get('/settings', 'SettingController@index')->name('settings.index');
     Route::post('/settings', 'SettingController@store')->name('settings.store');
     Route::patch('/settings', 'SettingController@update')->name('settings.update');
+
     Route::post('/media/upload', 'MediaLibraryController@upload')->name('media.store');
+    Route::post('/media/store', 'MediaLibraryController@store')->name('media.save');
     Route::delete('/media/delete', 'MediaLibraryController@delete')->name('media.destroy');
 });

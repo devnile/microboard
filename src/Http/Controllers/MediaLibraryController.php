@@ -6,13 +6,13 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 use Microboard\Http\Requests\Media\StoreFormRequest;
 
 class MediaLibraryController extends Controller
 {
     /**
-     * Store a newly created resource in storage.
-     *
      * @param StoreFormRequest $request
      * @param Filesystem $files
      * @return JsonResponse
@@ -32,12 +32,28 @@ class MediaLibraryController extends Controller
         return response()->json([
             'name' => $name,
             'original_name' => $file->getClientOriginalName(),
-        ]);
+        ], 201);
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
+     * @param StoreFormRequest $request
+     * @return JsonResponse
+     */
+    public function store(StoreFormRequest $request)
+    {
+        $file = $request->file('file');
+        $name = uniqid() . '_' . trim($file->getClientOriginalName());
+        $image = Image::make($file)->stream('jpg', 80);
+
+        Storage::disk(config('media-library.disk_name'))->put("editor/{$name}", $image);
+
+        return response()->json([
+            'url' => asset("storage/editor/{$name}"),
+            'name' => $name
+        ], 201);
+    }
+
+    /**
      * @param Request $request
      * @param Filesystem $files
      * @return Response
