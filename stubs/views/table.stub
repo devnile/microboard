@@ -3,7 +3,7 @@
         <div class="card">
             <div class="table-responsive">
                 <table class="table table-flush">
-                    <tbody>{{ columns }}</tbody>
+                    <tbody>{{ columns }}                    </tbody>
                 </table>
             </div>
         </div>
