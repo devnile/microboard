@@ -22,9 +22,6 @@
     <!-- Page plugins -->
     <link rel="stylesheet" href="{{ asset('vendor/microboard/vendor/sweetalert2/sweetalert2.min.css') }}">
     @stack('styles')
-    @if ($locale->isRTL())
-        <link rel="stylesheet" href="{{ asset('vendor/microboard/vendor/bootstrap-rtl/bootstrap-rtl.css') }}">
-    @endif
     <link rel="stylesheet" href="{{ mix('css/argon.css', 'vendor/microboard') }}">
 
     <title>@lang('microboard::pages.title', ['app' => config('app.name')]) — @yield('title')</title>
