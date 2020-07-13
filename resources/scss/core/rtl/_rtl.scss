@@ -10,6 +10,11 @@ $right: left;
     float: left;
   }
 
+  trix-toolbar .trix-button-group:not(:first-child) {
+    margin-right: 1.5vw;
+    margin-left: 0;
+  }
+
   &.g-sidenav-pinned .sidenav + .main-content {
     margin-right: 250px;
     margin-left: 0 !important;

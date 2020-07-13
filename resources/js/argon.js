@@ -14,6 +14,7 @@ import './components/custom/form-control';
 // Vendors
 import './components/vendor/notify';
 import './components/vendor/datatable';
+import './components/vendor/trix';
 import './components/vendor/sweetalert';
 import './components/vendor/form';
 import './components/vendor/dropzone';
