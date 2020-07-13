@@ -4,7 +4,6 @@ namespace Microboard\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Hash;
-use Microboard\Models\User;
 
 class UpdateFormRequest extends FormRequest
 {
@@ -15,7 +14,8 @@ class UpdateFormRequest extends FormRequest
      */
     public function authorize()
     {
-        $user = User::find($this->route('user'));
+        $model = resolve('App\\User');
+        $user = $model::find($this->route('user'));
         return $user && auth()->user()->can('update', $user);
     }
 
