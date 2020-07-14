@@ -1,5 +1,0 @@
-trix-toolbar .trix-button {
-  &:hover:not(:disabled), &.trix-active {
-    background: lighten($primary, 15%);
-  }
-}
