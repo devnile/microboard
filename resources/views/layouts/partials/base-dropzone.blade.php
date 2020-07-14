@@ -11,8 +11,8 @@
     if ($value instanceof MediaCollection) {
         $value = $value->map(function(Media $file) {
             return [
-                'url' => $file->getFullUrl(),
-                'name' => $file->file_name,
+                'url' => $file->getUrl(),
+                'name' => $file->name,
                 'type' => $file->mime_type,
                 'size' => $file->size
             ];
