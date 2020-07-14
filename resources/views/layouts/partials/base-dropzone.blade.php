@@ -1,9 +1,10 @@
 @php
     use Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection;
     use Spatie\MediaLibrary\MediaCollections\Models\Media;
+    use Illuminate\Support\Collection;
 
     /** @var MediaCollection $value */
-    /** @var \Illuminate\Support\Collection $attributes */
+    /** @var Collection $attributes */
     /** @var boolean $multiple */
     $attributes = collect($attributes);
 
