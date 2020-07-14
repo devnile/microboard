@@ -3,6 +3,7 @@
 namespace Microboard\Http\Requests\Setting;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Microboard\Models\Setting;
 
 class StoreFormRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class StoreFormRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return auth()->user()->can('create', new Setting);
     }
 
     /**

@@ -12,8 +12,6 @@ class Setting extends Model implements HasMedia
     use InteractsWithMedia;
 
     /**
-     * The attributes that are mass assignable.
-     *
      * @var array
      */
     protected $fillable = [
@@ -21,8 +19,6 @@ class Setting extends Model implements HasMedia
     ];
 
     /**
-     * The attributes that should be cast.
-     *
      * @var array
      */
     protected $casts = [
@@ -30,8 +26,6 @@ class Setting extends Model implements HasMedia
     ];
 
     /**
-     * Return the value for the given key.
-     *
      * @param string $delimiter
      * @param string $default
      * @return string|null

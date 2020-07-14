@@ -13,23 +13,23 @@
                             /** @var \Microboard\Models\Setting $field */
                             $parsedType = explode('|', $field->type);
                             $component = $parsedType[0];
+                            $type = 'text';
                             if (isset($parsedType[1])) {
                                 $type = $parsedType[1];
                             }
+                            $options = [
+                                'title' => $field->title,
+                                'errorBag' => 'update',
+                                'errorName' => "value.{$field->id}"
+                            ];
+
+                            $options = array_merge($options, json_decode($field->options, true));
                         @endphp
-                        @if ($component === 'argonInput' && isset($type))
-                            {!! Form::argonInput("value[{$field->id}]", $type, $field->value, array_merge([
-                                'title' => $field->title,
-                                'errorBag' => 'update',
-                                'errorName' => "value.{$field->id}"
-                            ], $field->options)) !!}
+                        @if ($component === 'argonInput')
+                            {!! Form::argonInput("value[{$field->id}]", $type, $field->value, $options) !!}
                         @endif
-                        @if ($component === 'argonTextarea')
-                            {!! Form::argonTextarea("value[{$field->id}]", $field->value, array_merge([
-                                'title' => $field->title,
-                                'errorBag' => 'update',
-                                'errorName' => "value.{$field->id}"
-                            ], $field->options)) !!}
+                        @if (in_array($component, ['argonTextarea', 'trix']))
+                            {!! Form::$component("value[{$field->id}]", $field->value, $options) !!}
                         @endif
                         @if ($component === 'argonSelect')
                             @php
@@ -41,24 +41,25 @@
                                     $value = json_decode($value, true);
                                 }
                             @endphp
-                            {!! Form::argonSelect($name, $field->options['list'] ?? [], $value, array_merge([
-                                'title' => $field->title,
-                                'errorBag' => 'update',
-                                'errorName' => "value.{$field->id}",
-                            ], array_filter($field->options, function($option) {
-                                return !is_array($option);
-                            }))) !!}
+                            {!! Form::argonSelect(
+                                $name,
+                                $options['list'] ?? [],
+                                $value,
+                                array_filter($options, function($option) {
+                                    return !is_array($option);
+                                })
+                            ) !!}
                         @endif
                         @if (in_array($component, ['avatar', 'files']))
+                            @php
+                            $options['data-name'] = "value[{$field->id}]";
+                            @endphp
                             <div class="form-group form-row">
                                 {!! Form::label($field->id, $field->title, ['class' => 'control-label col-sm-3'], true) !!}
 
                                 <div class="col-sm-9">
                                     <div class="bg-white">
-                                        {!! Form::$component($field->getMedia(), array_merge([
-                                            'title' => $field->title,
-                                            'data-name' => "value[{$field->id}]"
-                                        ], $field->options)) !!}
+                                        {!! Form::$component($field->getMedia(), $options) !!}
                                     </div>
                                 </div>
                             </div>

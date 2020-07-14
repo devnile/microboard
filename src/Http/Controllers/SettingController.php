@@ -8,6 +8,8 @@ use Illuminate\View\View;
 use Microboard\Http\Requests\Setting\StoreFormRequest;
 use Microboard\Http\Requests\Setting\UpdateFormRequest;
 use Microboard\Models\Setting;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
 
 class SettingController extends ResourceController
 {
@@ -58,23 +60,25 @@ class SettingController extends ResourceController
     }
 
     /**
-     * @return string
-     */
-    protected function getUpdateFormRequest(): string
-    {
-        return UpdateFormRequest::class;
-    }
-
-    /**
      * @param StoreFormRequest $request
      * @param Setting $model
      * @return RedirectResponse
+     * @throws FileDoesNotExist
+     * @throws FileIsTooBig
      */
     protected function created($request, $model)
     {
         addMediaTo($model, 'default', "value.{$model->id}");
 
         return redirect()->back();
+    }
+
+    /**
+     * @return string
+     */
+    protected function getUpdateFormRequest(): string
+    {
+        return UpdateFormRequest::class;
     }
 
     /**
