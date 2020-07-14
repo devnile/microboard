@@ -1,11 +1,14 @@
 @php
-    /** @var \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection $value */
+    use Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection;
+    use Spatie\MediaLibrary\MediaCollections\Models\Media;
+
+    /** @var MediaCollection $value */
     /** @var \Illuminate\Support\Collection $attributes */
     /** @var boolean $multiple */
     $attributes = collect($attributes);
 
-    if ($value instanceof \Spatie\MediaLibrary\MediaCollections\MediaCollection) {
-        $value = $value->map(function(\Spatie\MediaLibrary\MediaCollections\Models\Media $file) {
+    if ($value instanceof MediaCollection) {
+        $value = $value->map(function(Media $file) {
             return [
                 'url' => $file->getFullUrl(),
                 'name' => $file->file_name,
