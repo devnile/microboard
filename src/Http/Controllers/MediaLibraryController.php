@@ -9,6 +9,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Microboard\Http\Requests\Media\StoreFormRequest;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class MediaLibraryController extends Controller
 {
@@ -66,11 +67,20 @@ class MediaLibraryController extends Controller
             if ($files->exists($tmp = storage_path("tmp/{$request->input('name')}"))) {
                 $path = $tmp;
             }
+
             elseif ($files->exists($editor = storage_path("app/public/editor/{$request->input('name')}"))) {
                 $path = $editor;
             }
 
-            $files->delete($path);
+            elseif ($media = Media::where('file_name', $request->input('name'))->first()) {
+                $path = $media->getPath();
+                $media->delete();
+            }
+
+            if ($path) {
+                $files->delete($path);
+            }
+
             return response('resource deleted successfully', 201);
         }
 

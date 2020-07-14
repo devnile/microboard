@@ -8,8 +8,8 @@
     'attributes' => $attributes,
     'multiple' => true
 ])
-    <ul class="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush">
-        <li class="list-group-item px-0">
+    <ul class="dz-preview dz-preview-multiple list-group list-group-lg list-group-flush px-4">
+        <li class="list-group-item px-0 py-3">
             <div class="row align-items-center">
                 <div class="col-auto">
                     <div class="avatar">
