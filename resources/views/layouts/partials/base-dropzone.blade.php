@@ -12,7 +12,7 @@
         $value = $value->map(function(Media $file) {
             return [
                 'url' => $file->getUrl(),
-                'name' => $file->name,
+                'name' => $file->file_name,
                 'type' => $file->mime_type,
                 'size' => $file->size
             ];
