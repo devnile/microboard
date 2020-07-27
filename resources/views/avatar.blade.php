@@ -1,9 +1,11 @@
 @php
-    /** @var \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection $value */
+    use Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection;
+
+    /** @var MediaCollection $value */
     /** @var array $attributes */
     $attributes = array_merge([
         'data-accept' => 'image/*'
-    ], $attributes);
+    ], $attributes)
 @endphp
 
 @component('microboard::layouts.partials.base-dropzone', [

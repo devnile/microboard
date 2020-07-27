@@ -1,8 +1,11 @@
 @php
+    use Illuminate\Support\Collection;
+    use Illuminate\Support\ViewErrorBag;
+
     /** @var $name */
     /** @var $value */
-    /** @var \Illuminate\Support\ViewErrorBag $errors */
-    /** @var \Illuminate\Support\Collection $attributes */
+    /** @var ViewErrorBag $errors */
+    /** @var Collection $attributes */
     $attributes = collect($attributes);
 
     $id = $attributes->get('id', $name);
@@ -13,11 +16,11 @@
     }
     $errorName = $attributes->get('errorName', $id);
 
-    $class = $errors->has($errorName) ? ' is-invalid' : '';
+    $class = $errors->has($errorName) ? ' is-invalid' : ''
 @endphp
 
 @component('microboard::layouts.partials.base-input', compact('name', 'attributes'))
-    <input type="hidden" name="{{ $name }}" id="{{ $id }}" value="{{ $value }}" />
+    <input type="hidden" name="{{ $name }}" id="{{ $id }}" value="{{ $value }}"/>
     <trix-editor {!! Html::attributes($attributes->merge([
         'class' => $class,
         'placeholder' => $attributes->get('title'),

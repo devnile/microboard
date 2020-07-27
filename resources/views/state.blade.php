@@ -13,7 +13,7 @@
         'text-white';
     $iconColor = $config->get('icon-background', false) ?
         'text-white bg-gradient-' . $config->get('icon-background') :
-        'bg-white text-dark';
+        'bg-white text-dark'
 @endphp
 
 <div class="card card-stats {{ $cardBG }} {{ $textColor }}">

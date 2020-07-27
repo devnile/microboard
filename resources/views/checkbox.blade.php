@@ -1,9 +1,12 @@
 @php
+    use Illuminate\Support\Collection;
+    use Illuminate\Support\ViewErrorBag;
+
     /** @var $name */
     /** @var $value */
     /** @var $checked */
-    /** @var \Illuminate\Support\ViewErrorBag $errors */
-    /** @var \Illuminate\Support\Collection $attributes */
+    /** @var ViewErrorBag $errors */
+    /** @var Collection $attributes */
     $attributes = collect($attributes);
 
     $title = $attributes->get('title');
@@ -14,7 +17,7 @@
         'class' => 'custom-control-input',
     ])
     ->except(['title', 'alternative'])
-    ->all();
+    ->all()
 @endphp
 <div class="custom-control custom-checkbox{{ $alternative ? ' custom-control-alternative' : '' }}">
     {!! Form::checkbox($name, $value, $checked, $attributes) !!}

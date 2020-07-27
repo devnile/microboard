@@ -17,9 +17,9 @@
                     'method' => 'post',
                     'class' => 'd-inline'
                 ]) !!}
-                    <button type="submit" class="btn btn-default btn-block">
-                        @lang('microboard::pages.verify.submit')
-                    </button>
+                <button type="submit" class="btn btn-default btn-block">
+                    @lang('microboard::pages.verify.submit')
+                </button>
                 {!! Form::close() !!}
             </div>
         </div>

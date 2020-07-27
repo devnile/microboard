@@ -27,7 +27,7 @@
 
     $extra = $attributes->except(['title'])->map(function($value, $attribute) {
         return "{$attribute}=\"{$value}\"";
-    })->implode(' ');
+    })->implode(' ')
 @endphp
 
 <div class="dropzone dropzone-{{ $multiple ? 'multiple' : 'single' }}"
@@ -36,11 +36,12 @@
      data-delete="{{ route('microboard.media.destroy') }}"
      data-files="{{ json_encode($value) }}"
      data-label="{{ $attributes->get('title') }}"
-     {!! $extra !!}
+        {!! $extra !!}
 >
     <div class="fallback">
         <div class="custom-file">
-            <input type="file" class="custom-file-input" name="file{{ $multiple ? '[]' : '' }}" id="file"{{ $multiple ? ' multiple' : '' }}>
+            <input type="file" class="custom-file-input" name="file{{ $multiple ? '[]' : '' }}"
+                   id="file"{{ $multiple ? ' multiple' : '' }}>
             <label class="custom-file-label" for="file">Choose file</label>
         </div>
     </div>

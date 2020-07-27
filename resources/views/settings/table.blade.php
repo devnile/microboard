@@ -36,7 +36,7 @@
                                 $name = "value[{$field->id}]";
                                 $value = $field->value;
 
-                                if (isset($field->options['multiple'])) {
+                                if (isset($options['multiple']) && $options['multiple']) {
                                     $name .= '[]';
                                     $value = json_decode($value, true);
                                 }
@@ -52,7 +52,7 @@
                         @endif
                         @if (in_array($component, ['avatar', 'files']))
                             @php
-                            $options['data-name'] = "value[{$field->id}]";
+                                $options['data-name'] = "value[{$field->id}]"
                             @endphp
                             <div class="form-group form-row">
                                 {!! Form::label($field->id, $field->title, ['class' => 'control-label col-sm-3'], true) !!}

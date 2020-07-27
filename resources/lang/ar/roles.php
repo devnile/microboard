@@ -5,8 +5,8 @@ return [
 
     'fields' => [
         'id' => '#',
-		'name' => 'الاسم المميز',
-		'display_name' => 'اسم العرض',
+        'name' => 'الاسم المميز',
+        'display_name' => 'اسم العرض',
         'permissionsCount' => 'عدد الصلاحيات',
         'users' => 'المستخدمين في هذه الرتبة',
         'permissions' => [

@@ -1,8 +1,11 @@
 @php
+    use Illuminate\Support\Collection;
+    use Illuminate\Support\ViewErrorBag;
+
     /** @var $name */
     /** @var $value */
-    /** @var \Illuminate\Support\ViewErrorBag $errors */
-    /** @var \Illuminate\Support\Collection $attributes */
+    /** @var ViewErrorBag $errors */
+    /** @var Collection $attributes */
     $attributes = collect($attributes);
 
     $id = $attributes->get('id', $name);
@@ -12,7 +15,7 @@
     }
     $errorName = $attributes->get('errorName', $id);
 
-    $class = 'form-control' . ($errors->has($errorName) ? ' is-invalid' : '') . ($attributes->get('alternative', false) ? ' form-control-alternative' : '');
+    $class = 'form-control' . ($errors->has($errorName) ? ' is-invalid' : '') . ($attributes->get('alternative', false) ? ' form-control-alternative' : '')
 @endphp
 
 @component('microboard::layouts.partials.base-input', compact('name', 'attributes'))

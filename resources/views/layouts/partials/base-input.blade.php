@@ -1,7 +1,10 @@
 @php
+    use Illuminate\Support\Collection;
+    use Illuminate\Support\ViewErrorBag;
+
     /** @var $name */
-    /** @var \Illuminate\Support\ViewErrorBag $errors */
-    /** @var \Illuminate\Support\Collection $attributes */
+    /** @var ViewErrorBag $errors */
+    /** @var Collection $attributes */
     $attributes = collect($attributes);
 
     if ($bag = $attributes->get('errorBag', false)) {
@@ -16,7 +19,7 @@
     $hideLabel = $attributes->get('hideLabel', false);
     $help = $attributes->get('help', null);
     $hideHelpIcon = $attributes->get('hideHelpIcon', false);
-    $formClass = 'form-group ' . ($hideLabel ? '' : 'form-row align-items-center ') . ($errors->has($errorName) ? 'has-danger ' : '') . ($attributes->get('formClass'));
+    $formClass = 'form-group ' . ($hideLabel ? '' : 'form-row align-items-center ') . ($errors->has($errorName) ? 'has-danger ' : '') . ($attributes->get('formClass'))
 @endphp
 <div class="{{ $formClass }}">
     @unless ($hideLabel)
@@ -38,7 +41,7 @@
             @if ($help)
                 <small class="text-muted">
                     @unless($hideHelpIcon)
-                    <i class="fa fa-question-circle"></i>
+                        <i class="fa fa-question-circle"></i>
                     @endunless
                     {!! $help !!}
                 </small>
