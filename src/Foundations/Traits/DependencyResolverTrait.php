@@ -45,7 +45,7 @@ trait DependencyResolverTrait
     protected function getValidated(Request $request)
     {
         return array_filter($request->validated(), function ($input) {
-            return !empty($input);
+            return !is_null($input);
         });
     }
 }
