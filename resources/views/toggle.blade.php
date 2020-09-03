@@ -5,16 +5,22 @@
     /** @var $name */
     /** @var $value */
     /** @var $checked */
-    /** @var ViewErrorBag $errors */
     /** @var Collection $attributes */
     $attributes = collect($attributes);
-
-    $title = $attributes->get('title');
-    $alternative = $attributes->get('alternative', false);
-    $id = $attributes->get('id', $name)
+    $id = $attributes->get('id', $name);
 @endphp
 
-<label for="{{ $id }}" class="custom-toggle mx-auto">
-    {!! Form::checkbox($name, $value, $checked, $attributes->all()) !!}
-    <span class="custom-toggle-slider rounded-circle"></span>
-</label>
+@component('microboard::layouts.partials.base-input', compact('name', 'attributes'))
+    <label for="{{ $id }}" class="custom-toggle mx-auto">
+        {!! Form::checkbox(
+            $name,
+            $value,
+            $checked,
+            $attributes
+                ->except(['title', 'hideLabel', 'errorBag', 'errorName', 'formClass'])
+                ->merge(['id' => $id])
+                ->all()
+        ) !!}
+        <span class="custom-toggle-slider rounded-circle"></span>
+    </label>
+@endcomponent
